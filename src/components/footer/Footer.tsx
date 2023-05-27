@@ -47,7 +47,6 @@ const S = {
   Text: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
-    font-weight: 300;
     font-size: ${(p) => p.theme.dimensions(12, "px")};
   `,
   TextBold: styled.Text`

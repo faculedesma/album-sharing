@@ -32,9 +32,9 @@ const Latest = () => {
     <>
       <S.LatestTop testID="home-screen-latest">
         <S.Title testID="home-screen-latest-title">Latest</S.Title>
-        <S.Chip testID="home-screen-latest-group">
+        <S.Group testID="home-screen-latest-group">
           <S.TextBold>Los Pica</S.TextBold>
-        </S.Chip>
+        </S.Group>
       </S.LatestTop>
       <S.LatestCard>
         <Row
@@ -134,7 +134,7 @@ const S = {
     align-items: center;
     justify-content: space-between;
   `,
-  Chip: styled.View`
+  Group: styled.View`
     height: ${(p) => p.theme.dimensions(25, "px")};
     width: ${(p) => p.theme.dimensions(75, "px")};
     align-items: center;
@@ -164,6 +164,7 @@ const S = {
     height: ${(p) => p.theme.dimensions(40, "px")};
     width: ${(p) => p.theme.dimensions(40, "px")};
     border-radius: ${(p) => p.theme.dimensions(50, "%")};
+    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades100};
   `,
   Recommendation: styled.View`
     height: ${(p) => p.theme.dimensions(35, "px")};
@@ -210,7 +211,6 @@ const S = {
   Text: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
-    font-weight: 300;
     font-size: ${(p) => p.theme.dimensions(14, "px")};
   `,
   TextBold: styled.Text`
