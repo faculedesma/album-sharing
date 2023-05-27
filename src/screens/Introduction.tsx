@@ -49,6 +49,7 @@ export default function Introduction() {
             icon={false}
             bold={true}
             size="md"
+            handlePress={() => console.log("finishing sign up")}
           />
         </S.ContinueButton>
       </S.Wrapper>

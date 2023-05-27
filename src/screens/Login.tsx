@@ -30,7 +30,7 @@ export default function Login() {
             value={username}
             multiline={true}
             maxLength={100}
-            placeholder="Username"
+            placeholder="Username or email"
             onChangeText={(value) => setUsername(value)}
           ></S.Input>
           <S.PasswordContainer>
@@ -63,6 +63,7 @@ export default function Login() {
             icon={false}
             bold={true}
             size="md"
+            handlePress={() => console.log("loggin in")}
           />
         </S.LoginButton>
         <S.SignupButton>

@@ -205,7 +205,7 @@ const S = {
     flex: 1;
     align-items: center;
     justify-content: center;
-    background-color: ${(p) => p.theme.shades100};
+    background-color: ${(p) => p.theme.shades50};
     overflow: hidden;
     border-radius: ${(p) => p.theme.dimensions(4, "px")};
     margin-right: ${(p) => p.theme.dimensions(12, "px")};

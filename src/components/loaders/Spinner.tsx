@@ -7,8 +7,8 @@ export default function Spinner() {
     <S.Spinner testID="spinner">
       <ActivityIndicator
         testID="activity-indicator"
-        color={appTheme.highlight}
-        size="large"
+        color={appTheme.primary}
+        size="small"
       />
     </S.Spinner>
   );
@@ -16,11 +16,11 @@ export default function Spinner() {
 
 const S = {
   Spinner: styled.View`
-    background-color: ${appTheme.background};
     height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: transparent;
   `,
 };

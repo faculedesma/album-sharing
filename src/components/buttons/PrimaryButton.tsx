@@ -1,6 +1,8 @@
+import { useState } from "react";
 import styled from "styled-components/native";
 import { Link } from "expo-router";
 import { ArrowRight } from "src/assets/svgs/ArrowRight";
+import Spinner from "src/components/loaders/Spinner";
 
 interface IPrimaryProps {
   href: string;
@@ -8,6 +10,7 @@ interface IPrimaryProps {
   icon?: boolean;
   bold?: boolean;
   size?: string;
+  handlePress?: () => void;
 }
 
 export default function PrimaryButton({
@@ -16,10 +19,25 @@ export default function PrimaryButton({
   icon = true,
   bold = false,
   size = "sm",
+  handlePress = undefined,
 }: IPrimaryProps) {
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleLinkPress = async () => {
+    setLoading(true);
+    await setTimeout(() => {
+      setLoading(false);
+      handlePress && handlePress();
+    }, 3000);
+  };
+
   return (
     <S.ButtonContainer>
-      <S.ButtonLink testID="primary-button" href={href}>
+      <S.ButtonLink
+        testID="primary-button"
+        href={href}
+        onPress={handlePress && handleLinkPress}
+      >
         {bold ? (
           <S.ButtonTextBold
             testID="primary-button-text-bold"
@@ -27,7 +45,7 @@ export default function PrimaryButton({
               fontSize: size === "sm" ? 12 : 16,
             }}
           >
-            {text}
+            {loading ? <Spinner /> : text}
           </S.ButtonTextBold>
         ) : (
           <S.ButtonText
@@ -36,7 +54,7 @@ export default function PrimaryButton({
               fontSize: size === "sm" ? 12 : 16,
             }}
           >
-            {text}
+            {loading ? <Spinner /> : text}
           </S.ButtonText>
         )}
         <S.Icon>{icon && <ArrowRight />}</S.Icon>

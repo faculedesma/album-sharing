@@ -33,7 +33,7 @@ export default function Signup() {
             value={username}
             maxLength={100}
             multiline={true}
-            placeholder="Username"
+            placeholder="Username or email"
             onChangeText={(value) => setUsername(value)}
           ></S.Input>
           <S.PasswordContainer>
@@ -73,6 +73,7 @@ export default function Signup() {
             icon={false}
             bold={true}
             size="md"
+            handlePress={() => console.log("go to introduction")}
           />
         </S.SignupButton>
       </S.Wrapper>
