@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 import { Link } from "expo-router";
-import { SvgUri } from "react-native-svg";
+import { ArrowRight } from "src/assets/svgs/ArrowRight";
 
 interface ISecondaryProps {
   href: string;
@@ -11,22 +11,18 @@ export default function SecondaryButton({ href, text }: ISecondaryProps) {
   return (
     <S.Button testID="secondary-button">
       <S.ButtonText testID="secondary-button-text">{text}</S.ButtonText>
-      <SvgUri
-        width="14px"
-        height="14px"
-        uri="https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/debian.svg"
-      />
+      <ArrowRight />
     </S.Button>
   );
 }
 
 const S = {
   Button: styled.View`
-    width: ${(p) => p.theme.dimensions(75, "px")};
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     align-self: flex-end;
+    gap: ${(p) => p.theme.dimensions(8, "px")};
     background-color: transparent;
   `,
   ButtonText: styled.Text`

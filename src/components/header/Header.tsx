@@ -1,35 +1,47 @@
-import styled from 'styled-components/native'
-import { Link } from 'expo-router'
-import { View } from 'react-native-animatable'
+import styled from "styled-components/native";
 
-interface Props {
-  text: string
-}
-
-export default function Header({ text }: Props) {
+const Header = () => {
   return (
-    <S.Wrapper testID="header">
+    <S.Header>
+      <S.Logo></S.Logo>
+      <S.Profile></S.Profile>
     </S.Header>
-    <S.Header testID="header">
-    </S.Wrapper>
-  )
-}
+  );
+};
+
+export default Header;
 
 const S = {
-  Header: styled(Link)`
-    height: '100px',
-    padding: ${p => p.theme.dimensions(10, 'px')} ${p => p.theme.dimensions(20, 'px')};
-    border-color: ${p => p.theme.highlight};
-    border-width: ${p => p.theme.dimensions(1, 'px')};
-    border-radius: ${p => p.theme.dimensions(5, 'px')};
-    background-color: transparent;
+  Header: styled.View`
+    height: ${(p) => p.theme.dimensions(40, "px")};
+    width: ${(p) => p.theme.dimensions(100, "%")};
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: ${(p) => p.theme.dimensions(48, "px")};
+    margin-bottom: ${(p) => p.theme.dimensions(24, "px")};
   `,
-  HeaderLogo: styled.Text`
-    color: ${p => p.theme.highlight};
-    font-weight: 600;
+  Logo: styled.View`
+    height: ${(p) => p.theme.dimensions(30, "px")};
+    width: ${(p) => p.theme.dimensions(30, "px")};
+    background-color: ${(p) => p.theme.highlight}
+    border-radius: ${(p) => p.theme.dimensions(50, "%")};
+    `,
+  Profile: styled.View`
+    height: ${(p) => p.theme.dimensions(30, "px")};
+    width: ${(p) => p.theme.dimensions(30, "px")};
+    background-color: ${(p) => p.theme.highlight}
+    border-radius: ${(p) => p.theme.dimensions(50, "%")};
   `,
-  HeaderUser: styled.Text`
-    color: ${p => p.theme.highlight};
-    font-weight: 600;
+  Text: styled.Text`
+    color: ${(p) => p.theme.secondary};
+    font-family: circularStdLight;
+    font-weight: 300;
+    font-size: ${(p) => p.theme.dimensions(14, "px")};
   `,
-}
+  TextBold: styled.Text`
+    color: ${(p) => p.theme.secondary};
+    font-family: circularStdBold;
+    font-size: ${(p) => p.theme.dimensions(14, "px")};
+  `,
+};

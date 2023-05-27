@@ -2,7 +2,8 @@ import styled from "styled-components/native";
 import { Stack } from "expo-router";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import { appTheme } from "src/assets/styles/theme";
-import { ImageBackground } from "react-native";
+import Header from "src/components/header/Header";
+import Footer from "src/components/footer/Footer";
 
 interface IRowProps {
   user: string;
@@ -10,26 +11,6 @@ interface IRowProps {
   date: string;
   color: string;
 }
-
-const Header = () => {
-  return (
-    <S.Header>
-      <S.Logo></S.Logo>
-      <S.Profile></S.Profile>
-    </S.Header>
-  );
-};
-
-const Footer = () => {
-  return (
-    <S.Footer>
-      <S.Logo></S.Logo>
-      <S.Logo></S.Logo>
-      <S.Logo></S.Logo>
-      <S.Logo></S.Logo>
-    </S.Footer>
-  );
-};
 
 const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
   return (
@@ -49,13 +30,13 @@ const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
 const Latest = () => {
   return (
     <>
-      <S.TitleContainer testID="home-screen-latest">
+      <S.LatestTop testID="home-screen-latest">
         <S.Title testID="home-screen-latest-title">Latest</S.Title>
         <S.Chip testID="home-screen-latest-group">
           <S.TextBold>Los Pica</S.TextBold>
         </S.Chip>
-      </S.TitleContainer>
-      <S.Card>
+      </S.LatestTop>
+      <S.LatestCard>
         <Row
           user="@chicha73"
           album="The Dark Side Of The Moon (Pink Floyd)"
@@ -74,7 +55,7 @@ const Latest = () => {
           date="may 12"
           color={appTheme.yellow}
         />
-      </S.Card>
+      </S.LatestCard>
       <SecondaryButton href="/history" text="View all" />
     </>
   );
@@ -118,43 +99,21 @@ export default function HomeScreen() {
 }
 
 const S = {
-  Header: styled.View`
-    height: ${(p) => p.theme.dimensions(40, "px")};
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: ${(p) => p.theme.dimensions(32, "px")};
-  `,
-  Logo: styled.View`
-    height: ${(p) => p.theme.dimensions(30, "px")};
-    width: ${(p) => p.theme.dimensions(30, "px")};
-    background-color: ${(p) => p.theme.highlight}
-    border-radius: ${(p) => p.theme.dimensions(50, "%")};
-    `,
-  Profile: styled.View`
-    height: ${(p) => p.theme.dimensions(30, "px")};
-    width: ${(p) => p.theme.dimensions(30, "px")};
-    background-color: ${(p) => p.theme.highlight}
-    border-radius: ${(p) => p.theme.dimensions(50, "%")};
-  `,
   Wrapper: styled.View`
     flex: 1;
     align-items: flex-start;
     justify-content: flex-start;
-    margin-top: ${(p) => p.theme.dimensions(50, "px")};
     padding-right: ${(p) => p.theme.dimensions(5, "%")};
     padding-left: ${(p) => p.theme.dimensions(5, "%")};
   `,
   Birthday: styled.View`
-    height: ${(p) => p.theme.dimensions(320, "px")};
-    margin-top: ${(p) => p.theme.dimensions(32, "px")};
+    margin-top: ${(p) => p.theme.dimensions(24, "px")};
   `,
   BirthdayHeading: styled.View`
-    flex: 1;
     align-items: flex-start;
     justify-content: flex-start;
     gap: ${(p) => p.theme.dimensions(16, "px")};
+    margin-bottom: ${(p) => p.theme.dimensions(16, "px")};
   `,
   Results: styled.View`
     height: ${(p) => p.theme.dimensions(160, "px")};
@@ -175,9 +134,8 @@ const S = {
     border-radius: ${(p) => p.theme.dimensions(4, "px")};
     margin-right: ${(p) => p.theme.dimensions(12, "px")};
   `,
-  TitleContainer: styled.View`
+  LatestTop: styled.View`
     width: ${(p) => p.theme.dimensions(100, "%")};
-    // margin-top: ${(p) => p.theme.dimensions(32, "px")};
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -200,8 +158,7 @@ const S = {
     border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
     border-radius: ${(p) => p.theme.dimensions(4, "px")};
   `,
-  Card: styled.View`
-    height: ${(p) => p.theme.dimensions(220, "px")};
+  LatestCard: styled.View`
     align-items: center;
     justify-content: space-between;
     border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
@@ -211,10 +168,13 @@ const S = {
     margin-bottom: ${(p) => p.theme.dimensions(16, "px")};
   `,
   Row: styled.View`
+    height: ${(p) => p.theme.dimensions(60, "px")};
     flex-direction: row;
     align-items: center;
     gap: ${(p) => p.theme.dimensions(16, "px")};
-    margin-bottom: ${(p) => p.theme.dimensions(10, "px")};
+    margin-top: ${(p) => p.theme.dimensions(4, "px")};
+    gap: ${(p) => p.theme.dimensions(16, "px")};
+    margin-bottom: ${(p) => p.theme.dimensions(4, "px")};
   `,
   Avatar: styled.View`
     height: ${(p) => p.theme.dimensions(40, "px")};
@@ -241,15 +201,5 @@ const S = {
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
     font-size: ${(p) => p.theme.dimensions(14, "px")};
-  `,
-  Footer: styled.View`
-    height: ${(p) => p.theme.dimensions(60, "px")};
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: ${(p) => p.theme.dimensions(24, "px")};
-    padding-left: ${(p) => p.theme.dimensions(32, "px")};
-    padding-right: ${(p) => p.theme.dimensions(32, "px")};
   `,
 };
