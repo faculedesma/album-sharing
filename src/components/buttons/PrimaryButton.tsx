@@ -2,7 +2,7 @@ import styled from "styled-components/native";
 import { Link } from "expo-router";
 import { ArrowRight } from "src/assets/svgs/ArrowRight";
 
-interface ISecondaryProps {
+interface IPrimaryProps {
   href: string;
   text: string;
   icon?: boolean;
@@ -10,19 +10,19 @@ interface ISecondaryProps {
   size?: string;
 }
 
-export default function SecondaryButton({
+export default function PrimaryButton({
   href,
   text,
   icon = true,
   bold = false,
   size = "sm",
-}: ISecondaryProps) {
+}: IPrimaryProps) {
   return (
-    <S.ButtonLink testID="secondary-button" href={href}>
-      <S.Button testID="secondary-button">
+    <S.ButtonContainer>
+      <S.ButtonLink testID="primary-button" href={href}>
         {bold ? (
           <S.ButtonTextBold
-            testID="secondary-button-text-bold"
+            testID="primary-button-text-bold"
             style={{
               fontSize: size === "sm" ? 12 : 16,
             }}
@@ -31,7 +31,7 @@ export default function SecondaryButton({
           </S.ButtonTextBold>
         ) : (
           <S.ButtonText
-            testID="secondary-button-text-bold"
+            testID="primary-button-text-bold"
             style={{
               fontSize: size === "sm" ? 12 : 16,
             }}
@@ -39,33 +39,35 @@ export default function SecondaryButton({
             {text}
           </S.ButtonText>
         )}
-        {icon && <ArrowRight />}
-      </S.Button>
-    </S.ButtonLink>
+        <S.Icon>{icon && <ArrowRight />}</S.Icon>
+      </S.ButtonLink>
+    </S.ButtonContainer>
   );
 }
 
 const S = {
-  ButtonLink: styled(Link)`
-    padding-top: ${(p) => p.theme.dimensions(8, "px")};
-    padding-bottom: ${(p) => p.theme.dimensions(8, "px")};
-  `,
-  Button: styled.View`
-    flex-direction: row;
+  ButtonContainer: styled.View`
+    height: ${(p) => p.theme.dimensions(60, "px")};
+    width: ${(p) => p.theme.dimensions(100, "%")};
     align-items: center;
-    justify-content: space-between;
     gap: ${(p) => p.theme.dimensions(8, "px")};
-    background-color: transparent;
+    justify-content: center;
+    background-color: ${(p) => p.theme.secondary};
+    border-radius: ${(p) => p.theme.dimensions(4, "px")};
+    overflow: hidden;
   `,
+  ButtonLink: styled(Link)``,
   ButtonText: styled.Text`
-    color: ${(p) => p.theme.secondary};
+    color: ${(p) => p.theme.primary};
     font-family: circularStdLight;
     font-size: ${(p) => p.theme.dimensions(14, "px")};
+    text-align: center;
   `,
   ButtonTextBold: styled.Text`
-    color: ${(p) => p.theme.secondary};
+    color: ${(p) => p.theme.primary};
     font-family: circularStdBold;
     font-size: ${(p) => p.theme.dimensions(14, "px")};
+    text-align: center;
   `,
   Icon: styled.View`
     align-items: center;

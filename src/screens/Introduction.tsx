@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { Stack } from "expo-router";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import { Logo } from "src/assets/svgs/Logo";
+import { appTheme } from "src/assets/styles/theme";
 
 export default function Introduction() {
   const [bioText, setBioText] = useState<string>("");
@@ -19,14 +20,14 @@ export default function Introduction() {
       </S.LogoContainer>
       <S.Title testID="intro-screen-title">Choose avatar</S.Title>
       <S.AvatarOptions testID="intro-screen-options">
-        <S.Circle style={{ backgroundColor: "#F2F2F2" }}></S.Circle>
-        <S.Circle style={{ backgroundColor: "#80D4D3" }}></S.Circle>
-        <S.Circle style={{ backgroundColor: "#F2F2F2" }}></S.Circle>
-        <S.Circle style={{ backgroundColor: "#80D4D3" }}></S.Circle>
-        <S.Circle style={{ backgroundColor: "#F2F2F2" }}></S.Circle>
-        <S.Circle style={{ backgroundColor: "#80D4D3" }}></S.Circle>
-        <S.Circle style={{ backgroundColor: "#F2F2F2" }}></S.Circle>
-        <S.Circle style={{ backgroundColor: "#80D4D3" }}></S.Circle>
+        <S.Circle style={{ backgroundColor: appTheme.red }}></S.Circle>
+        <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
+        <S.Circle style={{ backgroundColor: appTheme.yellow }}></S.Circle>
+        <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
+        <S.Circle style={{ backgroundColor: appTheme.red }}></S.Circle>
+        <S.Circle style={{ backgroundColor: appTheme.lightblue }}></S.Circle>
+        <S.Circle style={{ backgroundColor: appTheme.yellow }}></S.Circle>
+        <S.Circle style={{ backgroundColor: appTheme.lightblue }}></S.Circle>
       </S.AvatarOptions>
       <S.Bio testID="intro-screen-bio">
         <S.BioTitle>Bio</S.BioTitle>
@@ -39,14 +40,15 @@ export default function Introduction() {
         ></S.BioInput>
         <S.BioMaxChar>{bioText?.length}/150</S.BioMaxChar>
       </S.Bio>
-      <S.ButtonContainer>
+      <S.ContinueButton>
         <SecondaryButton
           href="/home"
           text="Continue"
           icon={false}
           bold={true}
+          size="md"
         />
-      </S.ButtonContainer>
+      </S.ContinueButton>
     </S.Wrapper>
   );
 }
@@ -79,6 +81,7 @@ const S = {
   AvatarOptions: styled.View`
     width: ${(p) => p.theme.dimensions(100, "%")};
     height: ${(p) => p.theme.dimensions(200, "px")};
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
@@ -124,7 +127,7 @@ const S = {
     color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
   `,
-  ButtonContainer: styled.Text`
+  ContinueButton: styled.Text`
     align-self: center;
     margin-top: ${(p) => p.theme.dimensions(16, "px")};b
   `,

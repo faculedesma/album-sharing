@@ -2,7 +2,7 @@ import { Svg, Path } from "react-native-svg";
 
 export const Eye = () => {
   return (
-    <Svg width="20" height="15" viewBox="0 0 20 15" fill="none">
+    <Svg width="20" height="18" viewBox="0 0 20 15" fill="none">
       <Path
         fillRule="evenodd"
         clipRule="evenodd"

@@ -56,7 +56,9 @@ const Latest = () => {
           color={appTheme.yellow}
         />
       </S.LatestCard>
-      <SecondaryButton href="/introduction" text="View all" />
+      <S.ViewAllButton>
+        <SecondaryButton href="/login" text="View all" />
+      </S.ViewAllButton>
     </>
   );
 };
@@ -217,5 +219,8 @@ const S = {
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
     font-size: ${(p) => p.theme.dimensions(14, "px")};
+  `,
+  ViewAllButton: styled.Text`
+    align-self: flex-end;
   `,
 };
