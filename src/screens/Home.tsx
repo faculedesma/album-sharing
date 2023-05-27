@@ -76,9 +76,21 @@ const Birthday = () => {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           >
-            <S.AlbumCover></S.AlbumCover>
-            <S.AlbumCover></S.AlbumCover>
-            <S.AlbumCover></S.AlbumCover>
+            <S.AlbumCover
+              source={{
+                uri: "https://historia-arte.com/_/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpbSI6WyJcL2FydHdvcmtcL2ltYWdlRmlsZVwvNWRlNDUwMDdkMjE0MC5qcGciLCJyZXNpemUsMTAwMCJdfQ.Z1Im-vmCm1_BQQXZPzkyxUqdMkHBZEANyWZRBVZldlM.jpg",
+              }}
+            ></S.AlbumCover>
+            <S.AlbumCover
+              source={{
+                uri: "https://ia601504.us.archive.org/9/items/aquelarre-coven-3-tree-adventure/Aquelarre%20-%20Aquelarre%20-%201972a.jpg",
+              }}
+            ></S.AlbumCover>
+            <S.AlbumCover
+              source={{
+                uri: "https://i0.wp.com/www.scienceofnoise.net/wp-content/uploads/2020/09/kid-a-58da4e6d53cc6.jpg",
+              }}
+            ></S.AlbumCover>
           </S.ResultsScroll>
         </S.ResultsContainer>
       </S.Results>
@@ -106,40 +118,6 @@ const S = {
     padding-right: ${(p) => p.theme.dimensions(5, "%")};
     padding-left: ${(p) => p.theme.dimensions(5, "%")};
   `,
-  Birthday: styled.View`
-    margin-top: ${(p) => p.theme.dimensions(24, "px")};
-  `,
-  BirthdayHeading: styled.View`
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
-    margin-bottom: ${(p) => p.theme.dimensions(16, "px")};
-  `,
-  Results: styled.View`
-    height: ${(p) => p.theme.dimensions(160, "px")};
-    width: ${(p) => p.theme.dimensions(100, "%")};
-  `,
-  ResultsContainer: styled.View`
-    width: ${(p) => p.theme.windowWidth};
-    flex: 1;
-  `,
-  ResultsScroll: styled.ScrollView`
-    flex: 1;
-    flex-direction: row;
-  `,
-  AlbumCover: styled.View`
-    height: ${(p) => p.theme.dimensions(160, "px")};
-    width: ${(p) => p.theme.dimensions(160, "px")};
-    background-color: ${(p) => p.theme.shades200};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    margin-right: ${(p) => p.theme.dimensions(12, "px")};
-  `,
-  LatestTop: styled.View`
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
@@ -149,6 +127,12 @@ const S = {
     color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
     font-size: ${(p) => p.theme.dimensions(24, "px")};
+  `,
+  LatestTop: styled.View`
+    width: ${(p) => p.theme.dimensions(100, "%")};
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   `,
   Chip: styled.View`
     height: ${(p) => p.theme.dimensions(25, "px")};
@@ -190,6 +174,38 @@ const S = {
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: ${(p) => p.theme.dimensions(4, "px")};
+  `,
+  Birthday: styled.View`
+    margin-top: ${(p) => p.theme.dimensions(24, "px")};
+  `,
+  BirthdayHeading: styled.View`
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: ${(p) => p.theme.dimensions(16, "px")};
+    margin-bottom: ${(p) => p.theme.dimensions(16, "px")};
+  `,
+  Results: styled.View`
+    height: ${(p) => p.theme.dimensions(160, "px")};
+    width: ${(p) => p.theme.dimensions(100, "%")};
+  `,
+  ResultsContainer: styled.View`
+    width: ${(p) => p.theme.windowWidth};
+    flex: 1;
+  `,
+  ResultsScroll: styled.ScrollView`
+    flex: 1;
+    flex-direction: row;
+  `,
+  AlbumCover: styled.ImageBackground`
+    height: ${(p) => p.theme.dimensions(160, "px")};
+    width: ${(p) => p.theme.dimensions(160, "px")};
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    // background-color: ${(p) => p.theme.shades200};
+    overflow: hidden;
+    border-radius: ${(p) => p.theme.dimensions(4, "px")};
+    margin-right: ${(p) => p.theme.dimensions(12, "px")};
   `,
   Text: styled.Text`
     color: ${(p) => p.theme.secondary};

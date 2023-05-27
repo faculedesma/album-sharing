@@ -1,7 +1,5 @@
 import styled from "styled-components/native";
-import { appTheme } from "src/assets/styles/theme";
 import { Home } from "src/assets/svgs/Home";
-import { Search } from "src/assets/svgs/Search";
 import { Group } from "src/assets/svgs/Group";
 import { Heart } from "src/assets/svgs/Heart";
 
@@ -13,12 +11,8 @@ const Footer = () => {
         <S.Text>Home</S.Text>
       </S.Link>
       <S.Link>
-        <Search />
-        <S.Text>Search</S.Text>
-      </S.Link>
-      <S.Link>
         <Group />
-        <S.Text>Group</S.Text>
+        <S.Text>Groups</S.Text>
       </S.Link>
       <S.Link>
         <Heart />
