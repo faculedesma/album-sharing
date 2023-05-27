@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components/native";
 import { Stack } from "expo-router";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
@@ -11,45 +12,47 @@ export default function Introduction() {
   const handleOnChangeBio = (value) => setBioText(value);
 
   return (
-    <S.Wrapper testID="intro-screen">
-      <Stack.Screen
-        options={{ title: "Introducion Screen", headerShown: false }}
-      />
-      <S.LogoContainer testID="intro-screen-logo">
-        <Logo />
-      </S.LogoContainer>
-      <S.Title testID="intro-screen-title">Choose avatar</S.Title>
-      <S.AvatarOptions testID="intro-screen-options">
-        <S.Circle style={{ backgroundColor: appTheme.red }}></S.Circle>
-        <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
-        <S.Circle style={{ backgroundColor: appTheme.yellow }}></S.Circle>
-        <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
-        <S.Circle style={{ backgroundColor: appTheme.red }}></S.Circle>
-        <S.Circle style={{ backgroundColor: appTheme.lightblue }}></S.Circle>
-        <S.Circle style={{ backgroundColor: appTheme.yellow }}></S.Circle>
-        <S.Circle style={{ backgroundColor: appTheme.lightblue }}></S.Circle>
-      </S.AvatarOptions>
-      <S.Bio testID="intro-screen-bio">
-        <S.BioTitle>Bio</S.BioTitle>
-        <S.BioInput
-          value={bioText}
-          maxLength={150}
-          multiline={true}
-          placeholder="Add a little description about yourself"
-          onChangeText={handleOnChangeBio}
-        ></S.BioInput>
-        <S.BioMaxChar>{bioText?.length}/150</S.BioMaxChar>
-      </S.Bio>
-      <S.ContinueButton>
-        <SecondaryButton
-          href="/home"
-          text="Continue"
-          icon={false}
-          bold={true}
-          size="md"
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <S.Wrapper testID="intro-screen">
+        <Stack.Screen
+          options={{ title: "Introducion Screen", headerShown: false }}
         />
-      </S.ContinueButton>
-    </S.Wrapper>
+        <S.LogoContainer testID="intro-screen-logo">
+          <Logo />
+        </S.LogoContainer>
+        <S.Title testID="intro-screen-title">Choose avatar</S.Title>
+        <S.AvatarOptions testID="intro-screen-options">
+          <S.Circle style={{ backgroundColor: appTheme.red }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.yellow }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.red }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.lightblue }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.yellow }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.lightblue }}></S.Circle>
+        </S.AvatarOptions>
+        <S.Bio testID="intro-screen-bio">
+          <S.BioTitle>Bio</S.BioTitle>
+          <S.BioInput
+            value={bioText}
+            maxLength={150}
+            multiline={true}
+            placeholder="Add a little description about yourself"
+            onChangeText={handleOnChangeBio}
+          ></S.BioInput>
+          <S.BioMaxChar>{bioText?.length}/150</S.BioMaxChar>
+        </S.Bio>
+        <S.ContinueButton>
+          <SecondaryButton
+            href="/home"
+            text="Continue"
+            icon={false}
+            bold={true}
+            size="md"
+          />
+        </S.ContinueButton>
+      </S.Wrapper>
+    </TouchableWithoutFeedback>
   );
 }
 

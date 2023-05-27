@@ -5,7 +5,6 @@ import { Stack } from "expo-router";
 import { Logo } from "src/assets/svgs/Logo";
 import { EyeDisabled } from "src/assets/svgs/EyeDisabled";
 import { Eye } from "src/assets/svgs/Eye";
-import SecondaryButton from "src/components/buttons/SecondaryButton";
 import PrimaryButton from "src/components/buttons/PrimaryButton";
 
 export default function Signup() {
@@ -17,7 +16,7 @@ export default function Signup() {
 
   const handleToggleHidde = () => setHide(!hide);
 
-  const handleToggleHiddeRepeat = () => setHide(!hide);
+  const handleToggleHiddeRepeat = () => setHideRepeat(!hide);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
