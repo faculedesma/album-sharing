@@ -28,6 +28,7 @@ export default function Login() {
         <S.Inputs testID="intro-screen-bio">
           <S.Input
             value={username}
+            multiline={true}
             maxLength={100}
             placeholder="Username"
             onChangeText={(value) => setUsername(value)}
@@ -35,6 +36,7 @@ export default function Login() {
           <S.PasswordContainer>
             <S.Input
               value={password}
+              multiline={true}
               maxLength={100}
               placeholder="Password"
               autoCorrect={false}

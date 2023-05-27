@@ -16,7 +16,7 @@ export default function Signup() {
 
   const handleToggleHidde = () => setHide(!hide);
 
-  const handleToggleHiddeRepeat = () => setHideRepeat(!hide);
+  const handleToggleHiddeRepeat = () => setHideRepeat(!hideRepeat);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -32,12 +32,14 @@ export default function Signup() {
           <S.Input
             value={username}
             maxLength={100}
+            multiline={true}
             placeholder="Username"
             onChangeText={(value) => setUsername(value)}
           ></S.Input>
           <S.PasswordContainer>
             <S.Input
               value={password}
+              multiline={true}
               maxLength={100}
               placeholder="Password"
               autoCorrect={false}
