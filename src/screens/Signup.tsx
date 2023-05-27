@@ -8,23 +8,27 @@ import { Eye } from "src/assets/svgs/Eye";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import PrimaryButton from "src/components/buttons/PrimaryButton";
 
-export default function Login() {
+export default function Signup() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [repeat, setRepeat] = useState<string>("");
   const [hide, setHide] = useState<boolean>(true);
+  const [hideRepeat, setHideRepeat] = useState<boolean>(true);
 
   const handleToggleHidde = () => setHide(!hide);
+
+  const handleToggleHiddeRepeat = () => setHide(!hide);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <S.Wrapper testID="login-screen">
         <Stack.Screen options={{ title: "Login Screen", headerShown: false }} />
-        <S.LoginTop>
+        <S.SignupTop>
           <S.LogoContainer testID="login-screen-logo">
             <Logo />
           </S.LogoContainer>
           <S.Title testID="login-screen-title">Sharing</S.Title>
-        </S.LoginTop>
+        </S.SignupTop>
         <S.Inputs testID="intro-screen-bio">
           <S.Input
             value={username}
@@ -46,26 +50,24 @@ export default function Login() {
               {hide ? <EyeDisabled /> : <Eye />}
             </S.Icon>
           </S.PasswordContainer>
+          <S.PasswordContainer>
+            <S.Input
+              value={repeat}
+              maxLength={100}
+              placeholder="Repeat password"
+              autoCorrect={false}
+              secureTextEntry={hideRepeat}
+              textContentType="password"
+              onChangeText={(value) => setRepeat(value)}
+            ></S.Input>
+            <S.Icon onTouchStart={handleToggleHiddeRepeat}>
+              {hide ? <EyeDisabled /> : <Eye />}
+            </S.Icon>
+          </S.PasswordContainer>
         </S.Inputs>
-        <S.ForgotPassword>
-          <SecondaryButton
-            href="/introduction"
-            text="Forgot password?"
-            icon={false}
-          />
-        </S.ForgotPassword>
-        <S.LoginButton>
-          <PrimaryButton
-            href="/home"
-            text="Log in"
-            icon={false}
-            bold={true}
-            size="md"
-          />
-        </S.LoginButton>
         <S.SignupButton>
-          <SecondaryButton
-            href="/signup"
+          <PrimaryButton
+            href="/introduction"
             text="Sign up"
             icon={false}
             bold={true}
@@ -86,7 +88,7 @@ const S = {
     padding-left: ${(p) => p.theme.dimensions(5, "%")};
     gap: ${(p) => p.theme.dimensions(16, "px")};
   `,
-  LoginTop: styled.View`
+  SignupTop: styled.View`
     align-items: center;
     justify-content: center;
     margin-bottom: ${(p) => p.theme.dimensions(64, "px")};
@@ -133,14 +135,8 @@ const S = {
     bottom: ${(p) => p.theme.dimensions(16, "px")};
     right: ${(p) => p.theme.dimensions(16, "px")};
   `,
-  ForgotPassword: styled.View`
-    align-self: flex-end;
-  `,
-  LoginButton: styled.View`
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    align-self: center;
-  `,
   SignupButton: styled.View`
+    width: ${(p) => p.theme.dimensions(100, "%")};
     align-self: center;
   `,
 };
