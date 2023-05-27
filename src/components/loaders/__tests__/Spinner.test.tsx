@@ -2,7 +2,7 @@ import React from "react";
 import { create, type ReactTestRendererJSON } from "react-test-renderer";
 import { ThemeProvider } from "styled-components/native";
 import { appTheme } from "src/assets/styles/theme";
-import Spinner from "src/components/Spinner";
+import Spinner from "src/components/loaders/Spinner";
 
 jest.mock("expo-router", () => ({ Link: "Link" }));
 

@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import styled, { ThemeProvider } from "styled-components/native";
 import { appTheme, navTheme } from "src/assets/styles/theme";
-import Spinner from "src/components/Spinner";
+import Spinner from "src/components/loaders/Spinner";
 import useAppLoading from "src/hooks/useAppLoading";
 
 export default function RootLayout() {

@@ -1,13 +1,17 @@
-import styled from 'styled-components/native'
-import { ActivityIndicator } from 'react-native'
-import { appTheme } from 'src/assets/styles/theme'
+import styled from "styled-components/native";
+import { ActivityIndicator } from "react-native";
+import { appTheme } from "src/assets/styles/theme";
 
 export default function Spinner() {
   return (
     <S.Spinner testID="spinner">
-      <ActivityIndicator testID="activity-indicator" color={appTheme.highlight} size="large" />
+      <ActivityIndicator
+        testID="activity-indicator"
+        color={appTheme.highlight}
+        size="large"
+      />
     </S.Spinner>
-  )
+  );
 }
 
 const S = {
@@ -18,5 +22,5 @@ const S = {
     display: flex;
     align-items: center;
     justify-content: center;
-  `
-}
+  `,
+};

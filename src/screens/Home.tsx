@@ -56,7 +56,7 @@ const Latest = () => {
           color={appTheme.yellow}
         />
       </S.LatestCard>
-      <SecondaryButton href="/history" text="View all" />
+      <SecondaryButton href="/introduction" text="View all" />
     </>
   );
 };
@@ -202,7 +202,7 @@ const S = {
     flex: 1;
     align-items: center;
     justify-content: center;
-    // background-color: ${(p) => p.theme.shades200};
+    background-color: ${(p) => p.theme.shades100};
     overflow: hidden;
     border-radius: ${(p) => p.theme.dimensions(4, "px")};
     margin-right: ${(p) => p.theme.dimensions(12, "px")};

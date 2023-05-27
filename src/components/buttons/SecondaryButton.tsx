@@ -9,19 +9,23 @@ interface ISecondaryProps {
 
 export default function SecondaryButton({ href, text }: ISecondaryProps) {
   return (
-    <S.Button testID="secondary-button">
-      <S.ButtonText testID="secondary-button-text">{text}</S.ButtonText>
-      <ArrowRight />
-    </S.Button>
+    <S.ButtonLink testID="secondary-button" href={href}>
+      <S.Button testID="secondary-button">
+        <S.ButtonText testID="secondary-button-text">{text}</S.ButtonText>
+        <ArrowRight />
+      </S.Button>
+    </S.ButtonLink>
   );
 }
 
 const S = {
+  ButtonLink: styled(Link)`
+    align-self: flex-end;
+  `,
   Button: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    align-self: flex-end;
     gap: ${(p) => p.theme.dimensions(8, "px")};
     background-color: transparent;
   `,
