@@ -1,8 +1,18 @@
+import { useState } from "react";
 import styled from "styled-components/native";
 import { Search } from "src/assets/svgs/Search";
 import { Logo } from "src/assets/svgs/Logo";
+import { Modal } from "react-native";
+import Profile from "../profile/Profile";
+import { TouchableOpacity } from "react-native";
 
 const Header = () => {
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+  const openModal = () => setModalVisible(true);
+
+  const closeModal = () => setModalVisible(false);
+
   return (
     <S.Header>
       <S.HeaderLeft>
@@ -10,8 +20,13 @@ const Header = () => {
       </S.HeaderLeft>
       <S.HeaderRight>
         <Search />
-        <S.Profile></S.Profile>
+        <TouchableOpacity onPress={openModal}>
+          <S.Profile></S.Profile>
+        </TouchableOpacity>
       </S.HeaderRight>
+      <Modal visible={modalVisible} animationType="slide" transparent={true}>
+        <Profile closeModal={closeModal} />
+      </Modal>
     </S.Header>
   );
 };
@@ -41,6 +56,7 @@ const S = {
     align-items: flex-start;
     justify-content: space-between;
   `,
+  ProfileContainer: styled.Button``,
   Profile: styled.View`
     height: ${(p) => p.theme.dimensions(30, "px")};
     width: ${(p) => p.theme.dimensions(30, "px")};

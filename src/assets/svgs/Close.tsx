@@ -1,16 +1,16 @@
 import { Svg, Path } from "react-native-svg";
 
-export const Plus = () => {
+export const Close = () => {
   return (
-    <Svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+    <Svg width="16" height="17" viewBox="0 0 16 17" fill="none">
       <Path
-        d="M6 10.8116V0.84375"
+        d="M0.999823 15.514L15.0698 1.48926"
         stroke="#030303"
         strokeWidth="1.5"
         strokeLinecap="round"
       />
       <Path
-        d="M1 5.82812L11 5.82812"
+        d="M0.999824 1.48586L15.0698 15.5106"
         stroke="#030303"
         strokeWidth="1.5"
         strokeLinecap="round"

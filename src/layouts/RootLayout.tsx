@@ -14,7 +14,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider theme={appTheme}>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       <S.AppWrapper>
         <NavProvider value={navTheme}>
           <Stack />
