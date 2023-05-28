@@ -3,7 +3,7 @@ import { Stack } from "expo-router";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import { appTheme } from "src/assets/styles/theme";
 import Header from "src/components/header/Header";
-import Footer from "src/components/footer/Footer";
+import BottomNavbar from "src/components/bottom-navbar/BottomNavbar";
 
 interface IRowProps {
   user: string;
@@ -107,7 +107,7 @@ export default function HomeScreen() {
       <Header />
       <Latest />
       <Birthday />
-      <Footer />
+      <BottomNavbar />
     </S.Wrapper>
   );
 }
@@ -137,12 +137,13 @@ const S = {
     justify-content: space-between;
   `,
   Group: styled.View`
-    height: ${(p) => p.theme.dimensions(25, "px")};
-    width: ${(p) => p.theme.dimensions(75, "px")};
+    height: ${(p) => p.theme.dimensions(30, "px")};
     align-items: center;
     justify-content: center;
     border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
     border-radius: ${(p) => p.theme.dimensions(4, "px")};
+    padding-left: ${(p) => p.theme.dimensions(8, "px")};
+    padding-right: ${(p) => p.theme.dimensions(8, "px")};
   `,
   LatestCard: styled.View`
     align-items: center;
