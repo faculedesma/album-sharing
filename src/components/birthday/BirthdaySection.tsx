@@ -51,12 +51,8 @@ export const Birthday = () => {
 
   return (
     <S.Birthday>
-      <S.BirthdayHeading>
-        <S.Title testID="home-screen-birthday-title">Today's birthday</S.Title>
-        <S.SubTitle testID="home-screen-birthday-subtitle">
-          {currentDate}
-        </S.SubTitle>
-      </S.BirthdayHeading>
+      <S.Title testID="birthday-title">Today's birthday</S.Title>
+      <S.SubTitle testID="birthday-subtitle">{currentDate}</S.SubTitle>
       <S.Results>
         <S.ResultsContainer>
           <S.ResultsScroll
@@ -107,16 +103,12 @@ const S = {
     font-size: ${(p) => p.theme.dimensions(20, "px")};
   `,
   Birthday: styled.View`
-    margin-top: ${(p) => p.theme.dimensions(20, "px")};
-  `,
-  BirthdayHeading: styled.View`
     align-items: flex-start;
     justify-content: flex-start;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
-    margin-bottom: ${(p) => p.theme.dimensions(16, "px")};
+    gap: ${(p) => p.theme.dimensions(20, "px")};
   `,
   Results: styled.View`
-    height: ${(p) => p.theme.dimensions(181, "px")};
+    height: ${(p) => p.theme.dimensions(180, "px")};
   `,
   ResultsContainer: styled.View`
     width: ${(p) => p.theme.windowWidth};
@@ -129,10 +121,9 @@ const S = {
   AlbumContainer: styled.TouchableOpacity`
     align-items: flex-start;
     justify-content: space-between;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: ${(p) => p.theme.dimensions(10, "px")};
   `,
   AlbumCover: styled.ImageBackground`
-    height: ${(p) => p.theme.dimensions(125, "px")};
     width: ${(p) => p.theme.dimensions(125, "px")};
     flex: 1;
     align-items: center;
@@ -141,12 +132,11 @@ const S = {
     overflow: hidden;
     border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades100};
     border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    margin-right: ${(p) => p.theme.dimensions(12, "px")};
+    margin-right: ${(p) => p.theme.dimensions(10, "px")};
   `,
   AlbumLabels: styled.View`
-    height: ${(p) => p.theme.dimensions(40, "px")};
     max-width: ${(p) => p.theme.dimensions(125, "px")};
-    gap: ${(p) => p.theme.dimensions(8, "px")};
+    gap: ${(p) => p.theme.dimensions(10, "px")};
     align-items: flex-start;
     justify-content: space-between;
   `,

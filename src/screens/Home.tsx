@@ -18,20 +18,20 @@ const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
   return (
     <S.Row>
       <S.Avatar style={{ backgroundColor: `${color}` }}></S.Avatar>
-      <S.Recommendation>
+      <S.RowRecommendation>
         <GenericText size={14} weight="bold" content={user} />
         <GenericText size={14} weight="light" content="recommended" />
         <GenericText size={14} weight="bold" content={album} />
         <GenericText size={14} weight="light" content="on" />
         <GenericText size={14} weight="light" content={date} />
-      </S.Recommendation>
+      </S.RowRecommendation>
     </S.Row>
   );
 };
 
 const Latest = () => {
   return (
-    <>
+    <S.Latest>
       <S.LatestTop testID="home-screen-latest">
         <S.Title testID="home-screen-latest-title">Latest</S.Title>
         <S.Group testID="home-screen-latest-group">
@@ -61,7 +61,7 @@ const Latest = () => {
       <S.ViewAllButton>
         <SecondaryButton href="/login" text="View all" />
       </S.ViewAllButton>
-    </>
+    </S.Latest>
   );
 };
 
@@ -95,6 +95,12 @@ const S = {
     font-family: circularStdLight;
     font-size: ${(p) => p.theme.dimensions(20, "px")};
   `,
+  Latest: styled.View`
+    width: ${(p) => p.theme.dimensions(100, "%")};
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: ${(p) => p.theme.dimensions(20, "px")};
+  `,
   LatestTop: styled.View`
     width: ${(p) => p.theme.dimensions(100, "%")};
     flex-direction: row;
@@ -115,18 +121,16 @@ const S = {
     justify-content: space-between;
     border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
     border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    padding: ${(p) => p.theme.dimensions(16, "px")};
-    margin-top: ${(p) => p.theme.dimensions(16, "px")};
-    margin-bottom: ${(p) => p.theme.dimensions(16, "px")};
+    padding: ${(p) => p.theme.dimensions(20, "px")};
+    gap: ${(p) => p.theme.dimensions(20, "px")};
   `,
   Row: styled.View`
-    height: ${(p) => p.theme.dimensions(60, "px")};
+    height: ${(p) => p.theme.dimensions(40, "px")};
     flex-direction: row;
     align-items: center;
     gap: ${(p) => p.theme.dimensions(16, "px")};
     margin-top: ${(p) => p.theme.dimensions(4, "px")};
-    gap: ${(p) => p.theme.dimensions(16, "px")};
-    margin-bottom: ${(p) => p.theme.dimensions(4, "px")};
+    gap: ${(p) => p.theme.dimensions(20, "px")};
   `,
   Avatar: styled.View`
     height: ${(p) => p.theme.dimensions(40, "px")};
@@ -134,8 +138,8 @@ const S = {
     border-radius: ${(p) => p.theme.dimensions(50, "%")};
     border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades100};
   `,
-  Recommendation: styled.View`
-    height: ${(p) => p.theme.dimensions(35, "px")};
+  RowRecommendation: styled.View`
+    max-height: ${(p) => p.theme.dimensions(50, "px")};
     width: ${(p) => p.theme.dimensions(300, "px")};
     flex: 1;
     flex-direction: row;
