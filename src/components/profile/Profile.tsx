@@ -12,6 +12,7 @@ import { Notification } from "src/assets/svgs/Notification";
 import { appTheme } from "src/assets/styles/theme";
 import { GenericText } from "../text/GenericText";
 import { auth } from "../../../firebase";
+import { GenericInput } from "../inputs/GenericInput";
 
 export default function Profile({ closeModal }) {
   const [bioText, setBioText] = useState<string>(
@@ -24,15 +25,15 @@ export default function Profile({ closeModal }) {
 
   const toggleSwitch = () => setIsEnabled(!isEnabled);
 
-  const handleOnChangeBio = (value) => setBioText(value);
+  const handleOnChangeBio = (value: string) => setBioText(value);
 
-  const handleOnChangeUsername = (value) => setBioText(value);
+  const handleOnChangeUsername = (value: string) => setUsername(value);
 
   const handleSignOut = () => {
     auth
       .signOut()
       .then(() => {
-        closeModal()
+        closeModal();
         router.replace("/login");
       })
       .catch((error) => new Error("There was an error signing out."));
@@ -52,28 +53,29 @@ export default function Profile({ closeModal }) {
         </S.TitleContainer>
 
         <S.Avatar></S.Avatar>
-        <S.UsernameInput
+        <GenericInput
           value={username}
           maxLength={100}
           placeholder="Username"
-          onChangeText={handleOnChangeUsername}
-        ></S.UsernameInput>
+          textContentType="nickname"
+          handleChangeText={handleOnChangeUsername}
+        />
         <S.Bio testID="intro-screen-bio">
           <S.BioTitle>Bio</S.BioTitle>
-          <S.BioInput
+          <GenericInput
             value={bioText}
-            maxLength={150}
+            height={175}
+            maxLength={200}
             multiline={true}
             placeholder="Add a little description about yourself"
-            onChangeText={handleOnChangeBio}
-          ></S.BioInput>
-          <S.BioMaxChar>{bioText?.length}/150</S.BioMaxChar>
+            textContentType="none"
+            handleChangeText={handleOnChangeBio}
+          />
         </S.Bio>
         <TouchableOpacity onPress={closeModal}>
           <S.Item>
             <Notification />
             <GenericText size={16} weight="light" content="Notifications" />
-
             <S.Switch
               trackColor={{ false: appTheme.shades50, true: appTheme.shades50 }}
               thumbColor={isEnabled ? appTheme.highlight : appTheme.shades100}
@@ -140,35 +142,6 @@ const S = {
     gap: ${(p) => p.theme.dimensions(4, "px")};
     color: ${(p) => p.theme.secondary};
     align-self: flex-start;
-    font-family: circularStdLight;
-  `,
-  BioInput: styled.TextInput`
-    height: ${(p) => p.theme.dimensions(175, "px")};
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: ${(p) => p.theme.dimensions(16, "px")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    font-family: circularStdLight;
-  `,
-  UsernameInput: styled.TextInput`
-    height: ${(p) => p.theme.dimensions(50, "px")};
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: ${(p) => p.theme.dimensions(16, "px")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    font-family: circularStdLight;
-  `,
-  BioMaxChar: styled.Text`
-    position: absolute;
-    bottom: ${(p) => p.theme.dimensions(4, "px")};
-    right: ${(p) => p.theme.dimensions(4, "px")};
-    color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
   `,
   Item: styled.View`

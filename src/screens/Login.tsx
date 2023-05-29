@@ -9,6 +9,7 @@ import SecondaryButton from "src/components/buttons/SecondaryButton";
 import PrimaryButton from "src/components/buttons/PrimaryButton";
 import { appTheme } from "src/assets/styles/theme";
 import { auth } from "../../firebase";
+import { GenericInput } from "src/components/inputs/GenericInput";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
@@ -47,24 +48,22 @@ export default function Login() {
           <S.Title testID="login-screen-title">Sharing</S.Title>
         </S.LoginTop>
         <S.Inputs testID="intro-screen-bio">
-          <S.Input
+          <GenericInput
             value={email}
             maxLength={100}
             placeholder="Email"
-            autoCapitalize="none"
-            onChangeText={(value) => setEmail(value)}
-            placeholderTextColor={appTheme.shades200}
-          ></S.Input>
+            textContentType="username"
+            handleChangeText={(value) => setEmail(value)}
+          />
           <S.PasswordContainer>
-            <S.Input
+            <GenericInput
               value={password}
               maxLength={100}
               placeholder="Password"
-              autoCorrect={false}
               secureTextEntry={hide}
               textContentType="password"
-              onChangeText={(value) => setPassword(value)}
-            ></S.Input>
+              handleChangeText={(value) => setPassword(value)}
+            />
             <S.Icon onTouchStart={handleToggleHidde}>
               {hide ? <EyeDisabled /> : <Eye />}
             </S.Icon>
@@ -137,17 +136,6 @@ const S = {
     justify-content: space-between;
     width: ${(p) => p.theme.dimensions(100, "%")};
     gap: ${(p) => p.theme.dimensions(16, "px")};
-  `,
-  Input: styled.TextInput`
-    height: ${(p) => p.theme.dimensions(50, "px")};
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: ${(p) => p.theme.dimensions(16, "px")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    font-family: circularStdLight;
   `,
   PasswordContainer: styled.View`
     height: ${(p) => p.theme.dimensions(50, "px")};

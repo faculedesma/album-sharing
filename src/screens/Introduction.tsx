@@ -5,11 +5,12 @@ import { Stack } from "expo-router";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import { Logo } from "src/assets/svgs/Logo";
 import { appTheme } from "src/assets/styles/theme";
+import { GenericInput } from "src/components/inputs/GenericInput";
 
 export default function Introduction() {
   const [bioText, setBioText] = useState<string>("");
 
-  const handleOnChangeBio = (value) => setBioText(value);
+  const handleOnChangeBio = (value: string) => setBioText(value);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -33,14 +34,16 @@ export default function Introduction() {
         </S.AvatarOptions>
         <S.Bio testID="intro-screen-bio">
           <S.BioTitle>Bio</S.BioTitle>
-          <S.BioInput
+          <GenericInput
             value={bioText}
+            height={175}
             maxLength={150}
             multiline={true}
+            numberOfLines={5}
+            textContentType="none"
             placeholder="Add a little description about yourself"
-            onChangeText={handleOnChangeBio}
-          ></S.BioInput>
-          <S.BioMaxChar>{bioText?.length}/150</S.BioMaxChar>
+            handleChangeText={handleOnChangeBio}
+          />
         </S.Bio>
         <S.ContinueButton>
           <SecondaryButton
@@ -111,24 +114,6 @@ const S = {
     gap: ${(p) => p.theme.dimensions(4, "px")};
     color: ${(p) => p.theme.secondary};
     align-self: flex-start;
-    font-family: circularStdLight;
-  `,
-  BioInput: styled.TextInput`
-    height: ${(p) => p.theme.dimensions(175, "px")};
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: ${(p) => p.theme.dimensions(16, "px")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    font-family: circularStdLight;
-  `,
-  BioMaxChar: styled.Text`
-    position: absolute;
-    bottom: ${(p) => p.theme.dimensions(4, "px")};
-    right: ${(p) => p.theme.dimensions(4, "px")};
-    color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
   `,
   ContinueButton: styled.Text`

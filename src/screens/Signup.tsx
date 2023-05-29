@@ -1,27 +1,48 @@
 import { useState } from "react";
 import { TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components/native";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { Logo } from "src/assets/svgs/Logo";
 import { EyeDisabled } from "src/assets/svgs/EyeDisabled";
 import { Eye } from "src/assets/svgs/Eye";
 import PrimaryButton from "src/components/buttons/PrimaryButton";
 import { appTheme } from "src/assets/styles/theme";
+import { auth } from "../../firebase";
+import { GenericInput } from "src/components/inputs/GenericInput";
 
 export default function Signup() {
-  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [repeat, setRepeat] = useState<string>("");
   const [hide, setHide] = useState<boolean>(true);
   const [hideRepeat, setHideRepeat] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const handleToggleHidde = () => setHide(!hide);
 
-  const handleToggleHiddeRepeat = () => setHideRepeat(!hideRepeat);
+  const handleToggleHideRepeat = () => setHideRepeat(!hideRepeat);
+
+  const handleSignUp = async () => {
+    setLoading(true);
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((response) => {
+        setLoading(false);
+        console.log(response.user);
+        router.push("/introduction");
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error.message);
+        new Error(error.message);
+      });
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <S.Wrapper testID="login-screen">
+      <S.Wrapper testID="login-screen" behavior="padding">
         <Stack.Screen options={{ title: "Login Screen", headerShown: false }} />
         <S.SignupTop>
           <S.LogoContainer testID="login-screen-logo">
@@ -30,52 +51,49 @@ export default function Signup() {
           <S.Title testID="login-screen-title">Sharing</S.Title>
         </S.SignupTop>
         <S.Inputs testID="intro-screen-bio">
-          <S.Input
-            value={username}
+          <GenericInput
+            value={email}
             maxLength={100}
-            multiline={true}
-            placeholder="Username or email"
-            onChangeText={(value) => setUsername(value)}
-          ></S.Input>
+            placeholder="Email"
+            textContentType="username"
+            handleChangeText={(value) => setEmail(value)}
+          />
           <S.PasswordContainer>
-            <S.Input
+            <GenericInput
               value={password}
-              multiline={true}
               maxLength={100}
               placeholder="Password"
-              autoCorrect={false}
               secureTextEntry={hide}
               textContentType="password"
-              onChangeText={(value) => setPassword(value)}
-            ></S.Input>
+              handleChangeText={(value) => setPassword(value)}
+            />
             <S.Icon onTouchStart={handleToggleHidde}>
               {hide ? <EyeDisabled /> : <Eye />}
             </S.Icon>
           </S.PasswordContainer>
           <S.PasswordContainer>
-            <S.Input
+            <GenericInput
               value={repeat}
               maxLength={100}
               placeholder="Repeat password"
-              autoCorrect={false}
               secureTextEntry={hideRepeat}
               textContentType="password"
-              onChangeText={(value) => setRepeat(value)}
-            ></S.Input>
-            <S.Icon onTouchStart={handleToggleHiddeRepeat}>
-              {hide ? <EyeDisabled /> : <Eye />}
+              handleChangeText={(value) => setRepeat(value)}
+            />
+            <S.Icon onTouchStart={handleToggleHideRepeat}>
+              {hideRepeat ? <EyeDisabled /> : <Eye />}
             </S.Icon>
           </S.PasswordContainer>
         </S.Inputs>
         <S.SignupButton>
           <PrimaryButton
-            href="/introduction"
             text="Sign up"
             icon={false}
             bold={true}
             size="md"
             color={appTheme.primary}
-            handlePress={() => console.log("go to introduction")}
+            handlePress={handleSignUp}
+            loading={loading}
           />
         </S.SignupButton>
       </S.Wrapper>
@@ -84,7 +102,7 @@ export default function Signup() {
 }
 
 const S = {
-  Wrapper: styled.View`
+  Wrapper: styled.KeyboardAvoidingView`
     flex: 1;
     align-items: center;
     justify-content: center;
@@ -118,17 +136,6 @@ const S = {
     justify-content: space-between;
     width: ${(p) => p.theme.dimensions(100, "%")};
     gap: ${(p) => p.theme.dimensions(16, "px")};
-  `,
-  Input: styled.TextInput`
-    height: ${(p) => p.theme.dimensions(50, "px")};
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: ${(p) => p.theme.dimensions(16, "px")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    font-family: circularStdLight;
   `,
   PasswordContainer: styled.View`
     height: ${(p) => p.theme.dimensions(50, "px")};
