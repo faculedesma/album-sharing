@@ -13,12 +13,15 @@ import { appTheme } from "src/assets/styles/theme";
 import { GenericText } from "../text/GenericText";
 import { auth } from "../../../firebase";
 import { GenericInput } from "../inputs/GenericInput";
+import Toast from "react-native-toast-message";
 
-export default function Profile({ closeModal }) {
-  const [bioText, setBioText] = useState<string>(
-    "Here is the description of the user"
-  );
-  const [username, setUsername] = useState<string>("@chicha73");
+interface IProfileProps {
+  closeModal: () => void;
+}
+
+export default function Profile({ closeModal }: IProfileProps) {
+  const [bioText, setBioText] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
 
   const router = useRouter();
@@ -27,7 +30,7 @@ export default function Profile({ closeModal }) {
 
   const handleOnChangeBio = (value: string) => setBioText(value);
 
-  const handleOnChangeUsername = (value: string) => setUsername(value);
+  const handleOnChangeNickname = (value: string) => setNickname(value);
 
   const handleSignOut = () => {
     auth
@@ -36,30 +39,37 @@ export default function Profile({ closeModal }) {
         closeModal();
         router.replace("/login");
       })
-      .catch((error) => new Error("There was an error signing out."));
+      .catch((error) => {
+        Toast.show({
+          type: "error",
+          text1: error.message.split(":")[1].split(".")[0],
+        });
+        console.log(error);
+        new Error(error.message);
+      });
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <S.Wrapper testID="intro-screen">
+      <S.Wrapper testID="profile-screen">
         <Stack.Screen
-          options={{ title: "Introducion Screen", headerShown: false }}
+          options={{ title: "Profile Screen", headerShown: false }}
         />
         <S.TitleContainer>
           <S.CloseIcon onPress={closeModal}>
             <Close />
           </S.CloseIcon>
-          <S.Title testID="intro-screen-title">Profile</S.Title>
+          <S.Title testID="profile-screen-title">Profile</S.Title>
         </S.TitleContainer>
         <S.Avatar></S.Avatar>
         <GenericInput
-          value={username}
+          value={nickname}
           maxLength={100}
-          placeholder="Username"
+          placeholder="nickname"
           textContentType="nickname"
-          handleChangeText={handleOnChangeUsername}
+          handleChangeText={handleOnChangeNickname}
         />
-        <S.Bio testID="intro-screen-bio">
+        <S.Bio testID="profile-screen-bio">
           <S.BioTitle>Bio</S.BioTitle>
           <GenericInput
             value={bioText}
@@ -101,19 +111,16 @@ const S = {
     justify-content: flex-start;
     padding-right: ${(p) => p.theme.dimensions(5, "%")};
     padding-left: ${(p) => p.theme.dimensions(5, "%")};
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: ${(p) => p.theme.dimensions(20, "px")};
     background-color: ${(p) => p.theme.primary};
-    padding-top: ${(p) => p.theme.dimensions(64, "px")};
+    padding-top: ${(p) => p.theme.dimensions(60, "px")};
   `,
-  CloseIcon: styled.TouchableOpacity`
-    padding-top: ${(p) => p.theme.dimensions(4, "px")};
-    padding-bottom: ${(p) => p.theme.dimensions(4, "px")};
-  `,
+  CloseIcon: styled.TouchableOpacity``,
   TitleContainer: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: ${(p) => p.theme.dimensions(20, "px")};
     align-self: flex-start;
   `,
   Title: styled.Text`
@@ -133,12 +140,11 @@ const S = {
     align-items: center;
     justify-content: space-between;
     width: ${(p) => p.theme.dimensions(100, "%")};
-    gap: ${(p) => p.theme.dimensions(4, "px")};
+    gap: ${(p) => p.theme.dimensions(10, "px")};
   `,
   BioTitle: styled.Text`
     align-items: center;
     justify-content: space-between;
-    gap: ${(p) => p.theme.dimensions(4, "px")};
     color: ${(p) => p.theme.secondary};
     align-self: flex-start;
     font-family: circularStdLight;
@@ -147,7 +153,7 @@ const S = {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: ${(p) => p.theme.dimensions(20, "px")};
   `,
   Switch: styled.Switch``,
 };

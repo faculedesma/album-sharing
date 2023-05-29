@@ -39,8 +39,8 @@ const S = {
     flex-direction: row;
     align-items: flex-end;
     justify-content: space-between;
-    margin-top: ${(p) => p.theme.dimensions(48, "px")};
-    margin-bottom: ${(p) => p.theme.dimensions(24, "px")};
+    margin-top: ${(p) => p.theme.dimensions(60, "px")};
+    margin-bottom: ${(p) => p.theme.dimensions(20, "px")};
   `,
   HeaderRight: styled.View`
     flex-direction: row;
