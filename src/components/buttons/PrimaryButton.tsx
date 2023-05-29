@@ -3,6 +3,8 @@ import styled from "styled-components/native";
 import { Link } from "expo-router";
 import { ArrowRight } from "src/assets/svgs/ArrowRight";
 import Spinner from "src/components/loaders/Spinner";
+import { GenericText } from "../text/GenericText";
+import { appTheme } from "src/assets/styles/theme";
 
 interface IPrimaryProps {
   href: string;
@@ -10,6 +12,7 @@ interface IPrimaryProps {
   icon?: boolean;
   bold?: boolean;
   size?: string;
+  color?: string;
   handlePress?: () => void;
 }
 
@@ -19,6 +22,7 @@ export default function PrimaryButton({
   icon = true,
   bold = false,
   size = "sm",
+  color = appTheme.secondary,
   handlePress = undefined,
 }: IPrimaryProps) {
   const [loading, setLoading] = useState<boolean>(false);
@@ -38,25 +42,13 @@ export default function PrimaryButton({
         href={href}
         onPress={handlePress && handleLinkPress}
       >
-        {bold ? (
-          <S.ButtonTextBold
-            testID="primary-button-text-bold"
-            style={{
-              fontSize: size === "sm" ? 12 : 16,
-            }}
-          >
-            {loading ? <Spinner /> : text}
-          </S.ButtonTextBold>
-        ) : (
-          <S.ButtonText
-            testID="primary-button-text-bold"
-            style={{
-              fontSize: size === "sm" ? 12 : 16,
-            }}
-          >
-            {loading ? <Spinner /> : text}
-          </S.ButtonText>
-        )}
+        <GenericText
+          size={size === "sm" ? 12 : 16}
+          weight={bold ? "bold" : "light"}
+          color={color}
+          content={loading ? <Spinner /> : text}
+        />
+
         <S.Icon>{icon && <ArrowRight />}</S.Icon>
       </S.ButtonLink>
     </S.ButtonContainer>
@@ -75,18 +67,6 @@ const S = {
     overflow: hidden;
   `,
   ButtonLink: styled(Link)``,
-  ButtonText: styled.Text`
-    color: ${(p) => p.theme.primary};
-    font-family: circularStdLight;
-    font-size: ${(p) => p.theme.dimensions(14, "px")};
-    text-align: center;
-  `,
-  ButtonTextBold: styled.Text`
-    color: ${(p) => p.theme.primary};
-    font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(14, "px")};
-    text-align: center;
-  `,
   Icon: styled.View`
     align-items: center;
     justify-content: center;

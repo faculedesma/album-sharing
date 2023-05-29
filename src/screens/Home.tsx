@@ -5,6 +5,7 @@ import { appTheme } from "src/assets/styles/theme";
 import Header from "src/components/header/Header";
 import BottomNavbar from "src/components/bottom-navbar/BottomNavbar";
 import { Birthday } from "src/components/birthday/BirthdaySection";
+import { GenericText } from "src/components/text/GenericText";
 
 interface IRowProps {
   user: string;
@@ -18,11 +19,11 @@ const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
     <S.Row>
       <S.Avatar style={{ backgroundColor: `${color}` }}></S.Avatar>
       <S.Recommendation>
-        <S.TextBold testID="home-screen-text">{user}</S.TextBold>
-        <S.Text testID="home-screen-text">recommended</S.Text>
-        <S.TextBold testID="home-screen-text">{album}</S.TextBold>
-        <S.Text testID="home-screen-text">on</S.Text>
-        <S.Text testID="home-screen-text">{date}.</S.Text>
+        <GenericText size={14} weight="bold" content={user} />
+        <GenericText size={14} weight="light" content="recommended" />
+        <GenericText size={14} weight="bold" content={album} />
+        <GenericText size={14} weight="light" content="on" />
+        <GenericText size={14} weight="light" content={date} />
       </S.Recommendation>
     </S.Row>
   );
@@ -34,7 +35,7 @@ const Latest = () => {
       <S.LatestTop testID="home-screen-latest">
         <S.Title testID="home-screen-latest-title">Latest</S.Title>
         <S.Group testID="home-screen-latest-group">
-          <S.TextBold>Los Pica</S.TextBold>
+          <GenericText size={14} weight="bold" content="Los Pica" />
         </S.Group>
       </S.LatestTop>
       <S.LatestCard>
@@ -142,16 +143,6 @@ const S = {
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: ${(p) => p.theme.dimensions(4, "px")};
-  `,
-  Text: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdLight;
-    font-size: ${(p) => p.theme.dimensions(14, "px")};
-  `,
-  TextBold: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(14, "px")};
   `,
   ViewAllButton: styled.Text`
     align-self: flex-end;

@@ -10,6 +10,7 @@ import { Close } from "src/assets/svgs/Close";
 import { Leave } from "src/assets/svgs/Leave";
 import { Notification } from "src/assets/svgs/Notification";
 import { appTheme } from "src/assets/styles/theme";
+import { GenericText } from "../text/GenericText";
 
 export default function Profile({ closeModal }) {
   const [bioText, setBioText] = useState<string>(
@@ -36,6 +37,7 @@ export default function Profile({ closeModal }) {
           </S.CloseIcon>
           <S.Title testID="intro-screen-title">Profile</S.Title>
         </S.TitleContainer>
+
         <S.Avatar></S.Avatar>
         <S.UsernameInput
           value={username}
@@ -57,7 +59,8 @@ export default function Profile({ closeModal }) {
         <TouchableOpacity onPress={closeModal}>
           <S.Item>
             <Notification />
-            <S.Text>Notifications</S.Text>
+            <GenericText size={16} weight="light" content="Notifications" />
+
             <S.Switch
               trackColor={{ false: appTheme.shades50, true: appTheme.shades50 }}
               thumbColor={isEnabled ? appTheme.highlight : appTheme.shades100}
@@ -69,7 +72,7 @@ export default function Profile({ closeModal }) {
         <TouchableOpacity onPress={closeModal}>
           <S.Item>
             <Leave />
-            <S.Text>Logout</S.Text>
+            <GenericText size={16} weight="light" content="Logout" />
           </S.Item>
         </TouchableOpacity>
       </S.Wrapper>
@@ -162,9 +165,4 @@ const S = {
     gap: ${(p) => p.theme.dimensions(16, "px")};
   `,
   Switch: styled.Switch``,
-  Text: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdLight;
-    font-size: ${(p) => p.theme.dimensions(16, "px")};
-  `,
 };

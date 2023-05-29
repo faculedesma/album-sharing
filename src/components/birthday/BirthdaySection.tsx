@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { Modal } from "react-native";
 import jsonData from "../../data/albums.json";
 import { Album } from "../album/Album";
+import { GenericText } from "../text/GenericText";
 
 interface IAlbum {
   id: string;
@@ -74,12 +75,20 @@ export const Birthday = () => {
                     }}
                   ></S.AlbumCover>
                   <S.AlbumLabels>
-                    <S.TextBold ellipsizeMode="tail" numberOfLines={1}>
-                      {album.name}
-                    </S.TextBold>
-                    <S.Text ellipsizeMode="tail" numberOfLines={1}>
-                      {album.artist}
-                    </S.Text>
+                    <GenericText
+                      size={14}
+                      weight="bold"
+                      content={album.name}
+                      ellipsizeMode="tail"
+                      numberOfLines={1}
+                    />
+                    <GenericText
+                      size={14}
+                      weight="light"
+                      content={album.name}
+                      ellipsizeMode="tail"
+                      numberOfLines={1}
+                    />
                   </S.AlbumLabels>
                 </S.AlbumContainer>
               );
@@ -148,15 +157,5 @@ const S = {
     gap: ${(p) => p.theme.dimensions(8, "px")};
     align-items: flex-start;
     justify-content: space-between;
-  `,
-  Text: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdLight;
-    font-size: ${(p) => p.theme.dimensions(14, "px")};
-  `,
-  TextBold: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(14, "px")};
   `,
 };

@@ -5,6 +5,7 @@ import { Heart } from "src/assets/svgs/Heart";
 import { usePathname } from "expo-router";
 import { ReactElement } from "react";
 import { Link } from "expo-router";
+import { GenericText } from "../text/GenericText";
 
 interface INavLink {
   id: string;
@@ -49,7 +50,7 @@ const BottomNavbarLink = ({ link }: INavLinkProps) => {
       >
         {link.icon}
       </S.Link>
-      <S.Text>{link.label}</S.Text>
+      <GenericText size={12} weight="light" content={link.label} />
     </S.LinkContainer>
   );
 };
@@ -87,14 +88,4 @@ const S = {
     justify-content: space-between;
   `,
   Link: styled(Link)``,
-  Text: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdLight;
-    font-size: ${(p) => p.theme.dimensions(12, "px")};
-  `,
-  TextBold: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(14, "px")};
-  `,
 };

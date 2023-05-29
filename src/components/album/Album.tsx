@@ -4,8 +4,10 @@ import styled from "styled-components/native";
 import { Stack } from "expo-router";
 import { Close } from "src/assets/svgs/Close";
 import { ArrowBack } from "src/assets/svgs/ArrowBack";
+import { GenericText } from "../text/GenericText";
 
-const accessToken = "";
+const accessToken =
+  "BQDs1YuG18O4lZUZpOSo1VF4ztELn11--X8ZSsmv4aTdIoc05rLCKmldmIniANS9XB5HDwpr36HBvfe_APe8sZA3OgofeqtHWUxCxvanEQqAB1xpHBwkUoCS5AV5ckXF0QMyki6YV5yJbx9I_LOgUGBVPHZdAC4ozWwBbQEKTO7eS81-7FZ6";
 
 interface IAlbumProps {
   id: string;
@@ -26,8 +28,8 @@ const TrackRow = ({ track }: ITrackProps) => {
   return (
     <S.TrackRowContainer>
       <S.TrackRow>
-        <S.TextBold>{track.track_number}</S.TextBold>
-        <S.Text>{track.name}</S.Text>
+        <GenericText size={14} weight="bold" content={track.track_number} />
+        <GenericText size={14} weight="light" content={track.name} />
         <S.TrackRowExpand>
           <S.ExpandIcon>
             <ArrowBack />
@@ -74,7 +76,7 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
   if (!albumData.name) {
     return (
       <S.LoaderWrapper>
-        <S.Text>Loading</S.Text>
+        <GenericText size={16} weight="light" content="Loading..." />
       </S.LoaderWrapper>
     );
   }
@@ -101,10 +103,17 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
           }}
         ></S.Cover>
         <S.Item>
-          <S.Text>{albumData.artists[0].name}</S.Text>
-          <S.TextBold>{albumData.release_date.split("-")[0]}</S.TextBold>
+          <GenericText
+            size={16}
+            weight="light"
+            content={albumData.artists[0].name}
+          />
+          <GenericText
+            size={14}
+            weight="bold"
+            content={albumData.release_date.split("-")[0]}
+          />
         </S.Item>
-        <S.Text></S.Text>
       </S.Hero>
       <S.Tracks>
         <S.SubTitle>Song lyrics</S.SubTitle>
@@ -207,15 +216,5 @@ const S = {
   TrackRowExpand: styled.View``,
   ExpandIcon: styled.View`
     transform: rotate(-90deg);
-  `,
-  Text: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdLight;
-    font-size: ${(p) => p.theme.dimensions(16, "px")};
-  `,
-  TextBold: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(14, "px")};
   `,
 };

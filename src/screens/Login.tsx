@@ -7,6 +7,7 @@ import { EyeDisabled } from "src/assets/svgs/EyeDisabled";
 import { Eye } from "src/assets/svgs/Eye";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import PrimaryButton from "src/components/buttons/PrimaryButton";
+import { appTheme } from "src/assets/styles/theme";
 
 export default function Login() {
   const [username, setUsername] = useState<string>("");
@@ -63,6 +64,7 @@ export default function Login() {
             icon={false}
             bold={true}
             size="md"
+            color={appTheme.primary}
             handlePress={() => console.log("loggin in")}
           />
         </S.LoginButton>

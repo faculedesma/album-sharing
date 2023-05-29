@@ -1,11 +1,10 @@
 import styled from "styled-components/native";
-import { Stack, useRouter } from "expo-router";
-import SecondaryButton from "src/components/buttons/SecondaryButton";
+import { Stack } from "expo-router";
 import { appTheme } from "src/assets/styles/theme";
 import Header from "src/components/header/Header";
 import BottomNavbar from "src/components/bottom-navbar/BottomNavbar";
 import { Plus } from "src/assets/svgs/Plus";
-import { ArrowBack } from "src/assets/svgs/ArrowBack";
+import { GenericText } from "src/components/text/GenericText";
 
 const groups = [
   {
@@ -46,15 +45,16 @@ const GroupRow = ({
     <S.GroupRow>
       <S.Avatar style={{ backgroundColor: `${color}` }}></S.Avatar>
       <S.Username>
-        <S.TextBold testID="home-screen-text">{user}</S.TextBold>
+        <GenericText size={14} weight="bold" content={user} />
+
         {isAdmin && (
           <S.AdministratorChip>
-            <S.TextBold
-              testID="home-screen-text"
-              style={{ fontSize: 10, color: appTheme.primary }}
-            >
-              Administrator
-            </S.TextBold>
+            <GenericText
+              size={12}
+              weight="bold"
+              content="Administrator"
+              color={appTheme.primary}
+            />
           </S.AdministratorChip>
         )}
       </S.Username>
@@ -62,27 +62,18 @@ const GroupRow = ({
   );
 };
 
-const GroupChip = ({ id, name }: IGroupChipProps) => {
+const GroupChip = ({ name }: IGroupChipProps) => {
   return (
     <S.GroupChip testID="groups-screen-chip">
-      <S.TextBold>{name}</S.TextBold>
+      <GenericText size={14} weight="bold" content={name} />
     </S.GroupChip>
   );
 };
 
 const MyGroups = () => {
-  const router = useRouter();
-
   return (
     <>
       <S.TitleContainer>
-        {/* <S.Text
-          onPress={() => {
-            router.back();
-          }}
-        >
-          <ArrowBack />
-        </S.Text> */}
         <S.Title testID="groups-screen-latest-title">Groups</S.Title>
       </S.TitleContainer>
       <S.SubTitleContainer testID="grops-screen-latest-title">

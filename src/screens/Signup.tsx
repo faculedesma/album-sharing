@@ -6,6 +6,7 @@ import { Logo } from "src/assets/svgs/Logo";
 import { EyeDisabled } from "src/assets/svgs/EyeDisabled";
 import { Eye } from "src/assets/svgs/Eye";
 import PrimaryButton from "src/components/buttons/PrimaryButton";
+import { appTheme } from "src/assets/styles/theme";
 
 export default function Signup() {
   const [username, setUsername] = useState<string>("");
@@ -73,6 +74,7 @@ export default function Signup() {
             icon={false}
             bold={true}
             size="md"
+            color={appTheme.primary}
             handlePress={() => console.log("go to introduction")}
           />
         </S.SignupButton>
