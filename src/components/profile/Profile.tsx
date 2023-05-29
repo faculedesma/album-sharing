@@ -31,9 +31,9 @@ export default function Profile({ closeModal }) {
           options={{ title: "Introducion Screen", headerShown: false }}
         />
         <S.TitleContainer>
-          <TouchableOpacity onPress={closeModal}>
+          <S.CloseIcon onPress={closeModal}>
             <Close />
-          </TouchableOpacity>
+          </S.CloseIcon>
           <S.Title testID="intro-screen-title">Profile</S.Title>
         </S.TitleContainer>
         <S.Avatar></S.Avatar>
@@ -60,7 +60,7 @@ export default function Profile({ closeModal }) {
             <S.Text>Notifications</S.Text>
             <S.Switch
               trackColor={{ false: appTheme.shades50, true: appTheme.shades50 }}
-              thumbColor={isEnabled ? appTheme.highlight : appTheme.shades200}
+              thumbColor={isEnabled ? appTheme.highlight : appTheme.shades100}
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
@@ -87,6 +87,10 @@ const S = {
     gap: ${(p) => p.theme.dimensions(16, "px")};
     background-color: ${(p) => p.theme.primary};
     padding-top: ${(p) => p.theme.dimensions(64, "px")};
+  `,
+  CloseIcon: styled.TouchableOpacity`
+    padding-top: ${(p) => p.theme.dimensions(4, "px")};
+    padding-bottom: ${(p) => p.theme.dimensions(4, "px")};
   `,
   TitleContainer: styled.View`
     flex-direction: row;

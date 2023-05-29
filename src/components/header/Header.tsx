@@ -2,9 +2,8 @@ import { useState } from "react";
 import styled from "styled-components/native";
 import { Search } from "src/assets/svgs/Search";
 import { Logo } from "src/assets/svgs/Logo";
-import { Modal } from "react-native";
+import { Modal, TouchableOpacity } from "react-native";
 import Profile from "../profile/Profile";
-import { TouchableOpacity } from "react-native";
 
 const Header = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
