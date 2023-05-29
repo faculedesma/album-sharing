@@ -13,7 +13,7 @@ export default function Introduction() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <S.Wrapper testID="intro-screen">
+      <S.Wrapper testID="intro-screen" behavior="padding">
         <Stack.Screen
           options={{ title: "Introducion Screen", headerShown: false }}
         />
@@ -58,7 +58,7 @@ export default function Introduction() {
 }
 
 const S = {
-  Wrapper: styled.View`
+  Wrapper: styled.KeyboardAvoidingView`
     flex: 1;
     align-items: center;
     justify-content: center;

@@ -19,8 +19,8 @@ export const GenericText = ({
   weight,
   color = appTheme.secondary,
   content,
-  ellipsizeMode = undefined,
-  numberOfLines = undefined,
+  ellipsizeMode = "tail",
+  numberOfLines = 1,
 }: ITextrops) => {
   switch (weight) {
     case "light":
@@ -30,6 +30,8 @@ export const GenericText = ({
             color: color,
             fontSize: size,
           }}
+          ellipsizeMode={ellipsizeMode}
+          numberOfLines={numberOfLines}
         >
           {content}
         </S.TextLight>
@@ -41,6 +43,8 @@ export const GenericText = ({
             color: color,
             fontSize: size,
           }}
+          ellipsizeMode={ellipsizeMode}
+          numberOfLines={numberOfLines}
         >
           {content}
         </S.TextBold>
@@ -52,6 +56,8 @@ export const GenericText = ({
             color: color,
             fontSize: size,
           }}
+          ellipsizeMode={ellipsizeMode}
+          numberOfLines={numberOfLines}
         >
           {content}
         </S.TextBook>
@@ -63,6 +69,8 @@ export const GenericText = ({
             color: color,
             fontSize: size,
           }}
+          ellipsizeMode={ellipsizeMode}
+          numberOfLines={numberOfLines}
         >
           {content}
         </S.TextMedium>

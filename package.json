@@ -34,6 +34,7 @@
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.2",
     "expo-updates": "~0.16.4",
+    "firebase": "^9.22.1",
     "metro-config": "^0.76.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",

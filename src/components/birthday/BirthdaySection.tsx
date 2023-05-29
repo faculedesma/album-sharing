@@ -75,19 +75,11 @@ export const Birthday = () => {
                     }}
                   ></S.AlbumCover>
                   <S.AlbumLabels>
-                    <GenericText
-                      size={14}
-                      weight="bold"
-                      content={album.name}
-                      ellipsizeMode="tail"
-                      numberOfLines={1}
-                    />
+                    <GenericText size={14} weight="bold" content={album.name} />
                     <GenericText
                       size={14}
                       weight="light"
                       content={album.name}
-                      ellipsizeMode="tail"
-                      numberOfLines={1}
                     />
                   </S.AlbumLabels>
                 </S.AlbumContainer>

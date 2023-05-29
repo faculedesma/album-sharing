@@ -1,24 +1,44 @@
 import { useState } from "react";
 import { TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components/native";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { Logo } from "src/assets/svgs/Logo";
 import { EyeDisabled } from "src/assets/svgs/EyeDisabled";
 import { Eye } from "src/assets/svgs/Eye";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import PrimaryButton from "src/components/buttons/PrimaryButton";
 import { appTheme } from "src/assets/styles/theme";
+import { auth } from "../../firebase";
 
 export default function Login() {
-  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [hide, setHide] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const handleToggleHidde = () => setHide(!hide);
 
+  const handleSignIn = async () => {
+    setLoading(true);
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((response) => {
+        setLoading(false);
+        console.log(response.user);
+        router.push("/home");
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log(error);
+        new Error(error.message);
+      });
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <S.Wrapper testID="login-screen">
+      <S.Wrapper testID="login-screen" behavior="padding">
         <Stack.Screen options={{ title: "Login Screen", headerShown: false }} />
         <S.LoginTop>
           <S.LogoContainer testID="login-screen-logo">
@@ -28,16 +48,16 @@ export default function Login() {
         </S.LoginTop>
         <S.Inputs testID="intro-screen-bio">
           <S.Input
-            value={username}
-            multiline={true}
+            value={email}
             maxLength={100}
-            placeholder="Username or email"
-            onChangeText={(value) => setUsername(value)}
+            placeholder="Email"
+            autoCapitalize="none"
+            onChangeText={(value) => setEmail(value)}
+            placeholderTextColor={appTheme.shades200}
           ></S.Input>
           <S.PasswordContainer>
             <S.Input
               value={password}
-              multiline={true}
               maxLength={100}
               placeholder="Password"
               autoCorrect={false}
@@ -59,13 +79,13 @@ export default function Login() {
         </S.ForgotPassword>
         <S.LoginButton>
           <PrimaryButton
-            href="/home"
             text="Log in"
             icon={false}
             bold={true}
             size="md"
             color={appTheme.primary}
-            handlePress={() => console.log("loggin in")}
+            handlePress={handleSignIn}
+            loading={loading}
           />
         </S.LoginButton>
         <S.SignupButton>
@@ -83,7 +103,7 @@ export default function Login() {
 }
 
 const S = {
-  Wrapper: styled.View`
+  Wrapper: styled.KeyboardAvoidingView`
     flex: 1;
     align-items: center;
     justify-content: center;

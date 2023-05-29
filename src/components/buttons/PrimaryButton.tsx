@@ -1,47 +1,31 @@
-import { useState } from "react";
 import styled from "styled-components/native";
-import { Link } from "expo-router";
 import { ArrowRight } from "src/assets/svgs/ArrowRight";
 import Spinner from "src/components/loaders/Spinner";
 import { GenericText } from "../text/GenericText";
 import { appTheme } from "src/assets/styles/theme";
 
 interface IPrimaryProps {
-  href: string;
   text: string;
   icon?: boolean;
   bold?: boolean;
   size?: string;
   color?: string;
-  handlePress?: () => void;
+  handlePress: () => void;
+  loading?: boolean;
 }
 
 export default function PrimaryButton({
-  href,
   text,
   icon = true,
   bold = false,
   size = "sm",
   color = appTheme.secondary,
-  handlePress = undefined,
+  handlePress,
+  loading = false,
 }: IPrimaryProps) {
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const handleLinkPress = async () => {
-    setLoading(true);
-    await setTimeout(() => {
-      setLoading(false);
-      handlePress && handlePress();
-    }, 3000);
-  };
-
   return (
     <S.ButtonContainer>
-      <S.ButtonLink
-        testID="primary-button"
-        href={href}
-        onPress={handlePress && handleLinkPress}
-      >
+      <S.Button testID="primary-button" onPress={handlePress}>
         <GenericText
           size={size === "sm" ? 12 : 16}
           weight={bold ? "bold" : "light"}
@@ -50,7 +34,7 @@ export default function PrimaryButton({
         />
 
         <S.Icon>{icon && <ArrowRight />}</S.Icon>
-      </S.ButtonLink>
+      </S.Button>
     </S.ButtonContainer>
   );
 }
@@ -66,7 +50,7 @@ const S = {
     border-radius: ${(p) => p.theme.dimensions(4, "px")};
     overflow: hidden;
   `,
-  ButtonLink: styled(Link)``,
+  Button: styled.Pressable``,
   Icon: styled.View`
     align-items: center;
     justify-content: center;

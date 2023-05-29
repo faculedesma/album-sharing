@@ -5,12 +5,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import styled from "styled-components/native";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { Close } from "src/assets/svgs/Close";
 import { Leave } from "src/assets/svgs/Leave";
 import { Notification } from "src/assets/svgs/Notification";
 import { appTheme } from "src/assets/styles/theme";
 import { GenericText } from "../text/GenericText";
+import { auth } from "../../../firebase";
 
 export default function Profile({ closeModal }) {
   const [bioText, setBioText] = useState<string>(
@@ -19,11 +20,23 @@ export default function Profile({ closeModal }) {
   const [username, setUsername] = useState<string>("@chicha73");
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
 
+  const router = useRouter();
+
   const toggleSwitch = () => setIsEnabled(!isEnabled);
 
   const handleOnChangeBio = (value) => setBioText(value);
 
   const handleOnChangeUsername = (value) => setBioText(value);
+
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        closeModal()
+        router.replace("/login");
+      })
+      .catch((error) => new Error("There was an error signing out."));
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -69,7 +82,7 @@ export default function Profile({ closeModal }) {
             />
           </S.Item>
         </TouchableOpacity>
-        <TouchableOpacity onPress={closeModal}>
+        <TouchableOpacity onPress={handleSignOut}>
           <S.Item>
             <Leave />
             <GenericText size={16} weight="light" content="Logout" />
