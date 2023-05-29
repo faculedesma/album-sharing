@@ -9,8 +9,11 @@ import { GenericInput } from "src/components/inputs/GenericInput";
 
 export default function Introduction() {
   const [bioText, setBioText] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
 
   const handleOnChangeBio = (value: string) => setBioText(value);
+
+  const handleOnChangeNickname = (value: string) => setNickname(value);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -22,6 +25,13 @@ export default function Introduction() {
           <Logo />
         </S.LogoContainer>
         <S.Title testID="intro-screen-title">Choose avatar</S.Title>
+        <GenericInput
+          value={nickname}
+          maxLength={100}
+          textContentType="nickname"
+          placeholder="Nickname"
+          handleChangeText={handleOnChangeNickname}
+        />
         <S.AvatarOptions testID="intro-screen-options">
           <S.Circle style={{ backgroundColor: appTheme.red }}></S.Circle>
           <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
@@ -36,7 +46,7 @@ export default function Introduction() {
           <S.BioTitle>Bio</S.BioTitle>
           <GenericInput
             value={bioText}
-            height={175}
+            height={150}
             maxLength={150}
             multiline={true}
             numberOfLines={5}
@@ -67,7 +77,7 @@ const S = {
     justify-content: center;
     padding-right: ${(p) => p.theme.dimensions(5, "%")};
     padding-left: ${(p) => p.theme.dimensions(5, "%")};
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: ${(p) => p.theme.dimensions(20, "px")};
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
@@ -86,14 +96,11 @@ const S = {
     overflow: visible;
   `,
   AvatarOptions: styled.View`
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    height: ${(p) => p.theme.dimensions(200, "px")};
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
-    gap: ${(p) => p.theme.dimensions(8, "px")};
-    padding-left: ${(p) => p.theme.dimensions(16, "px")};
+    gap: ${(p) => p.theme.dimensions(16, "px")};
   `,
   Circle: styled.View`
     height: ${(p) => p.theme.dimensions(75, "px")};
@@ -106,7 +113,7 @@ const S = {
     align-items: center;
     justify-content: space-between;
     width: ${(p) => p.theme.dimensions(100, "%")};
-    gap: ${(p) => p.theme.dimensions(4, "px")};
+    gap: ${(p) => p.theme.dimensions(10, "px")};
   `,
   BioTitle: styled.Text`
     align-items: center;
@@ -118,6 +125,5 @@ const S = {
   `,
   ContinueButton: styled.Text`
     align-self: center;
-    margin-top: ${(p) => p.theme.dimensions(16, "px")};b
   `,
 };

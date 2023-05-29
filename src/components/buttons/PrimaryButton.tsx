@@ -32,7 +32,6 @@ export default function PrimaryButton({
           color={color}
           content={loading ? <Spinner /> : text}
         />
-
         <S.Icon>{icon && <ArrowRight />}</S.Icon>
       </S.Button>
     </S.ButtonContainer>

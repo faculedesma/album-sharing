@@ -51,7 +51,6 @@ export default function Profile({ closeModal }) {
           </S.CloseIcon>
           <S.Title testID="intro-screen-title">Profile</S.Title>
         </S.TitleContainer>
-
         <S.Avatar></S.Avatar>
         <GenericInput
           value={username}
@@ -64,7 +63,7 @@ export default function Profile({ closeModal }) {
           <S.BioTitle>Bio</S.BioTitle>
           <GenericInput
             value={bioText}
-            height={175}
+            height={150}
             maxLength={200}
             multiline={true}
             placeholder="Add a little description about yourself"

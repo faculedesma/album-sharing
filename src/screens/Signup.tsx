@@ -9,6 +9,7 @@ import PrimaryButton from "src/components/buttons/PrimaryButton";
 import { appTheme } from "src/assets/styles/theme";
 import { auth } from "../../firebase";
 import { GenericInput } from "src/components/inputs/GenericInput";
+import Toast from "react-native-toast-message";
 
 export default function Signup() {
   const [email, setEmail] = useState<string>("");
@@ -25,6 +26,13 @@ export default function Signup() {
   const handleToggleHideRepeat = () => setHideRepeat(!hideRepeat);
 
   const handleSignUp = async () => {
+    if (password !== repeat) {
+      Toast.show({
+        type: "error",
+        text1: "Passwords must match",
+      });
+      return;
+    }
     setLoading(true);
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -36,6 +44,10 @@ export default function Signup() {
       .catch((error) => {
         setLoading(false);
         console.log(error.message);
+        Toast.show({
+          type: "error",
+          text1: error.message.split(":")[1].split(".")[0],
+        });
         new Error(error.message);
       });
   };
@@ -43,14 +55,15 @@ export default function Signup() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <S.Wrapper testID="login-screen" behavior="padding">
-        <Stack.Screen options={{ title: "Login Screen", headerShown: false }} />
+        <Stack.Screen
+          options={{ title: "Sign up Screen", headerShown: false }}
+        />
         <S.SignupTop>
-          <S.LogoContainer testID="login-screen-logo">
+          <S.LogoContainer testID="signup-screen-logo">
             <Logo />
           </S.LogoContainer>
-          <S.Title testID="login-screen-title">Sharing</S.Title>
         </S.SignupTop>
-        <S.Inputs testID="intro-screen-bio">
+        <S.Inputs testID="signup-screen-bio">
           <GenericInput
             value={email}
             maxLength={100}
@@ -84,18 +97,18 @@ export default function Signup() {
               {hideRepeat ? <EyeDisabled /> : <Eye />}
             </S.Icon>
           </S.PasswordContainer>
+          <S.SignupButton>
+            <PrimaryButton
+              text="Sign up"
+              icon={false}
+              bold={true}
+              size="md"
+              color={appTheme.primary}
+              handlePress={handleSignUp}
+              loading={loading}
+            />
+          </S.SignupButton>
         </S.Inputs>
-        <S.SignupButton>
-          <PrimaryButton
-            text="Sign up"
-            icon={false}
-            bold={true}
-            size="md"
-            color={appTheme.primary}
-            handlePress={handleSignUp}
-            loading={loading}
-          />
-        </S.SignupButton>
       </S.Wrapper>
     </TouchableWithoutFeedback>
   );
@@ -108,18 +121,11 @@ const S = {
     justify-content: center;
     padding-right: ${(p) => p.theme.dimensions(5, "%")};
     padding-left: ${(p) => p.theme.dimensions(5, "%")};
-    gap: ${(p) => p.theme.dimensions(16, "px")};
   `,
   SignupTop: styled.View`
     align-items: center;
     justify-content: center;
-    margin-bottom: ${(p) => p.theme.dimensions(64, "px")};
-  `,
-  Title: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(36, "px")};
-    margin-top: ${(p) => p.theme.dimensions(16, "px")};
+    margin-bottom: ${(p) => p.theme.dimensions(80, "px")};
   `,
   LogoContainer: styled.View`
     height: ${(p) => p.theme.dimensions(100, "px")};
@@ -135,7 +141,7 @@ const S = {
     align-items: center;
     justify-content: space-between;
     width: ${(p) => p.theme.dimensions(100, "%")};
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: ${(p) => p.theme.dimensions(20, "px")};
   `,
   PasswordContainer: styled.View`
     height: ${(p) => p.theme.dimensions(50, "px")};

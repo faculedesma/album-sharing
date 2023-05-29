@@ -5,6 +5,7 @@ import { Stack } from "expo-router";
 import { Close } from "src/assets/svgs/Close";
 import { ArrowBack } from "src/assets/svgs/ArrowBack";
 import { GenericText } from "../text/GenericText";
+import Toast from "react-native-toast-message";
 
 const accessToken =
   "BQDs1YuG18O4lZUZpOSo1VF4ztELn11--X8ZSsmv4aTdIoc05rLCKmldmIniANS9XB5HDwpr36HBvfe_APe8sZA3OgofeqtHWUxCxvanEQqAB1xpHBwkUoCS5AV5ckXF0QMyki6YV5yJbx9I_LOgUGBVPHZdAC4ozWwBbQEKTO7eS81-7FZ6";
@@ -57,15 +58,21 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
 
         if (response.ok) {
           const data = await response.json();
-          setTimeout(() => {
-            setAlbumData(data);
-          }, 3000);
+          setAlbumData(data);
         } else {
           console.error("Error:", response.status);
+          Toast.show({
+            type: "error",
+            text1: "There was an error fetching album data. Please try again.",
+          });
           closeModal();
         }
       } catch (error) {
         console.error("Error:", error);
+        Toast.show({
+          type: "error",
+          text1: "There was an error fetching album data. Please try again.",
+        });
         closeModal();
       }
     };

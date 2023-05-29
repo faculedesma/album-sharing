@@ -10,6 +10,7 @@ import PrimaryButton from "src/components/buttons/PrimaryButton";
 import { appTheme } from "src/assets/styles/theme";
 import { auth } from "../../firebase";
 import { GenericInput } from "src/components/inputs/GenericInput";
+import Toast from "react-native-toast-message";
 
 export default function Login() {
   const [email, setEmail] = useState<string>("");
@@ -31,6 +32,10 @@ export default function Login() {
         router.push("/home");
       })
       .catch((error) => {
+        Toast.show({
+          type: "error",
+          text1: error.message.split(":")[1].split(".")[0],
+        });
         setLoading(false);
         console.log(error);
         new Error(error.message);
@@ -45,9 +50,8 @@ export default function Login() {
           <S.LogoContainer testID="login-screen-logo">
             <Logo />
           </S.LogoContainer>
-          <S.Title testID="login-screen-title">Sharing</S.Title>
         </S.LoginTop>
-        <S.Inputs testID="intro-screen-bio">
+        <S.LoginInputs testID="login-screen-inputs">
           <GenericInput
             value={email}
             maxLength={100}
@@ -68,34 +72,34 @@ export default function Login() {
               {hide ? <EyeDisabled /> : <Eye />}
             </S.Icon>
           </S.PasswordContainer>
-        </S.Inputs>
-        <S.ForgotPassword>
-          <SecondaryButton
-            href="/introduction"
-            text="Forgot password?"
-            icon={false}
-          />
-        </S.ForgotPassword>
-        <S.LoginButton>
-          <PrimaryButton
-            text="Log in"
-            icon={false}
-            bold={true}
-            size="md"
-            color={appTheme.primary}
-            handlePress={handleSignIn}
-            loading={loading}
-          />
-        </S.LoginButton>
-        <S.SignupButton>
-          <SecondaryButton
-            href="/signup"
-            text="Sign up"
-            icon={false}
-            bold={true}
-            size="md"
-          />
-        </S.SignupButton>
+          <S.ForgotPassword>
+            <SecondaryButton
+              href="/introduction"
+              text="Forgot password?"
+              icon={false}
+            />
+          </S.ForgotPassword>
+          <S.LoginButton>
+            <PrimaryButton
+              text="Log in"
+              icon={false}
+              bold={true}
+              size="md"
+              color={appTheme.primary}
+              handlePress={handleSignIn}
+              loading={loading}
+            />
+          </S.LoginButton>
+          <S.SignupButton>
+            <SecondaryButton
+              href="/signup"
+              text="Sign up"
+              icon={false}
+              bold={true}
+              size="md"
+            />
+          </S.SignupButton>
+        </S.LoginInputs>
       </S.Wrapper>
     </TouchableWithoutFeedback>
   );
@@ -108,18 +112,11 @@ const S = {
     justify-content: center;
     padding-right: ${(p) => p.theme.dimensions(5, "%")};
     padding-left: ${(p) => p.theme.dimensions(5, "%")};
-    gap: ${(p) => p.theme.dimensions(16, "px")};
   `,
   LoginTop: styled.View`
     align-items: center;
     justify-content: center;
-    margin-bottom: ${(p) => p.theme.dimensions(64, "px")};
-  `,
-  Title: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(36, "px")};
-    margin-top: ${(p) => p.theme.dimensions(16, "px")};
+    margin-bottom: ${(p) => p.theme.dimensions(80, "px")};
   `,
   LogoContainer: styled.View`
     height: ${(p) => p.theme.dimensions(100, "px")};
@@ -131,14 +128,13 @@ const S = {
     border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.highlight};
     overflow: visible;
   `,
-  Inputs: styled.View`
+  LoginInputs: styled.View`
     align-items: center;
     justify-content: space-between;
     width: ${(p) => p.theme.dimensions(100, "%")};
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: ${(p) => p.theme.dimensions(20, "px")};
   `,
   PasswordContainer: styled.View`
-    height: ${(p) => p.theme.dimensions(50, "px")};
     width: ${(p) => p.theme.dimensions(100, "%")};
   `,
   Icon: styled.View`
