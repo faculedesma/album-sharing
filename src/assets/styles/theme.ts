@@ -2,7 +2,7 @@ import type { DefaultTheme } from "styled-components";
 import { dimensions, height, width } from "src/assets/styles/dimensions";
 
 export const appTheme: DefaultTheme = {
-  background: "#FFFFFF",
+  background: "transparent",
   primary: "#FFFFFF",
   secondary: "#030303",
   red: "#FF4E45",
@@ -20,7 +20,6 @@ export const appTheme: DefaultTheme = {
   dimensions,
   windowHeight: `${height}px`,
   windowWidth: `${width}px`,
-  wrapper: `${width * 0.9}px`,
 };
 
 export const navTheme = {

@@ -24,6 +24,22 @@ export default function Login() {
 
   const handleSignIn = async () => {
     setLoading(true);
+    if (!email) {
+      Toast.show({
+        type: "error",
+        text1: "Please enter an username",
+      });
+      setLoading(false);
+      return;
+    }
+    if (!password) {
+      Toast.show({
+        type: "error",
+        text1: "Please enter a password",
+      });
+      setLoading(false);
+      return;
+    }
     auth
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
@@ -46,11 +62,9 @@ export default function Login() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <S.Wrapper testID="login-screen" behavior="padding">
         <Stack.Screen options={{ title: "Login Screen", headerShown: false }} />
-        <S.LoginTop>
-          <S.LogoContainer testID="login-screen-logo">
-            <Logo />
-          </S.LogoContainer>
-        </S.LoginTop>
+        <S.LogoContainer testID="login-screen-logo">
+          <Logo />
+        </S.LogoContainer>
         <S.LoginInputs testID="login-screen-inputs">
           <GenericInput
             value={email}
@@ -74,9 +88,9 @@ export default function Login() {
           </S.PasswordContainer>
           <S.ForgotPassword>
             <SecondaryButton
-              href="/introduction"
               text="Forgot password?"
               icon={false}
+              handlePress={() => console.log("Forgotten")}
             />
           </S.ForgotPassword>
           <S.LoginButton>
@@ -92,11 +106,11 @@ export default function Login() {
           </S.LoginButton>
           <S.SignupButton>
             <SecondaryButton
-              href="/signup"
               text="Sign up"
               icon={false}
               bold={true}
               size="md"
+              handlePress={() => router.push("/signup")}
             />
           </S.SignupButton>
         </S.LoginInputs>
@@ -110,43 +124,36 @@ const S = {
     flex: 1;
     align-items: center;
     justify-content: center;
-    padding-right: ${(p) => p.theme.dimensions(5, "%")};
-    padding-left: ${(p) => p.theme.dimensions(5, "%")};
-  `,
-  LoginTop: styled.View`
-    align-items: center;
-    justify-content: center;
-    margin-bottom: ${(p) => p.theme.dimensions(80, "px")};
+    gap: 20px;
   `,
   LogoContainer: styled.View`
-    height: ${(p) => p.theme.dimensions(100, "px")};
-    width: ${(p) => p.theme.dimensions(100, "px")};
+    height: 100px;
+    width: 100px;
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    border-radius: ${(p) => p.theme.dimensions(50, "%")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.highlight};
-    overflow: visible;
+    border-radius: 50%;
+    border: 1px ${(p) => p.theme.highlight};
+    margin-bottom: 80px;
   `,
   LoginInputs: styled.View`
-    align-items: center;
     justify-content: space-between;
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    gap: ${(p) => p.theme.dimensions(20, "px")};
+    width: 100%;
+    gap: 20px;
   `,
   PasswordContainer: styled.View`
-    width: ${(p) => p.theme.dimensions(100, "%")};
+    width: 100%;
   `,
   Icon: styled.View`
     position: absolute;
-    bottom: ${(p) => p.theme.dimensions(16, "px")};
-    right: ${(p) => p.theme.dimensions(16, "px")};
+    bottom: 16px;
+    right: 16px;
   `,
   ForgotPassword: styled.View`
     align-self: flex-end;
   `,
   LoginButton: styled.View`
-    width: ${(p) => p.theme.dimensions(100, "%")};
+    width: 100%;
     align-self: center;
   `,
   SignupButton: styled.View`

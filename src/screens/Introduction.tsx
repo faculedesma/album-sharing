@@ -1,19 +1,41 @@
 import { useState } from "react";
 import { TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components/native";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import { Logo } from "src/assets/svgs/Logo";
 import { appTheme } from "src/assets/styles/theme";
 import { GenericInput } from "src/components/inputs/GenericInput";
+import Toast from "react-native-toast-message";
 
 export default function Introduction() {
   const [bioText, setBioText] = useState<string>("");
-  const [nickname, setNickname] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("@");
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const handleOnChangeBio = (value: string) => setBioText(value);
 
   const handleOnChangeNickname = (value: string) => setNickname(value);
+
+  const handleFinishSignUp = async () => {
+    if (!nickname) {
+      Toast.show({
+        type: "error",
+        text1: "Please enter a nickname",
+      });
+      return;
+    }
+    if (!bioText) {
+      Toast.show({
+        type: "error",
+        text1: "Please enter a bio",
+      });
+      return;
+    }
+    router.replace("/home");
+  };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -57,12 +79,11 @@ export default function Introduction() {
         </S.Bio>
         <S.ContinueButton>
           <SecondaryButton
-            href="/home"
             text="Continue"
             icon={false}
             bold={true}
             size="md"
-            handlePress={() => console.log("finishing sign up")}
+            handlePress={handleFinishSignUp}
           />
         </S.ContinueButton>
       </S.Wrapper>
@@ -75,24 +96,22 @@ const S = {
     flex: 1;
     align-items: center;
     justify-content: center;
-    padding-right: ${(p) => p.theme.dimensions(5, "%")};
-    padding-left: ${(p) => p.theme.dimensions(5, "%")};
-    gap: ${(p) => p.theme.dimensions(20, "px")};
+    gap: 20px;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(36, "px")};
-    margin-bottom: ${(p) => p.theme.dimensions(16, "px")};
+    font-size: 36px;
+    margin-bottom: 16px;
   `,
   LogoContainer: styled.View`
-    height: ${(p) => p.theme.dimensions(100, "px")};
-    width: ${(p) => p.theme.dimensions(100, "px")};
+    height: 100px;
+    width: 100px;
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    border-radius: ${(p) => p.theme.dimensions(50, "%")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.highlight};
+    border-radius: 50%;
+    border: 0.5px ${(p) => p.theme.highlight};
     overflow: visible;
   `,
   AvatarOptions: styled.View`
@@ -100,25 +119,25 @@ const S = {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: 16px;
   `,
   Circle: styled.View`
-    height: ${(p) => p.theme.dimensions(75, "px")};
-    width: ${(p) => p.theme.dimensions(75, "px")};
+    height: 75px;
+    width: 75px;
     background-color: ${(p) => p.theme.highlight}
-    border-radius: ${(p) => p.theme.dimensions(50, "%")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
+    border-radius: 50%;
+    border: 0.5px ${(p) => p.theme.shades200};
   `,
   Bio: styled.View`
     align-items: center;
     justify-content: space-between;
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    gap: ${(p) => p.theme.dimensions(10, "px")};
+    width: 100%;
+    gap: 10px;
   `,
   BioTitle: styled.Text`
     align-items: center;
     justify-content: space-between;
-    gap: ${(p) => p.theme.dimensions(4, "px")};
+    gap: 4px;
     color: ${(p) => p.theme.secondary};
     align-self: flex-start;
     font-family: circularStdLight;

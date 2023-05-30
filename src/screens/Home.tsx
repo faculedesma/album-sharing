@@ -6,6 +6,8 @@ import Header from "src/components/header/Header";
 import BottomNavbar from "src/components/bottom-navbar/BottomNavbar";
 import { Birthday } from "src/components/birthday/BirthdaySection";
 import { GenericText } from "src/components/text/GenericText";
+import { BlurView } from "expo-blur";
+import { View } from "react-native-animatable";
 
 interface IRowProps {
   user: string;
@@ -16,7 +18,7 @@ interface IRowProps {
 
 const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
   return (
-    <S.Row>
+    <S.Row animation="bounceIn" easing="ease-in-cubic" duration={1000}>
       <S.Avatar style={{ backgroundColor: `${color}` }}></S.Avatar>
       <S.RowRecommendation>
         <GenericText size={14} weight="bold" content={user} />
@@ -31,14 +33,14 @@ const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
 
 const Latest = () => {
   return (
-    <S.Latest>
+    <S.Latest animation="bounceInDown" duration={2000}>
       <S.LatestTop testID="home-screen-latest">
         <S.Title testID="home-screen-latest-title">Latest</S.Title>
-        <S.Group testID="home-screen-latest-group">
+        <S.Group testID="home-screen-latest-group" intensity={10} tint="light">
           <GenericText size={14} weight="bold" content="Los Pica" />
         </S.Group>
       </S.LatestTop>
-      <S.LatestCard>
+      <S.LatestCard intensity={5} tint="light">
         <Row
           user="@chicha73"
           album="The Dark Side Of The Moon (Pink Floyd)"
@@ -59,7 +61,10 @@ const Latest = () => {
         />
       </S.LatestCard>
       <S.ViewAllButton>
-        <SecondaryButton href="/login" text="View all" />
+        <SecondaryButton
+          text="View all"
+          handlePress={() => console.log("view all recommendations")}
+        />
       </S.ViewAllButton>
     </S.Latest>
   );
@@ -82,8 +87,6 @@ const S = {
     flex: 1;
     align-items: flex-start;
     justify-content: flex-start;
-    padding-right: ${(p) => p.theme.dimensions(5, "%")};
-    padding-left: ${(p) => p.theme.dimensions(5, "%")};
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
@@ -95,7 +98,7 @@ const S = {
     font-family: circularStdLight;
     font-size: ${(p) => p.theme.dimensions(20, "px")};
   `,
-  Latest: styled.View`
+  Latest: styled(View)`
     width: ${(p) => p.theme.dimensions(100, "%")};
     align-items: flex-start;
     justify-content: space-between;
@@ -107,24 +110,26 @@ const S = {
     align-items: center;
     justify-content: space-between;
   `,
-  Group: styled.View`
+  Group: styled(BlurView)`
     height: ${(p) => p.theme.dimensions(30, "px")};
     align-items: center;
     justify-content: center;
     border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
     border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    padding-left: ${(p) => p.theme.dimensions(8, "px")};
-    padding-right: ${(p) => p.theme.dimensions(8, "px")};
+    padding-left: ${(p) => p.theme.dimensions(10, "px")};
+    padding-right: ${(p) => p.theme.dimensions(10, "px")};
   `,
-  LatestCard: styled.View`
+  LatestCard: styled(BlurView)`
     align-items: center;
     justify-content: space-between;
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
+    border-width: ${(p) => p.theme.dimensions(0.5, "px")};
+    border-color: ${(p) => p.theme.shades200};
     border-radius: ${(p) => p.theme.dimensions(4, "px")};
+    overflow: hidden;
     padding: ${(p) => p.theme.dimensions(20, "px")};
     gap: ${(p) => p.theme.dimensions(20, "px")};
   `,
-  Row: styled.View`
+  Row: styled(View)`
     height: ${(p) => p.theme.dimensions(40, "px")};
     flex-direction: row;
     align-items: center;
@@ -149,6 +154,7 @@ const S = {
     gap: ${(p) => p.theme.dimensions(4, "px")};
   `,
   ViewAllButton: styled.Text`
+    width: 60px;
     align-self: flex-end;
   `,
 };

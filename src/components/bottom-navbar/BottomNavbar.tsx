@@ -6,6 +6,8 @@ import { usePathname } from "expo-router";
 import { ReactElement } from "react";
 import { Link } from "expo-router";
 import { GenericText } from "../text/GenericText";
+import { BlurView } from "expo-blur";
+import { View } from "react-native-animatable";
 
 interface INavLink {
   id: string;
@@ -57,35 +59,44 @@ const BottomNavbarLink = ({ link }: INavLinkProps) => {
 
 const BottomNavbar = () => {
   return (
-    <S.BottomNavbar testID="bottom-navbar">
-      {navLinks.map((link) => {
-        return <BottomNavbarLink key={link.id} link={link} />;
-      })}
-    </S.BottomNavbar>
+    <S.BottomContainer
+      animation="slideInUp"
+      easing="ease-in-cubic"
+      duration={1000}
+    >
+      <S.BottomNavbar testID="bottom-navbar" intensity={10} tint="light">
+        {navLinks.map((link) => {
+          return <BottomNavbarLink key={link.id} link={link} />;
+        })}
+      </S.BottomNavbar>
+    </S.BottomContainer>
   );
 };
 
 export default BottomNavbar;
 
 const S = {
-  BottomNavbar: styled.View`
+  BottomContainer: styled(View)`
     position: absolute;
-    bottom: 0;
+    bottom: 20px;
     left: 0;
-    height: ${(p) => p.theme.dimensions(90, "px")};
-    width: ${(p) => p.theme.windowWidth};
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-around;
+    width: 100%;
+    height: 80px;
+  `,
+  BottomNavbar: styled(BlurView)`
     border-width: ${(p) => p.theme.dimensions(0.5, "px")};
-    border-top-color: ${(p) => p.theme.shades200};
-    margin-top: ${(p) => p.theme.dimensions(24, "px")};
-    padding-top: ${(p) => p.theme.dimensions(8, "px")};
+    border-color: ${(p) => p.theme.shades200};
+    border-radius: ${(p) => p.theme.dimensions(8, "px")};
+    overflow: hidden;
+    background: rgba(${(p) => p.theme.highlight}, 0.5);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
   `,
   LinkContainer: styled.View`
-    height: ${(p) => p.theme.dimensions(40, "px")};
+    height: ${(p) => p.theme.dimensions(100, "%")};
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
   `,
   Link: styled(Link)``,
 };

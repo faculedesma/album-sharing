@@ -1,5 +1,7 @@
 import styled from "styled-components/native";
 import { appTheme } from "src/assets/styles/theme";
+import { BlurView } from "expo-blur";
+import { useState } from "react";
 
 interface IGenericInputProps {
   value: string;
@@ -28,17 +30,22 @@ export const GenericInput = ({
   secureTextEntry = false,
   handleChangeText,
 }: IGenericInputProps) => {
+  const [focused, setFoucsed] = useState<boolean>(false);
+
   return (
     <S.InputContainer
       style={{
         height: height,
+        borderColor: focused ? appTheme.highlight : appTheme.shades100,
       }}
+      intensity={20}
+      tint="light"
     >
       <S.Input
         value={value}
         maxLength={maxLength}
         placeholder={placeholder}
-        placeholderTextColor={appTheme.shades200}
+        placeholderTextColor={appTheme.shades400}
         multiline={multiline}
         autoCorrect={autoCorrect}
         secureTextEntry={secureTextEntry}
@@ -47,6 +54,8 @@ export const GenericInput = ({
         autoCapitalize="none"
         numberOfLines={numberOfLines}
         ellipsizeMode={ellipsizeMode}
+        onFocus={() => setFoucsed(true)}
+        onBlur={() => setFoucsed(false)}
       />
       {multiline && (
         <S.InputMaxChar>
@@ -58,10 +67,12 @@ export const GenericInput = ({
 };
 
 const S = {
-  InputContainer: styled.View`
+  InputContainer: styled(BlurView)`
     width: ${(p) => p.theme.dimensions(100, "%")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
+    border-width: ${(p) => p.theme.dimensions(1, "px")};
+    border-color: ${(p) => p.theme.shades100};
     border-radius: ${(p) => p.theme.dimensions(4, "px")};
+    overflow: hidden;
     padding: ${(p) => p.theme.dimensions(16, "px")};
   `,
   Input: styled.TextInput`

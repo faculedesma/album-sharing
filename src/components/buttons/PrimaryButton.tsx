@@ -3,6 +3,7 @@ import { ArrowRight } from "src/assets/svgs/ArrowRight";
 import Spinner from "src/components/loaders/Spinner";
 import { GenericText } from "../text/GenericText";
 import { appTheme } from "src/assets/styles/theme";
+import { BlurView } from "expo-blur";
 
 interface IPrimaryProps {
   text: string;
@@ -24,7 +25,7 @@ export default function PrimaryButton({
   loading = false,
 }: IPrimaryProps) {
   return (
-    <S.ButtonContainer>
+    <S.ButtonContainer intensity={10} tint="light">
       <S.Button testID="primary-button" onPress={handlePress}>
         <GenericText
           size={size === "sm" ? 12 : 16}
@@ -39,13 +40,15 @@ export default function PrimaryButton({
 }
 
 const S = {
-  ButtonContainer: styled.View`
+  ButtonContainer: styled(BlurView)`
     height: ${(p) => p.theme.dimensions(60, "px")};
     width: ${(p) => p.theme.dimensions(100, "%")};
     align-items: center;
-    gap: ${(p) => p.theme.dimensions(8, "px")};
     justify-content: center;
+    gap: ${(p) => p.theme.dimensions(8, "px")};
     background-color: ${(p) => p.theme.secondary};
+    // border-width: ${(p) => p.theme.dimensions(1, "px")};
+    // border-color: ${(p) => p.theme.highlight};
     border-radius: ${(p) => p.theme.dimensions(4, "px")};
     overflow: hidden;
   `,

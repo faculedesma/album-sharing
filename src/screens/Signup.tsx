@@ -119,41 +119,39 @@ const S = {
     flex: 1;
     align-items: center;
     justify-content: center;
-    padding-right: ${(p) => p.theme.dimensions(5, "%")};
-    padding-left: ${(p) => p.theme.dimensions(5, "%")};
   `,
   SignupTop: styled.View`
     align-items: center;
     justify-content: center;
-    margin-bottom: ${(p) => p.theme.dimensions(80, "px")};
+    margin-bottom: 80px;
   `,
   LogoContainer: styled.View`
-    height: ${(p) => p.theme.dimensions(100, "px")};
-    width: ${(p) => p.theme.dimensions(100, "px")};
+    height: 100px;
+    width: 100px;
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    border-radius: ${(p) => p.theme.dimensions(50, "%")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.highlight};
+    border-radius: 50%;
+    border: 0.5px ${(p) => p.theme.highlight};
     overflow: visible;
   `,
   Inputs: styled.View`
     align-items: center;
     justify-content: space-between;
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    gap: ${(p) => p.theme.dimensions(20, "px")};
+    width: 100%;
+    gap: 20px;
   `,
   PasswordContainer: styled.View`
-    height: ${(p) => p.theme.dimensions(50, "px")};
-    width: ${(p) => p.theme.dimensions(100, "%")};
+    height: 50px;
+    width: 100%;
   `,
   Icon: styled.View`
     position: absolute;
-    bottom: ${(p) => p.theme.dimensions(16, "px")};
-    right: ${(p) => p.theme.dimensions(16, "px")};
+    bottom: 16px;
+    right: 16px;
   `,
   SignupButton: styled.View`
-    width: ${(p) => p.theme.dimensions(100, "%")};
+    width: 100%;
     align-self: center;
   `,
 };

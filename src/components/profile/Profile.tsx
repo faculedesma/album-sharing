@@ -14,6 +14,7 @@ import { GenericText } from "../text/GenericText";
 import { auth } from "../../../firebase";
 import { GenericInput } from "../inputs/GenericInput";
 import Toast from "react-native-toast-message";
+import { BlurView } from "expo-blur";
 
 interface IProfileProps {
   closeModal: () => void;
@@ -51,7 +52,7 @@ export default function Profile({ closeModal }: IProfileProps) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <S.Wrapper testID="profile-screen">
+      <S.Wrapper testID="profile-screen" intensity={10} tint="light">
         <Stack.Screen
           options={{ title: "Profile Screen", headerShown: false }}
         />
@@ -105,15 +106,15 @@ export default function Profile({ closeModal }: IProfileProps) {
 }
 
 const S = {
-  Wrapper: styled.View`
+  Wrapper: styled(BlurView)`
     flex: 1;
     align-items: flex-start;
     justify-content: flex-start;
-    padding-right: ${(p) => p.theme.dimensions(5, "%")};
-    padding-left: ${(p) => p.theme.dimensions(5, "%")};
     gap: ${(p) => p.theme.dimensions(20, "px")};
     background-color: ${(p) => p.theme.primary};
     padding-top: ${(p) => p.theme.dimensions(60, "px")};
+    padding-right: ${(p) => p.theme.dimensions(5, "%")};
+    padding-left: ${(p) => p.theme.dimensions(5, "%")};
   `,
   CloseIcon: styled.TouchableOpacity``,
   TitleContainer: styled.View`
