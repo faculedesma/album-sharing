@@ -41,15 +41,13 @@ export default function PrimaryButton({
 
 const S = {
   ButtonContainer: styled(BlurView)`
-    height: ${(p) => p.theme.dimensions(60, "px")};
-    width: ${(p) => p.theme.dimensions(100, "%")};
+    height: 60px;
+    width: 100%;
     align-items: center;
     justify-content: center;
-    gap: ${(p) => p.theme.dimensions(8, "px")};
+    gap: 8px;
     background-color: ${(p) => p.theme.secondary};
-    // border-width: ${(p) => p.theme.dimensions(1, "px")};
-    // border-color: ${(p) => p.theme.highlight};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
+    border-radius: 4px;
     overflow: hidden;
   `,
   Button: styled.Pressable``,

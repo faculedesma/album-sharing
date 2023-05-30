@@ -4,6 +4,7 @@ import { Modal } from "react-native";
 import jsonData from "../../data/albums.json";
 import { Album } from "../album/Album";
 import { GenericText } from "../text/GenericText";
+import { View, Text } from "react-native-animatable";
 
 interface IAlbum {
   id: string;
@@ -51,9 +52,17 @@ export const Birthday = () => {
 
   return (
     <S.Birthday>
-      <S.Title testID="birthday-title">Today's birthday</S.Title>
-      <S.SubTitle testID="birthday-subtitle">{currentDate}</S.SubTitle>
-      <S.Results>
+      <S.Title testID="birthday-title" animation="fadeInDown" duration={1200}>
+        Today's birthday
+      </S.Title>
+      <S.SubTitle
+        testID="birthday-subtitle"
+        animation="fadeInDown"
+        duration={1300}
+      >
+        {currentDate}
+      </S.SubTitle>
+      <S.Results animation="fadeInDown" duration={1500}>
         <S.ResultsContainer>
           <S.ResultsScroll
             horizontal={true}
@@ -92,23 +101,23 @@ export const Birthday = () => {
 };
 
 const S = {
-  Title: styled.Text`
+  Title: styled(Text)`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(36, "px")};
+    font-size: 36px;
   `,
-  SubTitle: styled.Text`
+  SubTitle: styled(Text)`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
-    font-size: ${(p) => p.theme.dimensions(20, "px")};
+    font-size: 20px;
   `,
   Birthday: styled.View`
     align-items: flex-start;
     justify-content: flex-start;
-    gap: ${(p) => p.theme.dimensions(20, "px")};
+    gap: 20px;
   `,
-  Results: styled.View`
-    height: ${(p) => p.theme.dimensions(180, "px")};
+  Results: styled(View)`
+    height: 180px;
   `,
   ResultsContainer: styled.View`
     width: ${(p) => p.theme.windowWidth};
@@ -121,22 +130,22 @@ const S = {
   AlbumContainer: styled.TouchableOpacity`
     align-items: flex-start;
     justify-content: space-between;
-    gap: ${(p) => p.theme.dimensions(10, "px")};
+    gap: 10px;
   `,
   AlbumCover: styled.ImageBackground`
-    width: ${(p) => p.theme.dimensions(125, "px")};
+    width: 125px;
     flex: 1;
     align-items: center;
     justify-content: center;
     background-color: ${(p) => p.theme.shades50};
     overflow: hidden;
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades100};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    margin-right: ${(p) => p.theme.dimensions(10, "px")};
+    border: 0.5px ${(p) => p.theme.shades100};
+    border-radius: 4px;
+    margin-right: 10px;
   `,
   AlbumLabels: styled.View`
-    max-width: ${(p) => p.theme.dimensions(125, "px")};
-    gap: ${(p) => p.theme.dimensions(10, "px")};
+    max-width: 125px;
+    gap: 10px;
     align-items: flex-start;
     justify-content: space-between;
   `,

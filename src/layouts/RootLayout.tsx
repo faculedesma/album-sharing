@@ -37,8 +37,8 @@ const S = {
   `,
   AppWrapper: styled.View`
     flex: 1;
-    padding-right: ${(p) => p.theme.dimensions(5, "%")};
-    padding-left: ${(p) => p.theme.dimensions(5, "%")};
+    padding-right: 5%;
+    padding-left: 5%;
     z-index: 2;
     elevation: 2;
   `,

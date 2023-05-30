@@ -110,38 +110,38 @@ const S = {
     flex: 1;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: ${(p) => p.theme.dimensions(20, "px")};
+    gap: 20px;
     background-color: ${(p) => p.theme.primary};
-    padding-top: ${(p) => p.theme.dimensions(60, "px")};
-    padding-right: ${(p) => p.theme.dimensions(5, "%")};
-    padding-left: ${(p) => p.theme.dimensions(5, "%")};
+    padding-top: 60px;
+    padding-right: 5%;
+    padding-left: 5%;
   `,
   CloseIcon: styled.TouchableOpacity``,
   TitleContainer: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: ${(p) => p.theme.dimensions(20, "px")};
+    gap: 20px;
     align-self: flex-start;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(36, "px")};
+    font-size: 36px;
   `,
   Avatar: styled.View`
-    height: ${(p) => p.theme.dimensions(100, "px")};
-    width: ${(p) => p.theme.dimensions(100, "px")};
+    height: 100px;
+    width: 100px;
     background-color: ${(p) => p.theme.highlight}
-    border-radius: ${(p) => p.theme.dimensions(50, "%")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
+    border-radius: 50%;
+    border: .5px ${(p) => p.theme.shades200};
     align-self: flex-start;
   `,
   Bio: styled.View`
     align-items: center;
     justify-content: space-between;
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    gap: ${(p) => p.theme.dimensions(10, "px")};
+    width: 100%;
+    gap: 10px;
   `,
   BioTitle: styled.Text`
     align-items: center;
@@ -154,7 +154,7 @@ const S = {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: ${(p) => p.theme.dimensions(20, "px")};
+    gap: 20px;
   `,
   Switch: styled.Switch``,
 };

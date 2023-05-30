@@ -144,81 +144,77 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
 const S = {
   Wrapper: styled.ScrollView`
     flex: 1;
-    padding-right: ${(p) => p.theme.dimensions(5, "%")};
-    padding-left: ${(p) => p.theme.dimensions(5, "%")};
     background-color: ${(p) => p.theme.primary};
-    padding-top: ${(p) => p.theme.dimensions(64, "px")};
+    padding-top: 60px;
   `,
   LoaderWrapper: styled.View`
-    height: ${(p) => p.theme.dimensions(100, "%")};
-    width: ${(p) => p.theme.dimensions(100, "%")};
+    height: 100%;
+    width: 100%;
     flex: 1;
     align-items: center;
     justify-content: center;
-    padding-right: ${(p) => p.theme.dimensions(5, "%")};
-    padding-left: ${(p) => p.theme.dimensions(5, "%")};
     background-color: ${(p) => p.theme.primary};
-    padding-top: ${(p) => p.theme.dimensions(64, "px")};
+    padding-top: 60px;
   `,
   TitleContainer: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
-    margin-bottom: ${(p) => p.theme.dimensions(32, "px")};
+    gap: 20px;
+    margin-bottom: 30px;
     align-self: flex-start;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(36, "px")};
-    max-width: ${(p) => p.theme.dimensions(80, "%")};
+    font-size: 36px;
+    max-width: 80%;
   `,
   SubTitle: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
-    font-size: ${(p) => p.theme.dimensions(20, "px")};
-    margin-bottom: ${(p) => p.theme.dimensions(8, "px")};
+    font-size: 20px;
+    margin-bottom: 10px;
   `,
   Hero: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: 20px;
     align-self: flex-start;
-    margin-bottom: ${(p) => p.theme.dimensions(32, "px")};
+    margin-bottom: 30px;
   `,
   Cover: styled.ImageBackground`
-    height: ${(p) => p.theme.dimensions(200, "px")};
-    width: ${(p) => p.theme.dimensions(200, "px")};
+    height: 200px;
+    width: 200px;
     background-color: ${(p) => p.theme.shades50};
     overflow: hidden;
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades100};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
+    border: 0.5px ${(p) => p.theme.shades100};
+    border-radius: 4px;
   `,
   Item: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: 20px;
   `,
   Tracks: styled.View`
-    padding-bottom: ${(p) => p.theme.dimensions(74, "px")};
+    padding-bottom: 80px;
   `,
   TrackRowContainer: styled.View`
-    height: ${(p) => p.theme.dimensions(50, "px")};
+    height: 50px;
     width: ${(p) => p.theme.windowWidth};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades100};
-    padding-left: ${(p) => p.theme.dimensions(16, "px")};
-    padding-right: ${(p) => p.theme.dimensions(16, "px")};
+    border: 0.5px ${(p) => p.theme.shades100};
+    padding-left: 20px;
+    padding-right: 20px;
     transform: translate(-18px, 0);
   `,
   TrackRow: styled.View`
-    height: ${(p) => p.theme.dimensions(100, "%")};
+    height: 100%;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: 20px;
   `,
   TrackRowExpand: styled.View``,
   ExpandIcon: styled.View`

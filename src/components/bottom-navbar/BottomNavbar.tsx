@@ -84,9 +84,9 @@ const S = {
     height: 80px;
   `,
   BottomNavbar: styled(BlurView)`
-    border-width: ${(p) => p.theme.dimensions(0.5, "px")};
+    border-width: 0.5px;
     border-color: ${(p) => p.theme.shades200};
-    border-radius: ${(p) => p.theme.dimensions(8, "px")};
+    border-radius: 8px;
     overflow: hidden;
     background: rgba(${(p) => p.theme.highlight}, 0.5);
     flex-direction: row;
@@ -94,7 +94,7 @@ const S = {
     justify-content: space-around;
   `,
   LinkContainer: styled.View`
-    height: ${(p) => p.theme.dimensions(100, "%")};
+    height: 100%;
     align-items: center;
     justify-content: center;
   `,

@@ -91,67 +91,67 @@ const S = {
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(36, "px")};
+    font-size: 36px;
   `,
   SubTitle: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
-    font-size: ${(p) => p.theme.dimensions(20, "px")};
+    font-size: 20px;
   `,
   Latest: styled(View)`
-    width: ${(p) => p.theme.dimensions(100, "%")};
+    width: 100%;
     align-items: flex-start;
     justify-content: space-between;
-    gap: ${(p) => p.theme.dimensions(20, "px")};
+    gap: 20px;
   `,
   LatestTop: styled.View`
-    width: ${(p) => p.theme.dimensions(100, "%")};
+    width: 100%;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
   `,
   Group: styled(BlurView)`
-    height: ${(p) => p.theme.dimensions(30, "px")};
+    height: 30px;
     align-items: center;
     justify-content: center;
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    padding-left: ${(p) => p.theme.dimensions(10, "px")};
-    padding-right: ${(p) => p.theme.dimensions(10, "px")};
+    border: 0.5px ${(p) => p.theme.shades200};
+    border-radius: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
   `,
   LatestCard: styled(BlurView)`
     align-items: center;
     justify-content: space-between;
-    border-width: ${(p) => p.theme.dimensions(0.5, "px")};
+    border-width: 0.5px;
     border-color: ${(p) => p.theme.shades200};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
+    border-radius: 4px;
     overflow: hidden;
-    padding: ${(p) => p.theme.dimensions(20, "px")};
-    gap: ${(p) => p.theme.dimensions(20, "px")};
+    padding: 20px;
+    gap: 20px;
   `,
   Row: styled(View)`
-    height: ${(p) => p.theme.dimensions(40, "px")};
+    height: 40px;
     flex-direction: row;
     align-items: center;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
-    margin-top: ${(p) => p.theme.dimensions(4, "px")};
-    gap: ${(p) => p.theme.dimensions(20, "px")};
+    gap: 16px;
+    margin-top: 4px;
+    gap: 20px;
   `,
   Avatar: styled.View`
-    height: ${(p) => p.theme.dimensions(40, "px")};
-    width: ${(p) => p.theme.dimensions(40, "px")};
-    border-radius: ${(p) => p.theme.dimensions(50, "%")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades100};
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 0.5px ${(p) => p.theme.shades100};
   `,
   RowRecommendation: styled.View`
-    max-height: ${(p) => p.theme.dimensions(50, "px")};
-    width: ${(p) => p.theme.dimensions(300, "px")};
+    max-height: 50px;
+    width: 300px;
     flex: 1;
     flex-direction: row;
     align-items: flex-start;
     justify-content: flex-start;
     flex-wrap: wrap;
-    gap: ${(p) => p.theme.dimensions(4, "px")};
+    gap: 4px;
   `,
   ViewAllButton: styled.Text`
     width: 60px;

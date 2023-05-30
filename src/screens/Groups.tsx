@@ -125,35 +125,33 @@ const S = {
     flex: 1;
     align-items: flex-start;
     justify-content: flex-start;
-    padding-right: ${(p) => p.theme.dimensions(5, "%")};
-    padding-left: ${(p) => p.theme.dimensions(5, "%")};
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: 16px;
   `,
   TitleContainer: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
+    gap: 16px;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(36, "px")};
+    font-size: 36px;
   `,
   SubTitleContainer: styled.View`
     width: 90px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: ${(p) => p.theme.dimensions(8, "px")};
+    gap: 8px;
   `,
   SubTitle: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
-    font-size: ${(p) => p.theme.dimensions(24, "px")};
+    font-size: 20px;
   `,
   GroupChips: styled.View`
-    height: ${(p) => p.theme.dimensions(30, "px")};
+    height: 30px;
   `,
   GroupChipsContainer: styled.View`
     width: ${(p) => p.theme.windowWidth};
@@ -164,71 +162,61 @@ const S = {
     flex-direction: row;
   `,
   GroupChip: styled.View`
-    height: ${(p) => p.theme.dimensions(30, "px")};
+    height: 30px;
     flex: 1;
     align-items: center;
     justify-content: center;
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    margin-right: ${(p) => p.theme.dimensions(12, "px")};
-    padding-left: ${(p) => p.theme.dimensions(8, "px")};
-    padding-right: ${(p) => p.theme.dimensions(8, "px")};
+    border: 0.5px ${(p) => p.theme.shades200};
+    border-radius: 4px;
+    margin-right: 12px;
+    padding-left: 8px;
+    padding-right: 8px;
   `,
   AdministratorChip: styled.View`
-    height: ${(p) => p.theme.dimensions(20, "px")};
-    width: ${(p) => p.theme.dimensions(90, "px")};
+    height: 20px;
+    width: 90px;
     align-items: center;
     justify-content: center;
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
+    border: 0.5px ${(p) => p.theme.shades200};
     background-color: ${(p) => p.theme.green200};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
+    border-radius: 4px;
   `,
   GroupUsers: styled.View`
     align-items: center;
     justify-content: space-between;
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades200};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
-    padding: ${(p) => p.theme.dimensions(16, "px")};
-    margin-top: ${(p) => p.theme.dimensions(16, "px")};
-    margin-bottom: ${(p) => p.theme.dimensions(16, "px")};
+    border: 0.5px ${(p) => p.theme.shades200};
+    border-radius: 4px;
+    padding: 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
   `,
   GroupRow: styled.View`
-    height: ${(p) => p.theme.dimensions(30, "px")};
+    height: 30px;
     flex-direction: row;
     align-items: center;
-    gap: ${(p) => p.theme.dimensions(16, "px")};
-    margin-top: ${(p) => p.theme.dimensions(4, "px")};
-    gap: ${(p) => p.theme.dimensions(16, "px")};
-    margin-bottom: ${(p) => p.theme.dimensions(4, "px")};
+    gap: 16px;
+    margin-top: 4px;
+    gap: 16px;
+    margin-bottom: 4px;
   `,
   Avatar: styled.View`
-    height: ${(p) => p.theme.dimensions(30, "px")};
-    width: ${(p) => p.theme.dimensions(30, "px")};
-    border-radius: ${(p) => p.theme.dimensions(50, "%")};
-    border: ${(p) => p.theme.dimensions(0.5, "px")} ${(p) => p.theme.shades100};
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 0.5px ${(p) => p.theme.shades100};
   `,
   Username: styled.View`
-    height: ${(p) => p.theme.dimensions(35, "px")};
-    width: ${(p) => p.theme.dimensions(300, "px")};
+    height: 35px;
+    width: 300px;
     flex: 1;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: ${(p) => p.theme.dimensions(4, "px")};
+    gap: 4px;
   `,
   Subheading: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
-    font-size: ${(p) => p.theme.dimensions(16, "px")};
-  `,
-  Text: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdLight;
-    font-size: ${(p) => p.theme.dimensions(14, "px")};
-  `,
-  TextBold: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: ${(p) => p.theme.dimensions(14, "px")};
+    font-size: 16px;
   `,
 };

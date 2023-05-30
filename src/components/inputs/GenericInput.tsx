@@ -68,12 +68,12 @@ export const GenericInput = ({
 
 const S = {
   InputContainer: styled(BlurView)`
-    width: ${(p) => p.theme.dimensions(100, "%")};
-    border-width: ${(p) => p.theme.dimensions(1, "px")};
+    width: 100%;
+    border-width: 1px;
     border-color: ${(p) => p.theme.shades100};
-    border-radius: ${(p) => p.theme.dimensions(4, "px")};
+    border-radius: 4px;
     overflow: hidden;
-    padding: ${(p) => p.theme.dimensions(16, "px")};
+    padding: 16px;
   `,
   Input: styled.TextInput`
     flex-direction: row;
@@ -83,8 +83,8 @@ const S = {
   `,
   InputMaxChar: styled.Text`
     position: absolute;
-    bottom: ${(p) => p.theme.dimensions(4, "px")};
-    right: ${(p) => p.theme.dimensions(4, "px")};
+    bottom: 4px;
+    right: 4px;
     color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
   `,
