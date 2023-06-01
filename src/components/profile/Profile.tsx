@@ -13,14 +13,15 @@ import { appTheme } from "src/assets/styles/theme";
 import { GenericText } from "../text/GenericText";
 import { auth } from "../../../firebase";
 import { GenericInput } from "../inputs/GenericInput";
-import Toast from "react-native-toast-message";
 import { BlurView } from "expo-blur";
+import Toast from "react-native-toast-message";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface IProfileProps {
   closeModal: () => void;
 }
 
-export default function Profile({ closeModal }: IProfileProps) {
+const Profile = ({ closeModal }: IProfileProps) => {
   const [bioText, setBioText] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
@@ -52,17 +53,27 @@ export default function Profile({ closeModal }: IProfileProps) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <S.Wrapper testID="profile-screen" intensity={10} tint="light">
+      <S.Wrapper
+        testID="profile-screen"
+        colors={[appTheme.black, appTheme.primary]}
+      >
         <Stack.Screen
           options={{ title: "Profile Screen", headerShown: false }}
         />
         <S.TitleContainer>
-          <S.CloseIcon onPress={closeModal}>
-            <Close />
-          </S.CloseIcon>
-          <S.Title testID="profile-screen-title">Profile</S.Title>
+          <>
+            <S.CloseContainer onPress={closeModal}>
+              <Close />
+            </S.CloseContainer>
+            <S.Title testID="profile-screen-title">Profile</S.Title>
+          </>
+          <S.ProfileAvatar
+            source={{
+              uri: "https://lh3.googleusercontent.com/ogw/AOLn63FR1yAhWwMPVOxnKxNWJktQRftStxUNo2MUBx_RYg=s64-c-mo",
+            }}
+          ></S.ProfileAvatar>
         </S.TitleContainer>
-        <S.Avatar></S.Avatar>
+        <S.Avatar intensity={10} tint="dark"></S.Avatar>
         <GenericInput
           value={nickname}
           maxLength={100}
@@ -88,7 +99,7 @@ export default function Profile({ closeModal }: IProfileProps) {
             <GenericText size={16} weight="light" content="Notifications" />
             <S.Switch
               trackColor={{ false: appTheme.shades50, true: appTheme.shades50 }}
-              thumbColor={isEnabled ? appTheme.highlight : appTheme.shades100}
+              thumbColor={isEnabled ? appTheme.highlight : appTheme.shades50}
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
@@ -103,39 +114,54 @@ export default function Profile({ closeModal }: IProfileProps) {
       </S.Wrapper>
     </TouchableWithoutFeedback>
   );
-}
+};
+
+export default Profile;
 
 const S = {
-  Wrapper: styled(BlurView)`
+  Wrapper: styled(LinearGradient)`
     flex: 1;
     align-items: flex-start;
     justify-content: flex-start;
     gap: 20px;
-    background-color: ${(p) => p.theme.primary};
     padding-top: 60px;
     padding-right: 5%;
     padding-left: 5%;
+    z-index: 1;
+    elevation: 1;
   `,
-  CloseIcon: styled.TouchableOpacity``,
+  CloseContainer: styled.Pressable`
+    padding: 0 20px 30px 0;
+    transform: translate(0, 15px);
+  `,
+  ProfileAvatar: styled.ImageBackground`
+    height: 30px;
+    width: 30px;
+    background-color: ${(p) => p.theme.shades50}
+    border: .5px ${(p) => p.theme.highlight}
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+  `,
   TitleContainer: styled.View`
+    width: 100%;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    align-self: flex-start;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
     font-size: 36px;
   `,
-  Avatar: styled.View`
+  Avatar: styled(BlurView)`
     height: 100px;
     width: 100px;
-    background-color: ${(p) => p.theme.highlight}
     border-radius: 50%;
-    border: .5px ${(p) => p.theme.shades200};
+    border: 0.5px ${(p) => p.theme.highlight};
     align-self: flex-start;
+    overflow: hidden;
+    margin: 20px 0;
   `,
   Bio: styled.View`
     align-items: center;

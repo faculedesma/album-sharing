@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components/native";
 import { Stack, useRouter } from "expo-router";
-import { Logo } from "src/assets/svgs/Logo";
+import { Logo } from "src/components/logo/Logo";
 import { EyeDisabled } from "src/assets/svgs/EyeDisabled";
 import { Eye } from "src/assets/svgs/Eye";
 import PrimaryButton from "src/components/buttons/PrimaryButton";
@@ -26,6 +26,22 @@ export default function Signup() {
   const handleToggleHideRepeat = () => setHideRepeat(!hideRepeat);
 
   const handleSignUp = async () => {
+    if (!email) {
+      Toast.show({
+        type: "error",
+        text1: "Please enter an email",
+      });
+      setLoading(false);
+      return;
+    }
+    if (!password) {
+      Toast.show({
+        type: "error",
+        text1: "Please enter a password",
+      });
+      setLoading(false);
+      return;
+    }
     if (password !== repeat) {
       Toast.show({
         type: "error",
@@ -39,6 +55,9 @@ export default function Signup() {
       .then((response) => {
         setLoading(false);
         console.log(response.user);
+        setEmail("");
+        setPassword("");
+        setRepeat("");
         router.push("/introduction");
       })
       .catch((error) => {
@@ -58,11 +77,9 @@ export default function Signup() {
         <Stack.Screen
           options={{ title: "Sign up Screen", headerShown: false }}
         />
-        <S.SignupTop>
-          <S.LogoContainer testID="signup-screen-logo">
-            <Logo />
-          </S.LogoContainer>
-        </S.SignupTop>
+        <S.LogoContainer>
+          <Logo />
+        </S.LogoContainer>
         <S.Inputs testID="signup-screen-bio">
           <GenericInput
             value={email}
@@ -103,7 +120,7 @@ export default function Signup() {
               icon={false}
               bold={true}
               size="md"
-              color={appTheme.primary}
+              color={appTheme.secondary}
               handlePress={handleSignUp}
               loading={loading}
             />
@@ -120,20 +137,8 @@ const S = {
     align-items: center;
     justify-content: center;
   `,
-  SignupTop: styled.View`
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 80px;
-  `,
   LogoContainer: styled.View`
-    height: 100px;
-    width: 100px;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    border-radius: 50%;
-    border: 0.5px ${(p) => p.theme.highlight};
-    overflow: visible;
+    margin-bottom: 80px;
   `,
   Inputs: styled.View`
     align-items: center;

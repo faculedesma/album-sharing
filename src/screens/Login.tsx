@@ -2,7 +2,6 @@ import { useState } from "react";
 import { TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components/native";
 import { Stack, useRouter } from "expo-router";
-import { Logo } from "src/assets/svgs/Logo";
 import { EyeDisabled } from "src/assets/svgs/EyeDisabled";
 import { Eye } from "src/assets/svgs/Eye";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
@@ -11,8 +10,9 @@ import { appTheme } from "src/assets/styles/theme";
 import { auth } from "../../firebase";
 import { GenericInput } from "src/components/inputs/GenericInput";
 import Toast from "react-native-toast-message";
+import { Logo } from "src/components/logo/Logo";
 
-export default function Login() {
+const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [hide, setHide] = useState<boolean>(true);
@@ -27,7 +27,7 @@ export default function Login() {
     if (!email) {
       Toast.show({
         type: "error",
-        text1: "Please enter an username",
+        text1: "Please enter an email",
       });
       setLoading(false);
       return;
@@ -62,7 +62,7 @@ export default function Login() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <S.Wrapper testID="login-screen" behavior="padding">
         <Stack.Screen options={{ title: "Login Screen", headerShown: false }} />
-        <S.LogoContainer testID="login-screen-logo">
+        <S.LogoContainer>
           <Logo />
         </S.LogoContainer>
         <S.LoginInputs testID="login-screen-inputs">
@@ -99,7 +99,7 @@ export default function Login() {
               icon={false}
               bold={true}
               size="md"
-              color={appTheme.primary}
+              color={appTheme.secondary}
               handlePress={handleSignIn}
               loading={loading}
             />
@@ -117,7 +117,9 @@ export default function Login() {
       </S.Wrapper>
     </TouchableWithoutFeedback>
   );
-}
+};
+
+export default Login;
 
 const S = {
   Wrapper: styled.KeyboardAvoidingView`
@@ -127,13 +129,6 @@ const S = {
     gap: 20px;
   `,
   LogoContainer: styled.View`
-    height: 100px;
-    width: 100px;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    border-radius: 50%;
-    border: 1px ${(p) => p.theme.highlight};
     margin-bottom: 80px;
   `,
   LoginInputs: styled.View`
@@ -146,8 +141,11 @@ const S = {
   `,
   Icon: styled.View`
     position: absolute;
-    bottom: 16px;
-    right: 16px;
+    bottom: 0;
+    right: 0;
+    padding-bottom: 16px;
+    padding-right: 16px;
+    padding-left: 16px;
   `,
   ForgotPassword: styled.View`
     align-self: flex-end;

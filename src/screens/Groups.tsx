@@ -1,10 +1,10 @@
 import styled from "styled-components/native";
 import { Stack } from "expo-router";
 import { appTheme } from "src/assets/styles/theme";
-import Header from "src/components/header/Header";
-import BottomNavbar from "src/components/bottom-navbar/BottomNavbar";
 import { Plus } from "src/assets/svgs/Plus";
 import { GenericText } from "src/components/text/GenericText";
+import { View } from "react-native-animatable";
+import Header from "src/components/header/Header";
 
 const groups = [
   {
@@ -72,7 +72,7 @@ const GroupChip = ({ name }: IGroupChipProps) => {
 
 const MyGroups = () => {
   return (
-    <>
+    <S.Groups animation="fadeInDown" easing="ease-in-out" duration={500}>
       <S.TitleContainer>
         <S.Title testID="groups-screen-latest-title">Groups</S.Title>
       </S.TitleContainer>
@@ -105,33 +105,38 @@ const MyGroups = () => {
         <GroupRow user="@brain_damage" color={appTheme.red} />
         <GroupRow user="@superyayiri" color={appTheme.yellow} />
       </S.GroupUsers>
-    </>
+    </S.Groups>
   );
 };
 
-export default function Groups() {
+const Groups = () => {
   return (
     <S.Wrapper testID="groups-screen">
       <Stack.Screen options={{ title: "Groups Screen", headerShown: false }} />
       <Header />
       <MyGroups />
-      <BottomNavbar />
     </S.Wrapper>
   );
-}
+};
+
+export default Groups;
 
 const S = {
   Wrapper: styled.View`
     flex: 1;
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 16px;
+    background: transparent;
+  `,
+  Groups: styled(View)`
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
   `,
   TitleContainer: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
@@ -143,7 +148,7 @@ const S = {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
+    gap: 10px;
   `,
   SubTitle: styled.Text`
     color: ${(p) => p.theme.secondary};
@@ -168,16 +173,15 @@ const S = {
     justify-content: center;
     border: 0.5px ${(p) => p.theme.shades200};
     border-radius: 4px;
-    margin-right: 12px;
-    padding-left: 8px;
-    padding-right: 8px;
+    margin-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
   `,
   AdministratorChip: styled.View`
     height: 20px;
     width: 90px;
     align-items: center;
     justify-content: center;
-    border: 0.5px ${(p) => p.theme.shades200};
     background-color: ${(p) => p.theme.green200};
     border-radius: 4px;
   `,
@@ -186,18 +190,16 @@ const S = {
     justify-content: space-between;
     border: 0.5px ${(p) => p.theme.shades200};
     border-radius: 4px;
-    padding: 16px;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    padding: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    gap: 10px;
   `,
   GroupRow: styled.View`
     height: 30px;
     flex-direction: row;
     align-items: center;
-    gap: 16px;
-    margin-top: 4px;
-    gap: 16px;
-    margin-bottom: 4px;
+    gap: 10px;
   `,
   Avatar: styled.View`
     height: 30px;

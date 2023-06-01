@@ -2,12 +2,11 @@ import styled from "styled-components/native";
 import { Stack } from "expo-router";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import { appTheme } from "src/assets/styles/theme";
-import Header from "src/components/header/Header";
-import BottomNavbar from "src/components/bottom-navbar/BottomNavbar";
 import { Birthday } from "src/components/birthday/BirthdaySection";
 import { GenericText } from "src/components/text/GenericText";
 import { BlurView } from "expo-blur";
 import { View } from "react-native-animatable";
+import Header from "src/components/header/Header";
 
 interface IRowProps {
   user: string;
@@ -19,7 +18,7 @@ interface IRowProps {
 const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
   return (
     <S.Row animation="bounceIn" easing="ease-in-cubic" duration={1000}>
-      <S.Avatar style={{ backgroundColor: `${color}` }}></S.Avatar>
+      <S.Avatar style={{ backgroundColor: `transparent` }}></S.Avatar>
       <S.RowRecommendation>
         <GenericText size={14} weight="bold" content={user} />
         <GenericText size={14} weight="light" content="recommended" />
@@ -33,14 +32,14 @@ const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
 
 const Latest = () => {
   return (
-    <S.Latest animation="bounceInDown" duration={2000}>
+    <S.Latest animation="bounceInDown" duration={500}>
       <S.LatestTop testID="home-screen-latest">
         <S.Title testID="home-screen-latest-title">Latest</S.Title>
-        <S.Group testID="home-screen-latest-group" intensity={10} tint="light">
+        <S.Group testID="home-screen-latest-group" intensity={20} tint="light">
           <GenericText size={14} weight="bold" content="Los Pica" />
         </S.Group>
       </S.LatestTop>
-      <S.LatestCard intensity={5} tint="light">
+      <S.LatestCard intensity={10} tint="light">
         <Row
           user="@chicha73"
           album="The Dark Side Of The Moon (Pink Floyd)"
@@ -51,13 +50,13 @@ const Latest = () => {
           user="@brain_damage"
           album="Innervisions (Stevie Wonder)"
           date="tuesday"
-          color={appTheme.red}
+          color={appTheme.green}
         />
         <Row
           user="@superyayiri"
           album="Animals (Pink Floyd)"
           date="may 12"
-          color={appTheme.yellow}
+          color={appTheme.green}
         />
       </S.LatestCard>
       <S.ViewAllButton>
@@ -70,17 +69,18 @@ const Latest = () => {
   );
 };
 
-export default function HomeScreen() {
+const Home = () => {
   return (
     <S.Wrapper testID="home-screen">
       <Stack.Screen options={{ title: "Home Screen", headerShown: false }} />
       <Header />
       <Latest />
       <Birthday />
-      <BottomNavbar />
     </S.Wrapper>
   );
-}
+};
+
+export default Home;
 
 const S = {
   Wrapper: styled.View`
@@ -114,10 +114,12 @@ const S = {
     height: 30px;
     align-items: center;
     justify-content: center;
-    border: 0.5px ${(p) => p.theme.shades200};
+    border: 0.5px ${(p) => p.theme.shades400};
     border-radius: 4px;
     padding-left: 10px;
     padding-right: 10px;
+    overflow: hidden;
+    transform: translate(-1px, 0);
   `,
   LatestCard: styled(BlurView)`
     align-items: center;
@@ -128,6 +130,17 @@ const S = {
     overflow: hidden;
     padding: 20px;
     gap: 20px;
+  `,
+  LatestCardPattern: styled.ImageBackground`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    elevation: -1;
+    opacity: 1;
+    background-cover: contain;
   `,
   Row: styled(View)`
     height: 40px;
@@ -141,7 +154,8 @@ const S = {
     height: 40px;
     width: 40px;
     border-radius: 50%;
-    border: 0.5px ${(p) => p.theme.shades100};
+    border: 1px ${(p) => p.theme.highlight};
+    background: transparent;
   `,
   RowRecommendation: styled.View`
     max-height: 50px;

@@ -3,7 +3,7 @@ import { TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components/native";
 import { Stack, useRouter } from "expo-router";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
-import { Logo } from "src/assets/svgs/Logo";
+import { Logo } from "src/components/logo/Logo";
 import { appTheme } from "src/assets/styles/theme";
 import { GenericInput } from "src/components/inputs/GenericInput";
 import Toast from "react-native-toast-message";
@@ -43,9 +43,7 @@ export default function Introduction() {
         <Stack.Screen
           options={{ title: "Introducion Screen", headerShown: false }}
         />
-        <S.LogoContainer testID="intro-screen-logo">
-          <Logo />
-        </S.LogoContainer>
+        <Logo />
         <S.Title testID="intro-screen-title">Choose avatar</S.Title>
         <GenericInput
           value={nickname}
@@ -55,21 +53,21 @@ export default function Introduction() {
           handleChangeText={handleOnChangeNickname}
         />
         <S.AvatarOptions testID="intro-screen-options">
-          <S.Circle style={{ backgroundColor: appTheme.red }}></S.Circle>
           <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
-          <S.Circle style={{ backgroundColor: appTheme.yellow }}></S.Circle>
           <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
-          <S.Circle style={{ backgroundColor: appTheme.red }}></S.Circle>
-          <S.Circle style={{ backgroundColor: appTheme.lightblue }}></S.Circle>
-          <S.Circle style={{ backgroundColor: appTheme.yellow }}></S.Circle>
-          <S.Circle style={{ backgroundColor: appTheme.lightblue }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
+          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
         </S.AvatarOptions>
         <S.Bio testID="intro-screen-bio">
           <S.BioTitle>Bio</S.BioTitle>
           <GenericInput
             value={bioText}
             height={150}
-            maxLength={150}
+            maxLength={200}
             multiline={true}
             numberOfLines={5}
             textContentType="none"
@@ -120,13 +118,15 @@ const S = {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 16px;
+    overflow: hidden;
   `,
   Circle: styled.View`
     height: 75px;
     width: 75px;
     background-color: ${(p) => p.theme.highlight}
     border-radius: 50%;
-    border: 0.5px ${(p) => p.theme.shades200};
+    border: 1px ${appTheme.highlight};
+    opacity: .2;
   `,
   Bio: styled.View`
     align-items: center;
