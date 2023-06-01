@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
-import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 import { Stack } from "expo-router";
 import { Close } from "src/assets/svgs/Close";
 import { ArrowBack } from "src/assets/svgs/ArrowBack";
 import { GenericText } from "../text/GenericText";
 import Toast from "react-native-toast-message";
+import { View } from "react-native-animatable";
+import Spinner from "../loaders/Spinner";
+import { LinearGradient } from "expo-linear-gradient";
+import { appTheme } from "src/assets/styles/theme";
+import { MusicNote } from "src/assets/svgs/MusicNote";
 
 const accessToken =
-  "BQDs1YuG18O4lZUZpOSo1VF4ztELn11--X8ZSsmv4aTdIoc05rLCKmldmIniANS9XB5HDwpr36HBvfe_APe8sZA3OgofeqtHWUxCxvanEQqAB1xpHBwkUoCS5AV5ckXF0QMyki6YV5yJbx9I_LOgUGBVPHZdAC4ozWwBbQEKTO7eS81-7FZ6";
+  "BQDbvbnl0VOKKokH38WlX8M4Zwas61ZHUyTzUd4QfkLjojjbG5ostiRExsykmqPfsm_qmqrBNjtYw4XeWa3yxjviv4QGEK6BgjSJd3NYV6vk9ec0iztk4X4N4We_SEpKH-bCJUrMgMzkIs2OFAt2JISg5n05m9BVHrqzRiZkuThJgAwjasqF";
 
 interface IAlbumProps {
   id: string;
@@ -26,18 +30,32 @@ interface ITrackProps {
 }
 
 const TrackRow = ({ track }: ITrackProps) => {
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+  const handleExpandSong = () => setIsExpanded(!isExpanded);
+
   return (
-    <S.TrackRowContainer>
-      <S.TrackRow>
-        <GenericText size={14} weight="bold" content={track.track_number} />
-        <GenericText size={14} weight="light" content={track.name} />
-        <S.TrackRowExpand>
-          <S.ExpandIcon>
-            <ArrowBack />
-          </S.ExpandIcon>
-        </S.TrackRowExpand>
-      </S.TrackRow>
-    </S.TrackRowContainer>
+    <>
+      <S.TrackRowContainer onPress={handleExpandSong}>
+        <S.TrackRow animation="fadeInUp" duration={600}>
+          <GenericText size={14} weight="bold" content={track.track_number} />
+          <GenericText size={14} weight="light" content={track.name} />
+          <S.TrackRowExpand>
+            <S.ExpandIcon>
+              <ArrowBack />
+            </S.ExpandIcon>
+          </S.TrackRowExpand>
+        </S.TrackRow>
+      </S.TrackRowContainer>
+      <S.ExpandedContent style={{ display: isExpanded ? "flex" : "none" }}>
+        <GenericText
+          size={14}
+          weight="light"
+          content="Here are the row lyrics  Here are the row lyrics  Here are the row lyrics  Here are the row lyrics  Here are the row lyrics"
+          numberOfLines={100}
+        />
+      </S.ExpandedContent>
+    </>
   );
 };
 
@@ -83,7 +101,7 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
   if (!albumData.name) {
     return (
       <S.LoaderWrapper>
-        <GenericText size={16} weight="light" content="Loading..." />
+        <Spinner />
       </S.LoaderWrapper>
     );
   }
@@ -91,10 +109,15 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
   return (
     <S.Wrapper testID="album-screen">
       <Stack.Screen options={{ title: "Album Screen", headerShown: false }} />
-      <S.TitleContainer>
-        <TouchableOpacity onPress={closeModal}>
-          <Close />
-        </TouchableOpacity>
+      <S.CloseContainer onPress={closeModal}>
+        <Close />
+      </S.CloseContainer>
+      <S.Hero animation="fadeInUp" duration={700}>
+        <S.Cover
+          source={{
+            uri: albumData.images[1].url,
+          }}
+        ></S.Cover>
         <S.Title
           testID="album-screen-title"
           ellipsizeMode="tail"
@@ -102,28 +125,38 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
         >
           {albumData.name}
         </S.Title>
-      </S.TitleContainer>
-      <S.Hero>
-        <S.Cover
-          source={{
-            uri: albumData.images[1].url,
-          }}
-        ></S.Cover>
-        <S.Item>
-          <GenericText
-            size={16}
-            weight="light"
-            content={albumData.artists[0].name}
-          />
-          <GenericText
-            size={14}
-            weight="bold"
-            content={albumData.release_date.split("-")[0]}
-          />
-        </S.Item>
+        <S.HeroRight>
+          <S.Item>
+            <GenericText
+              size={16}
+              weight="light"
+              content={albumData.artists[0].name}
+            />
+            <GenericText
+              size={14}
+              weight="bold"
+              content={albumData.release_date.split("-")[0]}
+            />
+          </S.Item>
+          <S.Description>
+            <GenericText
+              size={14}
+              weight="light"
+              numberOfLines={10}
+              content="Wish You Were Here —in Spanish: I wish you were here— is the ninth studio album by the British rock band Pink Floyd, released in September 1975 and inspired by the material they composed during their 1974 European tour and recorded in the Abbey Road Studios, London."
+            />
+          </S.Description>
+        </S.HeroRight>
+        <S.HeroBackgroundImage
+          source={{ uri: albumData.images[1].url }}
+        ></S.HeroBackgroundImage>
+        <S.HeroLinearGradient colors={["transparent", appTheme.primary]} />
       </S.Hero>
       <S.Tracks>
-        <S.SubTitle>Song lyrics</S.SubTitle>
+        <S.SubTitle animation="fadeInUp" duration={500}>
+          <GenericText size={20} weight="bold" content="Song lyrics" />
+          <MusicNote />
+        </S.SubTitle>
         {albumData.tracks.items.map((track) => {
           return (
             <TrackRow
@@ -144,8 +177,10 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
 const S = {
   Wrapper: styled.ScrollView`
     flex: 1;
-    background-color: ${(p) => p.theme.primary};
+    background-color: ${appTheme.primary};
     padding-top: 60px;
+    padding-right: 5%;
+    padding-left: 5%;
   `,
   LoaderWrapper: styled.View`
     height: 100%;
@@ -153,71 +188,108 @@ const S = {
     flex: 1;
     align-items: center;
     justify-content: center;
-    background-color: ${(p) => p.theme.primary};
+    background-color: ${appTheme.primary};
     padding-top: 60px;
   `,
-  TitleContainer: styled.View`
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 30px;
-    align-self: flex-start;
+  CloseContainer: styled.Pressable`
+    position: absolute;
+    left: 0;
+    top: 0;
+    elevation: 2;
+    z-index: 2;
+    padding: 0 30px 30px 0;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
     font-size: 36px;
-    max-width: 80%;
+    width: 80%;
+    text-align: center;
+    elevation: 2;
+    z-index: 2;
   `,
-  SubTitle: styled.Text`
+  SubTitle: styled(View)`
     color: ${(p) => p.theme.secondary};
-    font-family: circularStdLight;
+    font-family: circularStdBold;
     font-size: 20px;
     margin-bottom: 10px;
-  `,
-  Hero: styled.View`
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content; space-between;
     gap: 20px;
-    align-self: flex-start;
+  `,
+  HeroLinearGradient: styled(LinearGradient)`
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: -80px;
+    elevation: -1;
+    z-index: -1;
+  `,
+  HeroBackgroundImage: styled.ImageBackground`
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: -80px;
+    elevation: -1;
+    z-index: -1;
+    opacity: 0.6;
+  `,
+  Hero: styled(View)`
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
     margin-bottom: 30px;
   `,
+  HeroRight: styled(View)`
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  `,
   Cover: styled.ImageBackground`
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
     background-color: ${(p) => p.theme.shades50};
     overflow: hidden;
-    border: 0.5px ${(p) => p.theme.shades100};
     border-radius: 4px;
+    margin-top: 50px;
   `,
   Item: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
+  `,
+  Description: styled.View`
+    width: 80%;
   `,
   Tracks: styled.View`
     padding-bottom: 80px;
   `,
-  TrackRowContainer: styled.View`
+  TrackRowContainer: styled.Pressable`
     height: 50px;
     width: ${(p) => p.theme.windowWidth};
-    border: 0.5px ${(p) => p.theme.shades100};
-    padding-left: 20px;
-    padding-right: 20px;
-    transform: translate(-18px, 0);
+    border-bottom-width: 0.5px;
+    border-bottom-color: ${appTheme.shades800};
+    transform: translate(-20px, 0);
   `,
-  TrackRow: styled.View`
+  TrackRow: styled(View)`
     height: 100%;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     gap: 20px;
+    padding-left: 20px;
   `,
   TrackRowExpand: styled.View``,
   ExpandIcon: styled.View`
     transform: rotate(-90deg);
+  `,
+  ExpandedContent: styled(View)`
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0;
   `,
 };

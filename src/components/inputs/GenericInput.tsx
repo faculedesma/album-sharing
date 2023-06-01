@@ -38,7 +38,7 @@ export const GenericInput = ({
         height: height,
         borderColor: focused ? appTheme.highlight : appTheme.shades100,
       }}
-      intensity={20}
+      intensity={10}
       tint="light"
     >
       <S.Input
@@ -69,17 +69,20 @@ export const GenericInput = ({
 const S = {
   InputContainer: styled(BlurView)`
     width: 100%;
-    border-width: 1px;
+    border-width: 0.5px;
     border-color: ${(p) => p.theme.shades100};
     border-radius: 4px;
     overflow: hidden;
     padding: 16px;
   `,
   Input: styled.TextInput`
+    width: 100%;
+    height: 100%
     flex-direction: row;
     align-items: center;
     justify-content: center;
     font-family: circularStdLight;
+    color: ${(p) => p.theme.secondary};
   `,
   InputMaxChar: styled.Text`
     position: absolute;

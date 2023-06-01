@@ -7,7 +7,7 @@ export default function Spinner() {
     <S.Spinner testID="spinner">
       <ActivityIndicator
         testID="activity-indicator"
-        color={appTheme.primary}
+        color={appTheme.secondary}
         size="small"
       />
     </S.Spinner>

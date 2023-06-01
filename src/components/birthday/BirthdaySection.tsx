@@ -52,17 +52,17 @@ export const Birthday = () => {
 
   return (
     <S.Birthday>
-      <S.Title testID="birthday-title" animation="fadeInDown" duration={1200}>
-        Today's birthday
+      <S.Title testID="birthday-title" animation="fadeInDown" duration={600}>
+        Birthdays
       </S.Title>
       <S.SubTitle
         testID="birthday-subtitle"
         animation="fadeInDown"
-        duration={1300}
+        duration={700}
       >
         {currentDate}
       </S.SubTitle>
-      <S.Results animation="fadeInDown" duration={1500}>
+      <S.Results animation="fadeInLeft" duration={800}>
         <S.ResultsContainer>
           <S.ResultsScroll
             horizontal={true}
@@ -117,17 +117,18 @@ const S = {
     gap: 20px;
   `,
   Results: styled(View)`
+    width: ${(p) => p.theme.windowWidth};
     height: 180px;
+    overflow: visible;
   `,
   ResultsContainer: styled.View`
-    width: ${(p) => p.theme.windowWidth};
     flex: 1;
   `,
   ResultsScroll: styled.ScrollView`
     flex: 1;
     flex-direction: row;
   `,
-  AlbumContainer: styled.TouchableOpacity`
+  AlbumContainer: styled.Pressable`
     align-items: flex-start;
     justify-content: space-between;
     gap: 10px;
@@ -139,13 +140,12 @@ const S = {
     justify-content: center;
     background-color: ${(p) => p.theme.shades50};
     overflow: hidden;
-    border: 0.5px ${(p) => p.theme.shades100};
     border-radius: 4px;
     margin-right: 10px;
   `,
   AlbumLabels: styled.View`
     max-width: 125px;
-    gap: 10px;
+    gap: 5px;
     align-items: flex-start;
     justify-content: space-between;
   `,

@@ -43,14 +43,16 @@ const S = {
   ButtonContainer: styled(BlurView)`
     height: 60px;
     width: 100%;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background-color: ${(p) => p.theme.secondary};
+    background-color: ${(p) => p.theme.black};
     border-radius: 4px;
     overflow: hidden;
   `,
-  Button: styled.Pressable``,
+  Button: styled.Pressable`
+    height: 60px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  `,
   Icon: styled.View`
     align-items: center;
     justify-content: center;
