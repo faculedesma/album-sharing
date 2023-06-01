@@ -34,7 +34,7 @@ export default function Introduction() {
       });
       return;
     }
-    router.replace("/home");
+    router.push("/home");
   };
 
   return (

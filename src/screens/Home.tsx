@@ -72,7 +72,6 @@ const Latest = () => {
 const Home = () => {
   return (
     <S.Wrapper testID="home-screen">
-      <Stack.Screen options={{ title: "Home Screen", headerShown: false }} />
       <Header />
       <Latest />
       <Birthday />

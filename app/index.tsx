@@ -1,1 +1,7 @@
-export { default } from "src/screens/Home";
+import { Redirect } from "expo-router";
+
+const StartPage = () => {
+  return <Redirect href="/home" />;
+};
+
+export default StartPage;

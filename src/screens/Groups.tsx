@@ -1,10 +1,9 @@
 import styled from "styled-components/native";
-import { Stack } from "expo-router";
 import { appTheme } from "src/assets/styles/theme";
-import { Plus } from "src/assets/svgs/Plus";
 import { GenericText } from "src/components/text/GenericText";
 import { View } from "react-native-animatable";
 import Header from "src/components/header/Header";
+import { Octicons } from "@expo/vector-icons";
 
 const groups = [
   {
@@ -46,7 +45,6 @@ const GroupRow = ({
       <S.Avatar style={{ backgroundColor: `${color}` }}></S.Avatar>
       <S.Username>
         <GenericText size={14} weight="bold" content={user} />
-
         {isAdmin && (
           <S.AdministratorChip>
             <GenericText
@@ -78,7 +76,7 @@ const MyGroups = () => {
       </S.TitleContainer>
       <S.SubTitleContainer testID="grops-screen-latest-title">
         <S.Subheading>My Groups</S.Subheading>
-        <Plus />
+        <Octicons name="plus" size={20} color={appTheme.secondary} />
       </S.SubTitleContainer>
       <S.GroupChips>
         <S.GroupChipsContainer>
@@ -112,7 +110,6 @@ const MyGroups = () => {
 const Groups = () => {
   return (
     <S.Wrapper testID="groups-screen">
-      <Stack.Screen options={{ title: "Groups Screen", headerShown: false }} />
       <Header />
       <MyGroups />
     </S.Wrapper>
@@ -182,7 +179,7 @@ const S = {
     width: 90px;
     align-items: center;
     justify-content: center;
-    background-color: ${(p) => p.theme.green200};
+    background-color: ${(p) => p.theme.green};
     border-radius: 4px;
   `,
   GroupUsers: styled.View`

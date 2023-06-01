@@ -1,9 +1,9 @@
 import styled from "styled-components/native";
-import { ArrowRight } from "src/assets/svgs/ArrowRight";
 import Spinner from "src/components/loaders/Spinner";
 import { GenericText } from "../text/GenericText";
 import { appTheme } from "src/assets/styles/theme";
 import { BlurView } from "expo-blur";
+import { Octicons } from "@expo/vector-icons";
 
 interface IPrimaryProps {
   text: string;
@@ -33,7 +33,9 @@ export default function PrimaryButton({
           color={color}
           content={loading ? <Spinner /> : text}
         />
-        <S.Icon>{icon && <ArrowRight />}</S.Icon>
+        {icon && (
+          <Octicons name="chevron-right" size={20} color={appTheme.secondary} />
+        )}
       </S.Button>
     </S.ButtonContainer>
   );
@@ -50,10 +52,6 @@ const S = {
   Button: styled.Pressable`
     height: 60px;
     width: 100%;
-    align-items: center;
-    justify-content: center;
-  `,
-  Icon: styled.View`
     align-items: center;
     justify-content: center;
   `,

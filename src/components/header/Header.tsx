@@ -1,15 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components/native";
-import { Search } from "src/assets/svgs/Search";
 import { Modal, TouchableOpacity } from "react-native";
 import Profile from "../profile/Profile";
-import { usePathname } from "expo-router";
 import LogoPNG from "src/assets/images/logo.png";
+import { Octicons } from "@expo/vector-icons";
+import { appTheme } from "src/assets/styles/theme";
 
 const Header = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-
-  const pathname = usePathname();
 
   const openModal = () => setModalVisible(true);
 
@@ -21,7 +19,7 @@ const Header = () => {
         <S.LogoImage source={LogoPNG}></S.LogoImage>
       </S.HeaderLeft>
       <S.HeaderRight>
-        <Search />
+        <Octicons name="search" size={20} color={appTheme.secondary} />
         <TouchableOpacity onPress={openModal}>
           <S.ProfileAvatar
             source={{

@@ -1,8 +1,8 @@
 import styled from "styled-components/native";
-import { ArrowRight } from "src/assets/svgs/ArrowRight";
 import { GenericText } from "../text/GenericText";
 import { appTheme } from "src/assets/styles/theme";
 import Spinner from "../loaders/Spinner";
+import { Octicons } from "@expo/vector-icons";
 
 interface ISecondaryProps {
   text: string;
@@ -31,7 +31,9 @@ export default function SecondaryButton({
         color={color}
         content={loading ? <Spinner /> : text}
       />
-      {icon && <ArrowRight />}
+      {icon && (
+        <Octicons name="arrow-right" size={20} color={appTheme.secondary} />
+      )}
     </S.Button>
   );
 }
@@ -42,11 +44,9 @@ const S = {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
     background-color: transparent;
   `,
   Icon: styled.View`
-    align-items: center;
-    justify-content: center;
+    maring-left: 10px;
   `,
 };

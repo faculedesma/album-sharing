@@ -1,18 +1,15 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components/native";
 import { Stack } from "expo-router";
-import { Close } from "src/assets/svgs/Close";
-import { ArrowBack } from "src/assets/svgs/ArrowBack";
 import { GenericText } from "../text/GenericText";
 import Toast from "react-native-toast-message";
 import { View } from "react-native-animatable";
 import Spinner from "../loaders/Spinner";
 import { LinearGradient } from "expo-linear-gradient";
 import { appTheme } from "src/assets/styles/theme";
-import { MusicNote } from "src/assets/svgs/MusicNote";
+import { Octicons } from "@expo/vector-icons";
 
-const accessToken =
-  "BQDbvbnl0VOKKokH38WlX8M4Zwas61ZHUyTzUd4QfkLjojjbG5ostiRExsykmqPfsm_qmqrBNjtYw4XeWa3yxjviv4QGEK6BgjSJd3NYV6vk9ec0iztk4X4N4We_SEpKH-bCJUrMgMzkIs2OFAt2JISg5n05m9BVHrqzRiZkuThJgAwjasqF";
+const accessToken = "";
 
 interface IAlbumProps {
   id: string;
@@ -42,7 +39,11 @@ const TrackRow = ({ track }: ITrackProps) => {
           <GenericText size={14} weight="light" content={track.name} />
           <S.TrackRowExpand>
             <S.ExpandIcon>
-              <ArrowBack />
+              <Octicons
+                name="chevron-left"
+                size={16}
+                color={appTheme.secondary}
+              />
             </S.ExpandIcon>
           </S.TrackRowExpand>
         </S.TrackRow>
@@ -110,7 +111,7 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
     <S.Wrapper testID="album-screen">
       <Stack.Screen options={{ title: "Album Screen", headerShown: false }} />
       <S.CloseContainer onPress={closeModal}>
-        <Close />
+        <Octicons name="x" size={40} color={appTheme.secondary} />
       </S.CloseContainer>
       <S.Hero animation="fadeInUp" duration={700}>
         <S.Cover
@@ -155,7 +156,6 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
       <S.Tracks>
         <S.SubTitle animation="fadeInUp" duration={500}>
           <GenericText size={20} weight="bold" content="Song lyrics" />
-          <MusicNote />
         </S.SubTitle>
         {albumData.tracks.items.map((track) => {
           return (

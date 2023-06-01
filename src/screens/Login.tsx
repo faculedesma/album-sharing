@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components/native";
-import { Stack, useRouter } from "expo-router";
-import { EyeDisabled } from "src/assets/svgs/EyeDisabled";
-import { Eye } from "src/assets/svgs/Eye";
+import { useRouter } from "expo-router";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import PrimaryButton from "src/components/buttons/PrimaryButton";
 import { appTheme } from "src/assets/styles/theme";
@@ -11,6 +9,7 @@ import { auth } from "../../firebase";
 import { GenericInput } from "src/components/inputs/GenericInput";
 import Toast from "react-native-toast-message";
 import { Logo } from "src/components/logo/Logo";
+import { Octicons } from "@expo/vector-icons";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -61,7 +60,6 @@ const Login = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <S.Wrapper testID="login-screen" behavior="padding">
-        <Stack.Screen options={{ title: "Login Screen", headerShown: false }} />
         <S.LogoContainer>
           <Logo />
         </S.LogoContainer>
@@ -83,14 +81,18 @@ const Login = () => {
               handleChangeText={(value) => setPassword(value)}
             />
             <S.Icon onTouchStart={handleToggleHidde}>
-              {hide ? <EyeDisabled /> : <Eye />}
+              <Octicons
+                name={hide ? "eye-closed" : "eye"}
+                size={16}
+                color={appTheme.secondary}
+              />
             </S.Icon>
           </S.PasswordContainer>
           <S.ForgotPassword>
             <SecondaryButton
               text="Forgot password?"
               icon={false}
-              handlePress={() => console.log("Forgotten")}
+              handlePress={() => console.log("forgotten")}
             />
           </S.ForgotPassword>
           <S.LoginButton>

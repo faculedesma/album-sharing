@@ -6,9 +6,6 @@ import {
 } from "react-native";
 import styled from "styled-components/native";
 import { Stack, useRouter } from "expo-router";
-import { Close } from "src/assets/svgs/Close";
-import { Leave } from "src/assets/svgs/Leave";
-import { Notification } from "src/assets/svgs/Notification";
 import { appTheme } from "src/assets/styles/theme";
 import { GenericText } from "../text/GenericText";
 import { auth } from "../../../firebase";
@@ -16,6 +13,7 @@ import { GenericInput } from "../inputs/GenericInput";
 import { BlurView } from "expo-blur";
 import Toast from "react-native-toast-message";
 import { LinearGradient } from "expo-linear-gradient";
+import { Octicons } from "@expo/vector-icons";
 
 interface IProfileProps {
   closeModal: () => void;
@@ -63,7 +61,7 @@ const Profile = ({ closeModal }: IProfileProps) => {
         <S.TitleContainer>
           <>
             <S.CloseContainer onPress={closeModal}>
-              <Close />
+              <Octicons name="x" size={40} color={appTheme.secondary} />
             </S.CloseContainer>
             <S.Title testID="profile-screen-title">Profile</S.Title>
           </>
@@ -95,7 +93,7 @@ const Profile = ({ closeModal }: IProfileProps) => {
         </S.Bio>
         <TouchableOpacity onPress={closeModal}>
           <S.Item>
-            <Notification />
+            <Octicons name="bell" size={16} color={appTheme.secondary} />
             <GenericText size={16} weight="light" content="Notifications" />
             <S.Switch
               trackColor={{ false: appTheme.shades50, true: appTheme.shades50 }}
@@ -107,7 +105,7 @@ const Profile = ({ closeModal }: IProfileProps) => {
         </TouchableOpacity>
         <TouchableOpacity onPress={handleSignOut}>
           <S.Item>
-            <Leave />
+            <Octicons name="sign-out" size={16} color={appTheme.secondary} />
             <GenericText size={16} weight="light" content="Logout" />
           </S.Item>
         </TouchableOpacity>

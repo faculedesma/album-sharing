@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components/native";
-import { Stack, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { Logo } from "src/components/logo/Logo";
-import { EyeDisabled } from "src/assets/svgs/EyeDisabled";
-import { Eye } from "src/assets/svgs/Eye";
 import PrimaryButton from "src/components/buttons/PrimaryButton";
 import { appTheme } from "src/assets/styles/theme";
 import { auth } from "../../firebase";
 import { GenericInput } from "src/components/inputs/GenericInput";
 import Toast from "react-native-toast-message";
+import { Octicons } from "@expo/vector-icons";
 
 export default function Signup() {
   const [email, setEmail] = useState<string>("");
@@ -74,9 +73,6 @@ export default function Signup() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <S.Wrapper testID="login-screen" behavior="padding">
-        <Stack.Screen
-          options={{ title: "Sign up Screen", headerShown: false }}
-        />
         <S.LogoContainer>
           <Logo />
         </S.LogoContainer>
@@ -98,7 +94,11 @@ export default function Signup() {
               handleChangeText={(value) => setPassword(value)}
             />
             <S.Icon onTouchStart={handleToggleHidde}>
-              {hide ? <EyeDisabled /> : <Eye />}
+              <Octicons
+                name={hide ? "eye-closed" : "eye"}
+                size={16}
+                color={appTheme.secondary}
+              />
             </S.Icon>
           </S.PasswordContainer>
           <S.PasswordContainer>
@@ -111,7 +111,11 @@ export default function Signup() {
               handleChangeText={(value) => setRepeat(value)}
             />
             <S.Icon onTouchStart={handleToggleHideRepeat}>
-              {hideRepeat ? <EyeDisabled /> : <Eye />}
+              <Octicons
+                name={hide ? "eye-closed" : "eye"}
+                size={16}
+                color={appTheme.secondary}
+              />
             </S.Icon>
           </S.PasswordContainer>
           <S.SignupButton>
