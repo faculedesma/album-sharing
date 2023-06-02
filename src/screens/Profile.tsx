@@ -51,9 +51,6 @@ const Profile = () => {
         testID="profile-screen"
         colors={[appTheme.black, appTheme.primary]}
       >
-        <Stack.Screen
-          options={{ title: "Profile Screen", headerShown: false }}
-        />
         <S.Avatar intensity={10} tint="dark"></S.Avatar>
         <GenericInput
           value={nickname}
