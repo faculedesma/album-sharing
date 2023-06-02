@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import { Modal } from "react-native";
 import jsonData from "../../data/albums.json";
-import { Album } from "../album/Album";
 import { GenericText } from "../text/GenericText";
 import { View, Text } from "react-native-animatable";
+import { Link } from "expo-router";
 
 interface IAlbum {
   id: string;
@@ -16,12 +15,6 @@ interface IAlbum {
 export const Birthday = () => {
   const [albums, setAlbums] = useState<IAlbum[]>([]);
   const [currentDate, setCurrentDate] = useState<string>("");
-  const [modalAlbum, setModalAlbum] = useState<boolean>(false);
-  const [selectedAlbum, setSelectedAlbum] = useState<string>("");
-
-  const openModalAlbum = () => setModalAlbum(true);
-
-  const closeModalAlbum = () => setModalAlbum(false);
 
   useEffect(() => {
     const parsedAlbums = jsonData.albums.items.map((album: any) => {
@@ -40,29 +33,15 @@ export const Birthday = () => {
     setCurrentDate(date.toDateString());
   }, []);
 
-  const handleOpenAlbum = (id: string) => {
-    setSelectedAlbum(id);
-    openModalAlbum();
-  };
-
-  const handleCloseAlbum = () => {
-    setSelectedAlbum("");
-    closeModalAlbum();
-  };
-
   return (
     <S.Birthday>
-      <S.Title testID="birthday-title" animation="fadeInDown" duration={600}>
+      <S.Title testID="birthday-title" animation="fadeIn" duration={400}>
         Birthdays
       </S.Title>
-      <S.SubTitle
-        testID="birthday-subtitle"
-        animation="fadeInDown"
-        duration={700}
-      >
+      <S.SubTitle testID="birthday-subtitle" animation="fadeIn" duration={500}>
         {currentDate}
       </S.SubTitle>
-      <S.Results animation="fadeInLeft" duration={800}>
+      <S.Results animation="fadeIn" duration={600}>
         <S.ResultsContainer>
           <S.ResultsScroll
             horizontal={true}
@@ -70,32 +49,32 @@ export const Birthday = () => {
           >
             {albums.map((album) => {
               return (
-                <S.AlbumContainer
-                  key={album.id}
-                  onPress={() => handleOpenAlbum(album.id)}
-                >
-                  <S.AlbumCover
-                    source={{
-                      uri: album.imageUrl,
-                    }}
-                  ></S.AlbumCover>
-                  <S.AlbumLabels>
-                    <GenericText size={14} weight="bold" content={album.name} />
-                    <GenericText
-                      size={14}
-                      weight="light"
-                      content={album.name}
-                    />
-                  </S.AlbumLabels>
-                </S.AlbumContainer>
+                <Link key={album.id} href={`/album?id=${album.id}`}>
+                  <S.AlbumContainer>
+                    <S.AlbumCover
+                      source={{
+                        uri: album.imageUrl,
+                      }}
+                    ></S.AlbumCover>
+                    <S.AlbumLabels>
+                      <GenericText
+                        size={14}
+                        weight="bold"
+                        content={album.name}
+                      />
+                      <GenericText
+                        size={14}
+                        weight="light"
+                        content={album.name}
+                      />
+                    </S.AlbumLabels>
+                  </S.AlbumContainer>
+                </Link>
               );
             })}
           </S.ResultsScroll>
         </S.ResultsContainer>
       </S.Results>
-      <Modal visible={modalAlbum} animationType="slide" transparent={true}>
-        <Album id={selectedAlbum} closeModal={handleCloseAlbum} />
-      </Modal>
     </S.Birthday>
   );
 };
@@ -128,7 +107,7 @@ const S = {
     flex: 1;
     flex-direction: row;
   `,
-  AlbumContainer: styled.Pressable`
+  AlbumContainer: styled.View`
     align-items: flex-start;
     justify-content: space-between;
     gap: 10px;

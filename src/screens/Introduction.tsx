@@ -40,9 +40,6 @@ export default function Introduction() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <S.Wrapper testID="intro-screen" behavior="padding">
-        <Stack.Screen
-          options={{ title: "Introducion Screen", headerShown: false }}
-        />
         <Logo />
         <S.Title testID="intro-screen-title">Choose avatar</S.Title>
         <GenericInput
@@ -94,13 +91,15 @@ const S = {
     flex: 1;
     align-items: center;
     justify-content: center;
+    padding-left: 20px;
+    padding-right: 20px;
     gap: 20px;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
     font-size: 36px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
   `,
   LogoContainer: styled.View`
     height: 100px;
@@ -142,7 +141,9 @@ const S = {
     align-self: flex-start;
     font-family: circularStdLight;
   `,
-  ContinueButton: styled.Text`
-    align-self: center;
+  ContinueButton: styled.View`
+    width: 100%;
+    align-items: center;
+    justify-content: center;
   `,
 };

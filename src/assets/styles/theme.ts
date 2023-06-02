@@ -4,7 +4,7 @@ import { dimensions, height, width } from "src/assets/styles/dimensions";
 export const appTheme: DefaultTheme = {
   background: "transparent",
   primary: "#18171C",
-  secondary: "#FFFFFF",
+  secondary: "#F4F4F4",
   red: "#FF4E45",
   green: "#AFD0BF",
   green500: "#D7E7DF",

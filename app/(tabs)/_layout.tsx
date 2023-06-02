@@ -9,6 +9,10 @@ const BotttomTabs = () => {
       screenOptions={{
         tabBarActiveTintColor: appTheme.secondary,
         tabBarInactiveTintColor: appTheme.shades500,
+        tabBarStyle: {
+          borderTopWidth: 0.5,
+          borderTopColor: appTheme.shades800,
+        },
       }}
     >
       <Tabs.Screen

@@ -1,20 +1,16 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components/native";
-import { Stack } from "expo-router";
-import { GenericText } from "../text/GenericText";
+import { Link, useSearchParams } from "expo-router";
+import { GenericText } from "src/components/text/GenericText";
 import Toast from "react-native-toast-message";
 import { View } from "react-native-animatable";
-import Spinner from "../loaders/Spinner";
+import Spinner from "src/components/loaders/Spinner";
 import { LinearGradient } from "expo-linear-gradient";
 import { appTheme } from "src/assets/styles/theme";
 import { Octicons } from "@expo/vector-icons";
 
-const accessToken = "";
-
-interface IAlbumProps {
-  id: string;
-  closeModal: () => void;
-}
+const accessToken =
+  "BQBMI-N5fWO7N66VeMSUU3z4QRKfkqRAq0Hogxughe-zsCZoJP5bQp71kLaiU95VJDXma-47hZindVHoOJVPpYKPNFqLDgXmKY86C_OCHe15YEk-y12cIKvjCXkmcIj8mdP8D1ytm49p2ZSW65ZItPD_s3cPr7SPNv_Zxjduki1Gvh_WePhI";
 
 interface ITrack {
   id: string;
@@ -60,8 +56,9 @@ const TrackRow = ({ track }: ITrackProps) => {
   );
 };
 
-export const Album = ({ id, closeModal }: IAlbumProps) => {
+const Album = () => {
   const [albumData, setAlbumData] = useState<any>({});
+  const { id } = useSearchParams();
 
   useEffect(() => {
     const fetchAlbumData = async () => {
@@ -84,7 +81,6 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
             type: "error",
             text1: "There was an error fetching album data. Please try again.",
           });
-          closeModal();
         }
       } catch (error) {
         console.error("Error:", error);
@@ -92,7 +88,6 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
           type: "error",
           text1: "There was an error fetching album data. Please try again.",
         });
-        closeModal();
       }
     };
 
@@ -109,10 +104,6 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
 
   return (
     <S.Wrapper testID="album-screen">
-      <Stack.Screen options={{ title: "Album Screen", headerShown: false }} />
-      <S.CloseContainer onPress={closeModal}>
-        <Octicons name="x" size={40} color={appTheme.secondary} />
-      </S.CloseContainer>
       <S.Hero animation="fadeInUp" duration={700}>
         <S.Cover
           source={{
@@ -173,6 +164,8 @@ export const Album = ({ id, closeModal }: IAlbumProps) => {
     </S.Wrapper>
   );
 };
+
+export default Album;
 
 const S = {
   Wrapper: styled.ScrollView`
@@ -262,7 +255,7 @@ const S = {
     gap: 10px;
   `,
   Description: styled.View`
-    width: 80%;
+    width: 90%;
   `,
   Tracks: styled.View`
     padding-bottom: 80px;

@@ -1,12 +1,10 @@
 import styled from "styled-components/native";
-import { Stack } from "expo-router";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import { appTheme } from "src/assets/styles/theme";
 import { Birthday } from "src/components/birthday/BirthdaySection";
 import { GenericText } from "src/components/text/GenericText";
 import { BlurView } from "expo-blur";
 import { View } from "react-native-animatable";
-import Header from "src/components/header/Header";
 
 interface IRowProps {
   user: string;
@@ -17,7 +15,7 @@ interface IRowProps {
 
 const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
   return (
-    <S.Row animation="bounceIn" easing="ease-in-cubic" duration={1000}>
+    <S.Row animation="bounceIn" easing="ease-in-cubic" duration={600}>
       <S.Avatar style={{ backgroundColor: `transparent` }}></S.Avatar>
       <S.RowRecommendation>
         <GenericText size={14} weight="bold" content={user} />
@@ -32,14 +30,14 @@ const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
 
 const Latest = () => {
   return (
-    <S.Latest animation="bounceInDown" duration={500}>
+    <S.Latest animation="fadeIn" duration={500}>
       <S.LatestTop testID="home-screen-latest">
         <S.Title testID="home-screen-latest-title">Latest</S.Title>
         <S.Group testID="home-screen-latest-group" intensity={20} tint="light">
           <GenericText size={14} weight="bold" content="Los Pica" />
         </S.Group>
       </S.LatestTop>
-      <S.LatestCard intensity={10} tint="light">
+      <S.LatestCard intensity={40} tint="dark">
         <Row
           user="@chicha73"
           album="The Dark Side Of The Moon (Pink Floyd)"
@@ -72,7 +70,6 @@ const Latest = () => {
 const Home = () => {
   return (
     <S.Wrapper testID="home-screen">
-      <Header />
       <Latest />
       <Birthday />
     </S.Wrapper>
@@ -86,6 +83,8 @@ const S = {
     flex: 1;
     align-items: flex-start;
     justify-content: flex-start;
+    padding-left: 20px;
+    padding-right: 20px;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
@@ -121,25 +120,14 @@ const S = {
     transform: translate(-1px, 0);
   `,
   LatestCard: styled(BlurView)`
+    height: 230px;
     align-items: center;
     justify-content: space-between;
     border-width: 0.5px;
-    border-color: ${(p) => p.theme.shades200};
+    border-color: ${(p) => p.theme.shades700};
     border-radius: 4px;
     overflow: hidden;
     padding: 20px;
-    gap: 20px;
-  `,
-  LatestCardPattern: styled.ImageBackground`
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    elevation: -1;
-    opacity: 1;
-    background-cover: contain;
   `,
   Row: styled(View)`
     height: 40px;

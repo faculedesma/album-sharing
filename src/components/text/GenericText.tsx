@@ -11,7 +11,7 @@ interface ITextrops {
   numberOfLines?: number;
 }
 
-type FontSize = 10 | 12 | 14 | 16 | 20;
+type FontSize = 10 | 12 | 14 | 16 | 20 | 36;
 type FontWeight = "book" | "bold" | "light" | "medium";
 
 export const GenericText = ({

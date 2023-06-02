@@ -10,7 +10,7 @@ interface ISecondaryProps {
   bold?: boolean;
   size?: string;
   color?: string;
-  handlePress: () => void;
+  handlePress?: () => void;
   loading?: boolean;
 }
 
@@ -24,7 +24,7 @@ export default function SecondaryButton({
   loading = false,
 }: ISecondaryProps) {
   return (
-    <S.Button testID="secondary-button" onPress={handlePress}>
+    <S.Button testID="secondary-button" onPress={handlePress && handlePress}>
       <GenericText
         size={size === "sm" ? 12 : 16}
         weight={bold ? "bold" : "light"}
@@ -32,7 +32,7 @@ export default function SecondaryButton({
         content={loading ? <Spinner /> : text}
       />
       {icon && (
-        <Octicons name="arrow-right" size={20} color={appTheme.secondary} />
+        <Octicons name="arrow-right" size={16} color={appTheme.secondary} />
       )}
     </S.Button>
   );
@@ -43,10 +43,10 @@ const S = {
     width: 100%;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     background-color: transparent;
-  `,
-  Icon: styled.View`
-    maring-left: 10px;
+    z-index: 1;
+    elevation: 1;
+    gap: 10px;
   `,
 };

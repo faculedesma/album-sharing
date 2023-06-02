@@ -46,6 +46,8 @@ const S = {
     height: 60px;
     width: 100%;
     background-color: ${(p) => p.theme.black};
+    border-width: 0.5px;
+    border-color: ${appTheme.shades700};
     border-radius: 4px;
     overflow: hidden;
   `,

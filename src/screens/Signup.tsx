@@ -139,7 +139,10 @@ const S = {
   Wrapper: styled.KeyboardAvoidingView`
     flex: 1;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 90px;
   `,
   LogoContainer: styled.View`
     margin-bottom: 80px;

@@ -2,8 +2,8 @@ import styled from "styled-components/native";
 import { appTheme } from "src/assets/styles/theme";
 import { GenericText } from "src/components/text/GenericText";
 import { View } from "react-native-animatable";
-import Header from "src/components/header/Header";
 import { Octicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
 
 const groups = [
   {
@@ -62,7 +62,7 @@ const GroupRow = ({
 
 const GroupChip = ({ name }: IGroupChipProps) => {
   return (
-    <S.GroupChip testID="groups-screen-chip">
+    <S.GroupChip testID="groups-screen-chip" intensity={10} tint="light">
       <GenericText size={14} weight="bold" content={name} />
     </S.GroupChip>
   );
@@ -70,12 +70,12 @@ const GroupChip = ({ name }: IGroupChipProps) => {
 
 const MyGroups = () => {
   return (
-    <S.Groups animation="fadeInDown" easing="ease-in-out" duration={500}>
+    <S.Groups animation="fadeIn" easing="ease-in-out" duration={400}>
       <S.TitleContainer>
         <S.Title testID="groups-screen-latest-title">Groups</S.Title>
       </S.TitleContainer>
       <S.SubTitleContainer testID="grops-screen-latest-title">
-        <S.Subheading>My Groups</S.Subheading>
+        <S.Subheading>My Grous</S.Subheading>
         <Octicons name="plus" size={20} color={appTheme.secondary} />
       </S.SubTitleContainer>
       <S.GroupChips>
@@ -110,7 +110,6 @@ const MyGroups = () => {
 const Groups = () => {
   return (
     <S.Wrapper testID="groups-screen">
-      <Header />
       <MyGroups />
     </S.Wrapper>
   );
@@ -123,6 +122,8 @@ const S = {
     flex: 1;
     align-items: flex-start;
     justify-content: flex-start;
+    padding-left: 20px;
+    padding-right: 20px;
     background: transparent;
   `,
   Groups: styled(View)`
@@ -147,10 +148,10 @@ const S = {
     justify-content: space-between;
     gap: 10px;
   `,
-  SubTitle: styled.Text`
+  Subheading: styled.Text`
     color: ${(p) => p.theme.secondary};
     font-family: circularStdLight;
-    font-size: 20px;
+    font-size: 24px;
   `,
   GroupChips: styled.View`
     height: 30px;
@@ -163,16 +164,17 @@ const S = {
     flex: 1;
     flex-direction: row;
   `,
-  GroupChip: styled.View`
+  GroupChip: styled(BlurView)`
     height: 30px;
     flex: 1;
     align-items: center;
     justify-content: center;
-    border: 0.5px ${(p) => p.theme.shades200};
+    border: 0.5px ${(p) => p.theme.shades700};
     border-radius: 4px;
     margin-right: 10px;
     padding-left: 10px;
     padding-right: 10px;
+    overflow: hidden;
   `,
   AdministratorChip: styled.View`
     height: 20px;
@@ -185,7 +187,7 @@ const S = {
   GroupUsers: styled.View`
     align-items: center;
     justify-content: space-between;
-    border: 0.5px ${(p) => p.theme.shades200};
+    border: 0.5px ${(p) => p.theme.shades500};
     border-radius: 4px;
     padding: 20px;
     margin-top: 10px;

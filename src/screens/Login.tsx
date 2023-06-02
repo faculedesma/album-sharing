@@ -112,7 +112,7 @@ const Login = () => {
               icon={false}
               bold={true}
               size="md"
-              handlePress={() => router.push("/signup")}
+              handlePress={() => router.replace("/signup")}
             />
           </S.SignupButton>
         </S.LoginInputs>
@@ -128,6 +128,8 @@ const S = {
     flex: 1;
     align-items: center;
     justify-content: center;
+    padding-left: 20px;
+    padding-right: 20px;
     gap: 20px;
   `,
   LogoContainer: styled.View`
@@ -156,7 +158,5 @@ const S = {
     width: 100%;
     align-self: center;
   `,
-  SignupButton: styled.View`
-    align-self: center;
-  `,
+  SignupButton: styled.View``,
 };

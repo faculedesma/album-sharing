@@ -7,19 +7,15 @@ import {
 import styled from "styled-components/native";
 import { Stack, useRouter } from "expo-router";
 import { appTheme } from "src/assets/styles/theme";
-import { GenericText } from "../text/GenericText";
-import { auth } from "../../../firebase";
-import { GenericInput } from "../inputs/GenericInput";
+import { GenericText } from "src/components/text/GenericText";
+import { auth } from "../../firebase";
+import { GenericInput } from "src/components/inputs/GenericInput";
 import { BlurView } from "expo-blur";
 import Toast from "react-native-toast-message";
 import { LinearGradient } from "expo-linear-gradient";
 import { Octicons } from "@expo/vector-icons";
 
-interface IProfileProps {
-  closeModal: () => void;
-}
-
-const Profile = ({ closeModal }: IProfileProps) => {
+const Profile = () => {
   const [bioText, setBioText] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
@@ -36,7 +32,7 @@ const Profile = ({ closeModal }: IProfileProps) => {
     auth
       .signOut()
       .then(() => {
-        closeModal();
+        router.back();
         router.replace("/login");
       })
       .catch((error) => {
@@ -58,19 +54,6 @@ const Profile = ({ closeModal }: IProfileProps) => {
         <Stack.Screen
           options={{ title: "Profile Screen", headerShown: false }}
         />
-        <S.TitleContainer>
-          <>
-            <S.CloseContainer onPress={closeModal}>
-              <Octicons name="x" size={40} color={appTheme.secondary} />
-            </S.CloseContainer>
-            <S.Title testID="profile-screen-title">Profile</S.Title>
-          </>
-          <S.ProfileAvatar
-            source={{
-              uri: "https://lh3.googleusercontent.com/ogw/AOLn63FR1yAhWwMPVOxnKxNWJktQRftStxUNo2MUBx_RYg=s64-c-mo",
-            }}
-          ></S.ProfileAvatar>
-        </S.TitleContainer>
         <S.Avatar intensity={10} tint="dark"></S.Avatar>
         <GenericInput
           value={nickname}
@@ -91,18 +74,16 @@ const Profile = ({ closeModal }: IProfileProps) => {
             handleChangeText={handleOnChangeBio}
           />
         </S.Bio>
-        <TouchableOpacity onPress={closeModal}>
-          <S.Item>
-            <Octicons name="bell" size={16} color={appTheme.secondary} />
-            <GenericText size={16} weight="light" content="Notifications" />
-            <S.Switch
-              trackColor={{ false: appTheme.shades50, true: appTheme.shades50 }}
-              thumbColor={isEnabled ? appTheme.highlight : appTheme.shades50}
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-            />
-          </S.Item>
-        </TouchableOpacity>
+        <S.Item>
+          <Octicons name="bell" size={16} color={appTheme.secondary} />
+          <GenericText size={16} weight="light" content="Notifications" />
+          <S.Switch
+            trackColor={{ false: appTheme.shades50, true: appTheme.shades50 }}
+            thumbColor={isEnabled ? appTheme.highlight : appTheme.shades50}
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
+        </S.Item>
         <TouchableOpacity onPress={handleSignOut}>
           <S.Item>
             <Octicons name="sign-out" size={16} color={appTheme.secondary} />
@@ -122,15 +103,10 @@ const S = {
     align-items: flex-start;
     justify-content: flex-start;
     gap: 20px;
-    padding-top: 60px;
     padding-right: 5%;
     padding-left: 5%;
     z-index: 1;
     elevation: 1;
-  `,
-  CloseContainer: styled.Pressable`
-    padding: 0 20px 30px 0;
-    transform: translate(0, 15px);
   `,
   ProfileAvatar: styled.ImageBackground`
     height: 30px;
@@ -141,11 +117,6 @@ const S = {
     overflow: hidden;
     position: absolute;
     right: 0;
-  `,
-  TitleContainer: styled.View`
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};

@@ -1,6 +1,6 @@
 import "expo-dev-client";
 import { ThemeProvider as NavProvider } from "@react-navigation/native";
-import { Stack, usePathname } from "expo-router";
+import { Stack, usePathname, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import styled, { ThemeProvider } from "styled-components/native";
 import { appTheme, navTheme } from "src/assets/styles/theme";
@@ -9,9 +9,14 @@ import useAppLoading from "src/hooks/useAppLoading";
 import Toast from "react-native-toast-message";
 import LoginPatternPNG from "src/assets/images/bg-login.png";
 import { LinearGradient } from "expo-linear-gradient";
+import { Octicons } from "@expo/vector-icons";
+import { Pressable, TouchableOpacity } from "react-native";
+import LogoPNG from "src/assets/images/logo.png";
+import { GenericText } from "src/components/text/GenericText";
 
 export default function RootLayout() {
   const appLoaded = useAppLoading();
+  const router = useRouter();
 
   const pathname = usePathname();
 
@@ -23,12 +28,98 @@ export default function RootLayout() {
       <S.AppWrapper>
         <NavProvider value={navTheme}>
           <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="(tabs)"
+              options={{
+                headerTitle: "",
+                headerRight: () => (
+                  <S.HeaderRight>
+                    <Octicons
+                      name="search"
+                      size={20}
+                      color={appTheme.secondary}
+                    />
+                    <TouchableOpacity onPress={() => router.push("/profile")}>
+                      <S.ProfileAvatar
+                        source={{
+                          uri: "https://lh3.googleusercontent.com/ogw/AOLn63FR1yAhWwMPVOxnKxNWJktQRftStxUNo2MUBx_RYg=s64-c-mo",
+                        }}
+                      ></S.ProfileAvatar>
+                    </TouchableOpacity>
+                  </S.HeaderRight>
+                ),
+                headerLeft: () => (
+                  <S.HeaderLeft>
+                    <S.LogoImage source={LogoPNG}></S.LogoImage>
+                  </S.HeaderLeft>
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="profile"
+              options={{
+                presentation: "fullScreenModal",
+                headerShown: true,
+                headerTitle: "",
+                headerLeft: () => (
+                  <TouchableOpacity onPress={() => router.back()}>
+                    <S.ProfileHeaderLeft>
+                      <Octicons name="x" size={40} color={appTheme.secondary} />
+                      <GenericText size={36} weight="bold" content="Profile" />
+                    </S.ProfileHeaderLeft>
+                  </TouchableOpacity>
+                ),
+              }}
+            />
             <Stack.Screen name="login" options={{ headerShown: false }} />
-            <Stack.Screen name="signup" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="signup"
+              options={{
+                headerTitle: "",
+                headerRight: () => null,
+                headerLeft: () => (
+                  <Pressable onPress={() => router.replace("/login")}>
+                    <Octicons
+                      name="chevron-left"
+                      size={24}
+                      color={appTheme.secondary}
+                    />
+                  </Pressable>
+                ),
+              }}
+            />
             <Stack.Screen
               name="introduction"
-              options={{ headerShown: false }}
+              options={{
+                headerTitle: "",
+                headerRight: () => null,
+                headerLeft: () => (
+                  <Pressable onPress={() => router.replace("/signup")}>
+                    <Octicons
+                      name="chevron-left"
+                      size={24}
+                      color={appTheme.secondary}
+                    />
+                  </Pressable>
+                ),
+              }}
+            />
+            <Stack.Screen
+              name="album"
+              options={{
+                headerTitle: "",
+                headerTransparent: true,
+                headerRight: () => null,
+                headerLeft: () => (
+                  <Pressable onPress={() => router.back()}>
+                    <Octicons
+                      name="chevron-left"
+                      size={24}
+                      color={appTheme.secondary}
+                    />
+                  </Pressable>
+                ),
+              }}
             />
           </Stack>
         </NavProvider>
@@ -49,8 +140,7 @@ const S = {
     width: ${appTheme.windowWidth};
     height: ${appTheme.windowHeight};
     flex: 1;
-    padding-right: 5%;
-    padding-left: 5%;
+    overflow: visible;
   `,
   AppBackground: styled(LinearGradient)`
     width: 100%;
@@ -70,5 +160,46 @@ const S = {
     z-index: -1;
     elevation: -1;
     opacity: 0.5;
+  `,
+  Header: styled.View`
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
+  `,
+  HeaderLeft: styled.View`
+    height: 30px;
+    width: 30px;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  `,
+  ProfileHeaderLeft: styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  `,
+  HeaderRight: styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  `,
+  LogoImage: styled.ImageBackground`
+    height: 20px;
+    width: 25px;
+    align-self: center;
+  `,
+  ProfileContainer: styled.Button``,
+  ProfileAvatar: styled.ImageBackground`
+    height: 30px;
+    width: 30px;
+    background-color: ${(p) => p.theme.shades50}
+    border: .5px ${(p) => p.theme.highlight}
+    border-radius: 50%;
+    overflow: hidden;
   `,
 };
