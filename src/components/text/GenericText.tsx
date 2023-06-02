@@ -9,6 +9,7 @@ interface ITextrops {
   content: string | number | ReactElement;
   ellipsizeMode?: string;
   numberOfLines?: number;
+  align?: "left" | "right" | "center";
 }
 
 type FontSize = 10 | 12 | 14 | 16 | 20 | 36;
@@ -21,6 +22,7 @@ export const GenericText = ({
   content,
   ellipsizeMode = "tail",
   numberOfLines = 1,
+  align = "left",
 }: ITextrops) => {
   switch (weight) {
     case "light":
@@ -29,6 +31,7 @@ export const GenericText = ({
           style={{
             color: color,
             fontSize: size,
+            textAlign: align,
           }}
           ellipsizeMode={ellipsizeMode}
           numberOfLines={numberOfLines}
@@ -42,6 +45,7 @@ export const GenericText = ({
           style={{
             color: color,
             fontSize: size,
+            textAlign: align,
           }}
           ellipsizeMode={ellipsizeMode}
           numberOfLines={numberOfLines}
@@ -55,6 +59,7 @@ export const GenericText = ({
           style={{
             color: color,
             fontSize: size,
+            textAlign: align,
           }}
           ellipsizeMode={ellipsizeMode}
           numberOfLines={numberOfLines}
@@ -68,6 +73,7 @@ export const GenericText = ({
           style={{
             color: color,
             fontSize: size,
+            textAlign: align,
           }}
           ellipsizeMode={ellipsizeMode}
           numberOfLines={numberOfLines}

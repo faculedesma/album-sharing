@@ -60,6 +60,9 @@ export default function RootLayout() {
               options={{
                 presentation: "fullScreenModal",
                 headerShown: true,
+                headerStyle: {
+                  backgroundColor: appTheme.black,
+                },
                 headerTitle: "",
                 headerLeft: () => (
                   <TouchableOpacity onPress={() => router.back()}>
@@ -81,7 +84,7 @@ export default function RootLayout() {
                   <Pressable onPress={() => router.replace("/login")}>
                     <Octicons
                       name="chevron-left"
-                      size={24}
+                      size={20}
                       color={appTheme.secondary}
                     />
                   </Pressable>
@@ -97,7 +100,7 @@ export default function RootLayout() {
                   <Pressable onPress={() => router.replace("/signup")}>
                     <Octicons
                       name="chevron-left"
-                      size={24}
+                      size={20}
                       color={appTheme.secondary}
                     />
                   </Pressable>
@@ -114,7 +117,7 @@ export default function RootLayout() {
                   <Pressable onPress={() => router.back()}>
                     <Octicons
                       name="chevron-left"
-                      size={24}
+                      size={20}
                       color={appTheme.secondary}
                     />
                   </Pressable>
@@ -166,8 +169,6 @@ const S = {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding-left: 5%;
-    padding-right: 5%;
   `,
   HeaderLeft: styled.View`
     height: 30px;

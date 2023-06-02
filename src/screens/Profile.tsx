@@ -100,8 +100,8 @@ const S = {
     align-items: flex-start;
     justify-content: flex-start;
     gap: 20px;
-    padding-right: 5%;
-    padding-left: 5%;
+    padding-right: 20px;
+    padding-left: 20px;
     z-index: 1;
     elevation: 1;
   `,

@@ -42,38 +42,32 @@ export const Birthday = () => {
         {currentDate}
       </S.SubTitle>
       <S.Results animation="fadeIn" duration={600}>
-        <S.ResultsContainer>
-          <S.ResultsScroll
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          >
-            {albums.map((album) => {
-              return (
-                <Link key={album.id} href={`/album?id=${album.id}`}>
-                  <S.AlbumContainer>
-                    <S.AlbumCover
-                      source={{
-                        uri: album.imageUrl,
-                      }}
-                    ></S.AlbumCover>
-                    <S.AlbumLabels>
-                      <GenericText
-                        size={14}
-                        weight="bold"
-                        content={album.name}
-                      />
-                      <GenericText
-                        size={14}
-                        weight="light"
-                        content={album.name}
-                      />
-                    </S.AlbumLabels>
-                  </S.AlbumContainer>
-                </Link>
-              );
-            })}
-          </S.ResultsScroll>
-        </S.ResultsContainer>
+        <S.ResultsScroll
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
+          {albums.map((album) => {
+            return (
+              <Link key={album.id} href={`/album?id=${album.id}`}>
+                <S.AlbumContainer>
+                  <S.AlbumCover
+                    source={{
+                      uri: album.imageUrl,
+                    }}
+                  ></S.AlbumCover>
+                  <S.AlbumLabels>
+                    <GenericText size={14} weight="bold" content={album.name} />
+                    <GenericText
+                      size={14}
+                      weight="light"
+                      content={album.name}
+                    />
+                  </S.AlbumLabels>
+                </S.AlbumContainer>
+              </Link>
+            );
+          })}
+        </S.ResultsScroll>
       </S.Results>
     </S.Birthday>
   );
@@ -93,37 +87,34 @@ const S = {
   Birthday: styled.View`
     align-items: flex-start;
     justify-content: flex-start;
-    gap: 20px;
+    gap: 10px;
   `,
   Results: styled(View)`
     width: ${(p) => p.theme.windowWidth};
-    height: 180px;
-    overflow: visible;
-  `,
-  ResultsContainer: styled.View`
-    flex: 1;
+    height: 200px;
+    align-items: flex-start;
+    justify-content: flex-start;
   `,
   ResultsScroll: styled.ScrollView`
     flex: 1;
     flex-direction: row;
+    margin-top: 10px;
   `,
   AlbumContainer: styled.View`
     align-items: flex-start;
     justify-content: space-between;
-    gap: 10px;
+    padding-right: 10px;
   `,
   AlbumCover: styled.ImageBackground`
-    width: 125px;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    background-color: ${(p) => p.theme.shades50};
+    height: 110px;
+    width: 110px;
+    background-color: ${(p) => p.theme.shades800};
+    background-size: cover;
     overflow: hidden;
     border-radius: 4px;
-    margin-right: 10px;
   `,
   AlbumLabels: styled.View`
-    max-width: 125px;
+    max-width: 110px;
     gap: 5px;
     align-items: flex-start;
     justify-content: space-between;

@@ -1,0 +1,31 @@
+{
+  "recommendations": [
+    {
+      "id": "1",
+      "user_id": "chicha73",
+      "nickname": "@chicha73",
+      "album_id": "0bCAjiUamIFqKJsekOYuRw",
+      "album_name": "Wish You Were Here",
+      "artist": "Pink Floyd",
+      "date": "yesterday"
+    },
+    {
+      "id": "2",
+      "user_id": "brain_damage",
+      "nickname": "@brain_damage",
+      "album_id": "0bCAjiUamIFqKJsekOYuRw",
+      "album_name": "Innervisions",
+      "artist": "Stevie Wonder",
+      "date": "tuesday"
+    },
+    {
+      "id": "3",
+      "user_id": "superyayiri",
+      "nickname": "@superyayiri",
+      "album_id": "0bCAjiUamIFqKJsekOYuRw",
+      "album_name": "Animals",
+      "artist": "Pink Floyd",
+      "date": "may 12"
+    }
+  ]
+}

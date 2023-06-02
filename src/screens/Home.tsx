@@ -5,10 +5,15 @@ import { Birthday } from "src/components/birthday/BirthdaySection";
 import { GenericText } from "src/components/text/GenericText";
 import { BlurView } from "expo-blur";
 import { View } from "react-native-animatable";
+import recommendationsJson from "src/data/recommendations.json";
+import { Link } from "expo-router";
 
 interface IRowProps {
   user: string;
-  album: string;
+  album: {
+    id: string;
+    name: string;
+  };
   date: string;
   color: string;
 }
@@ -20,7 +25,9 @@ const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
       <S.RowRecommendation>
         <GenericText size={14} weight="bold" content={user} />
         <GenericText size={14} weight="light" content="recommended" />
-        <GenericText size={14} weight="bold" content={album} />
+        <Link href={`/album?id=${album.id}`}>
+          <GenericText size={14} weight="bold" content={album.name} />
+        </Link>
         <GenericText size={14} weight="light" content="on" />
         <GenericText size={14} weight="light" content={date} />
       </S.RowRecommendation>
@@ -38,24 +45,20 @@ const Latest = () => {
         </S.Group>
       </S.LatestTop>
       <S.LatestCard intensity={40} tint="dark">
-        <Row
-          user="@chicha73"
-          album="The Dark Side Of The Moon (Pink Floyd)"
-          date="yesterday"
-          color={appTheme.green}
-        />
-        <Row
-          user="@brain_damage"
-          album="Innervisions (Stevie Wonder)"
-          date="tuesday"
-          color={appTheme.green}
-        />
-        <Row
-          user="@superyayiri"
-          album="Animals (Pink Floyd)"
-          date="may 12"
-          color={appTheme.green}
-        />
+        {recommendationsJson.recommendations.map((rec) => {
+          return (
+            <Row
+              key={rec.id}
+              user={rec.nickname}
+              album={{
+                id: rec.album_id,
+                name: rec.album_name,
+              }}
+              date={rec.date}
+              color={appTheme.green}
+            />
+          );
+        })}
       </S.LatestCard>
       <S.ViewAllButton>
         <SecondaryButton
@@ -85,6 +88,7 @@ const S = {
     justify-content: flex-start;
     padding-left: 20px;
     padding-right: 20px;
+    margin-top: 30px;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
@@ -100,7 +104,7 @@ const S = {
     width: 100%;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 20px;
+    gap: 10px;
   `,
   LatestTop: styled.View`
     width: 100%;
@@ -120,7 +124,7 @@ const S = {
     transform: translate(-1px, 0);
   `,
   LatestCard: styled(BlurView)`
-    height: 230px;
+    height: 210px;
     align-items: center;
     justify-content: space-between;
     border-width: 0.5px;
@@ -132,8 +136,7 @@ const S = {
   Row: styled(View)`
     height: 40px;
     flex-direction: row;
-    align-items: center;
-    gap: 16px;
+    align-items: flex-start;
     margin-top: 4px;
     gap: 20px;
   `,
@@ -145,8 +148,6 @@ const S = {
     background: transparent;
   `,
   RowRecommendation: styled.View`
-    max-height: 50px;
-    width: 300px;
     flex: 1;
     flex-direction: row;
     align-items: flex-start;

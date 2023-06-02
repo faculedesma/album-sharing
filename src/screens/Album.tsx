@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components/native";
-import { Link, useSearchParams } from "expo-router";
+import { useSearchParams } from "expo-router";
 import { GenericText } from "src/components/text/GenericText";
 import Toast from "react-native-toast-message";
 import { View } from "react-native-animatable";
@@ -8,14 +8,15 @@ import Spinner from "src/components/loaders/Spinner";
 import { LinearGradient } from "expo-linear-gradient";
 import { appTheme } from "src/assets/styles/theme";
 import { Octicons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
 
 const accessToken =
-  "BQBMI-N5fWO7N66VeMSUU3z4QRKfkqRAq0Hogxughe-zsCZoJP5bQp71kLaiU95VJDXma-47hZindVHoOJVPpYKPNFqLDgXmKY86C_OCHe15YEk-y12cIKvjCXkmcIj8mdP8D1ytm49p2ZSW65ZItPD_s3cPr7SPNv_Zxjduki1Gvh_WePhI";
+  "BQAckhAPQ7nMsEEHRk7FUsIJ1JUpRUTrsKk7KqEpu4wua26NSUinge9yeuFQddkPh2rQ4ZpMNzqkEaqe02GiiqGoC3fIQWF4cNedxXANTrcMlrPZ9CI30t9bFeYrRUo0NVKFMPE9kNJ_K-pje1qUX9NQbUtxRm8RxTmI5SiIB5tr-unaA-4J";
 
 interface ITrack {
   id: string;
   name: string;
-  track_number: number;
+  track_number: number | string;
 }
 
 interface ITrackProps {
@@ -27,26 +28,46 @@ const TrackRow = ({ track }: ITrackProps) => {
 
   const handleExpandSong = () => setIsExpanded(!isExpanded);
 
+  if (track.id === "track-header") {
+    return (
+      <S.TrackRowContainer>
+        <S.TrackRowLeft>
+          <GenericText size={16} weight="bold" content={track.track_number} />
+          <GenericText size={16} weight="light" content={track.name} />
+        </S.TrackRowLeft>
+      </S.TrackRowContainer>
+    );
+  }
+
   return (
     <>
       <S.TrackRowContainer onPress={handleExpandSong}>
         <S.TrackRow animation="fadeInUp" duration={600}>
-          <GenericText size={14} weight="bold" content={track.track_number} />
-          <GenericText size={14} weight="light" content={track.name} />
-          <S.TrackRowExpand>
-            <S.ExpandIcon>
-              <Octicons
-                name="chevron-left"
-                size={16}
-                color={appTheme.secondary}
-              />
-            </S.ExpandIcon>
-          </S.TrackRowExpand>
+          <S.TrackRowLeft>
+            <GenericText size={16} weight="bold" content={track.track_number} />
+            <GenericText size={16} weight="light" content={track.name} />
+            <S.TrackRowExpand>
+              <S.ExpandIcon>
+                <Octicons
+                  name={isExpanded ? "chevron-up" : "chevron-down"}
+                  size={16}
+                  color={appTheme.secondary}
+                />
+              </S.ExpandIcon>
+            </S.TrackRowExpand>
+          </S.TrackRowLeft>
+          <S.TrackRowRight>
+            <Octicons name="comment" size={16} color={appTheme.secondary} />
+          </S.TrackRowRight>
         </S.TrackRow>
       </S.TrackRowContainer>
-      <S.ExpandedContent style={{ display: isExpanded ? "flex" : "none" }}>
+      <S.ExpandedContent
+        style={{ display: isExpanded ? "flex" : "none" }}
+        intensity={20}
+        tint="light"
+      >
         <GenericText
-          size={14}
+          size={16}
           weight="light"
           content="Here are the row lyrics  Here are the row lyrics  Here are the row lyrics  Here are the row lyrics  Here are the row lyrics"
           numberOfLines={100}
@@ -76,14 +97,12 @@ const Album = () => {
           const data = await response.json();
           setAlbumData(data);
         } else {
-          console.error("Error:", response.status);
           Toast.show({
             type: "error",
             text1: "There was an error fetching album data. Please try again.",
           });
         }
       } catch (error) {
-        console.error("Error:", error);
         Toast.show({
           type: "error",
           text1: "There was an error fetching album data. Please try again.",
@@ -125,7 +144,7 @@ const Album = () => {
               content={albumData.artists[0].name}
             />
             <GenericText
-              size={14}
+              size={16}
               weight="bold"
               content={albumData.release_date.split("-")[0]}
             />
@@ -135,6 +154,7 @@ const Album = () => {
               size={14}
               weight="light"
               numberOfLines={10}
+              align="center"
               content="Wish You Were Here —in Spanish: I wish you were here— is the ninth studio album by the British rock band Pink Floyd, released in September 1975 and inspired by the material they composed during their 1974 European tour and recorded in the Abbey Road Studios, London."
             />
           </S.Description>
@@ -144,10 +164,18 @@ const Album = () => {
         ></S.HeroBackgroundImage>
         <S.HeroLinearGradient colors={["transparent", appTheme.primary]} />
       </S.Hero>
+      <S.SubTitle animation="fadeInUp" duration={500}>
+        <GenericText size={20} weight="bold" content="Song lyrics" />
+      </S.SubTitle>
       <S.Tracks>
-        <S.SubTitle animation="fadeInUp" duration={500}>
-          <GenericText size={20} weight="bold" content="Song lyrics" />
-        </S.SubTitle>
+        <TrackRow
+          key="track-header"
+          track={{
+            id: "track-header",
+            name: "TITLE",
+            track_number: "#",
+          }}
+        />
         {albumData.tracks.items.map((track) => {
           return (
             <TrackRow
@@ -168,12 +196,12 @@ const Album = () => {
 export default Album;
 
 const S = {
-  Wrapper: styled.ScrollView`
+  Wrapper: styled.View`
     flex: 1;
     background-color: ${appTheme.primary};
     padding-top: 60px;
-    padding-right: 5%;
-    padding-left: 5%;
+    padding-right: 20px;
+    padding-left: 20px;
   `,
   LoaderWrapper: styled.View`
     height: 100%;
@@ -205,11 +233,7 @@ const S = {
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
     font-size: 20px;
-    margin-bottom: 10px;
-    flex-direction: row;
-    align-items: center;
-    justify-content; space-between;
-    gap: 20px;
+    margin-bottom: 30px;
   `,
   HeroLinearGradient: styled(LinearGradient)`
     width: 400px;
@@ -257,30 +281,34 @@ const S = {
   Description: styled.View`
     width: 90%;
   `,
-  Tracks: styled.View`
+  Tracks: styled.ScrollView`
     padding-bottom: 80px;
   `,
   TrackRowContainer: styled.Pressable`
     height: 50px;
-    width: ${(p) => p.theme.windowWidth};
-    border-bottom-width: 0.5px;
-    border-bottom-color: ${appTheme.shades800};
-    transform: translate(-20px, 0);
+    width: 100%;
   `,
   TrackRow: styled(View)`
-    height: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  `,
+  TrackRowLeft: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
     gap: 20px;
-    padding-left: 20px;
+  `,
+  TrackRowRight: styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
   `,
   TrackRowExpand: styled.View``,
-  ExpandIcon: styled.View`
-    transform: rotate(-90deg);
-  `,
-  ExpandedContent: styled(View)`
-    display: none;
+  ExpandIcon: styled.View``,
+  ExpandedContent: styled(BlurView)`
     align-items: center;
     justify-content: center;
     padding: 30px 0;
