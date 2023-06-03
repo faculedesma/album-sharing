@@ -48,7 +48,7 @@ export const Birthday = () => {
         >
           {albums.map((album) => {
             return (
-              <Link key={album.id} href={`/album?id=${album.id}`}>
+              <Link key={album.id} href={`/home/album?id=${album.id}`}>
                 <S.AlbumContainer>
                   <S.AlbumCover
                     source={{

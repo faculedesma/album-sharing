@@ -11,7 +11,6 @@ import LoginPatternPNG from "src/assets/images/bg-login.png";
 import { LinearGradient } from "expo-linear-gradient";
 import { Octicons } from "@expo/vector-icons";
 import { Pressable, TouchableOpacity } from "react-native";
-import LogoPNG from "src/assets/images/logo.png";
 import { GenericText } from "src/components/text/GenericText";
 
 export default function RootLayout() {
@@ -28,52 +27,6 @@ export default function RootLayout() {
       <S.AppWrapper>
         <NavProvider value={navTheme}>
           <Stack>
-            <Stack.Screen
-              name="(tabs)"
-              options={{
-                headerTitle: "",
-                headerRight: () => (
-                  <S.HeaderRight>
-                    <Octicons
-                      name="search"
-                      size={20}
-                      color={appTheme.secondary}
-                    />
-                    <TouchableOpacity onPress={() => router.push("/profile")}>
-                      <S.ProfileAvatar
-                        source={{
-                          uri: "https://lh3.googleusercontent.com/ogw/AOLn63FR1yAhWwMPVOxnKxNWJktQRftStxUNo2MUBx_RYg=s64-c-mo",
-                        }}
-                      ></S.ProfileAvatar>
-                    </TouchableOpacity>
-                  </S.HeaderRight>
-                ),
-                headerLeft: () => (
-                  <S.HeaderLeft>
-                    <S.LogoImage source={LogoPNG}></S.LogoImage>
-                  </S.HeaderLeft>
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="profile"
-              options={{
-                presentation: "fullScreenModal",
-                headerShown: true,
-                headerStyle: {
-                  backgroundColor: appTheme.black,
-                },
-                headerTitle: "",
-                headerLeft: () => (
-                  <TouchableOpacity onPress={() => router.back()}>
-                    <S.ProfileHeaderLeft>
-                      <Octicons name="x" size={40} color={appTheme.secondary} />
-                      <GenericText size={36} weight="bold" content="Profile" />
-                    </S.ProfileHeaderLeft>
-                  </TouchableOpacity>
-                ),
-              }}
-            />
             <Stack.Screen name="login" options={{ headerShown: false }} />
             <Stack.Screen
               name="signup"
@@ -108,19 +61,28 @@ export default function RootLayout() {
               }}
             />
             <Stack.Screen
-              name="album"
+              name="(tabs)"
               options={{
                 headerTitle: "",
-                headerTransparent: true,
-                headerRight: () => null,
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="profile"
+              options={{
+                presentation: "fullScreenModal",
+                headerShown: true,
+                headerStyle: {
+                  backgroundColor: appTheme.black,
+                },
+                headerTitle: "",
                 headerLeft: () => (
-                  <Pressable onPress={() => router.back()}>
-                    <Octicons
-                      name="chevron-left"
-                      size={20}
-                      color={appTheme.secondary}
-                    />
-                  </Pressable>
+                  <TouchableOpacity onPress={() => router.back()}>
+                    <S.ProfileHeaderLeft>
+                      <Octicons name="x" size={20} color={appTheme.secondary} />
+                      <GenericText size={24} weight="bold" content="Profile" />
+                    </S.ProfileHeaderLeft>
+                  </TouchableOpacity>
                 ),
               }}
             />

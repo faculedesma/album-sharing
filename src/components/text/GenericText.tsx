@@ -12,7 +12,7 @@ interface ITextrops {
   align?: "left" | "right" | "center";
 }
 
-type FontSize = 10 | 12 | 14 | 16 | 20 | 36;
+type FontSize = 10 | 12 | 14 | 16 | 20 | 24 | 36;
 type FontWeight = "book" | "bold" | "light" | "medium";
 
 export const GenericText = ({

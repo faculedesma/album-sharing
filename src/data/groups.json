@@ -1,0 +1,58 @@
+{
+  "groups": [
+    {
+      "id": "1",
+      "name": "Los Pica",
+      "users": [
+        {
+          "user_id": "chicha73",
+          "nickname": "@chicha73"
+        },
+        {
+          "user_id": "brain_damage",
+          "nickname": "@brain_damage"
+        },
+        {
+          "user_id": "superyayiri",
+          "nickname": "@superyayiri"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Whisky Cuarentena",
+      "users": [
+        {
+          "user_id": "chicha73",
+          "nickname": "@chicha73"
+        },
+        {
+          "user_id": "brain_damage",
+          "nickname": "@brain_damage"
+        },
+        {
+          "user_id": "superyayiri",
+          "nickname": "@superyayiri"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Los Picaperros",
+      "users": [
+        {
+          "user_id": "chicha73",
+          "nickname": "@chicha73"
+        },
+        {
+          "user_id": "brain_damage",
+          "nickname": "@brain_damage"
+        },
+        {
+          "user_id": "superyayiri",
+          "nickname": "@superyayiri"
+        }
+      ]
+    }
+  ]
+}
