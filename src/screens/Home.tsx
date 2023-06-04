@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import styled from "styled-components/native";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import { appTheme } from "src/assets/styles/theme";
@@ -10,7 +10,18 @@ import recommendationsJson from "src/data/recommendations.json";
 import { Link, useRouter } from "expo-router";
 import groupsJson from "src/data/groups.json";
 import { Pressable } from "react-native";
-import { Modal } from "react-native";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import Spinner from "src/components/loaders/Spinner";
+
+interface IRecommendation {
+  id: string;
+  user_id: string;
+  nickname: string;
+  album_id: string;
+  album_name: string;
+  artist: string;
+  date: string;
+}
 
 interface IGroup {
   id: string;
@@ -27,28 +38,31 @@ interface IRowProps {
   color: string;
 }
 
-const GrousList = (props) => {
+interface IGroupListProps {
+  groups: IGroup[];
+  handleSelectGroup: (id: string) => void;
+}
+
+const GrousList = ({ groups, handleSelectGroup }: IGroupListProps) => {
   return (
-    <Modal animationType="slide" transparent={true} visible={false}>
-      <S.GroupModal style={{ marginTop: "auto" }} intensity={50} tint="dark">
-        <S.GroupModalScroll>
-          {props.groups.map((group) => (
-            <S.GroupRow
+    <S.GroupsList>
+      <S.GroupsListScroll>
+        {groups.map((group: IGroup) => (
+          <S.GroupRow
+            key={group.id}
+            onPress={() => handleSelectGroup(group.id)}
+          >
+            <GenericText
               key={group.id}
-              onPress={() => props.handleSelectGroup(group.id)}
-            >
-              <GenericText
-                key={group.id}
-                size={24}
-                weight="light"
-                align="center"
-                content={group.name}
-              />
-            </S.GroupRow>
-          ))}
-        </S.GroupModalScroll>
-      </S.GroupModal>
-    </Modal>
+              size={24}
+              weight="light"
+              align="center"
+              content={group.name}
+            />
+          </S.GroupRow>
+        ))}
+      </S.GroupsListScroll>
+    </S.GroupsList>
   );
 };
 
@@ -79,17 +93,40 @@ const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
 const Latest = () => {
   const [groups, setGroups] = useState<IGroup[]>([]);
   const [selectedGroup, setSelectedGroup] = useState<IGroup>({});
+  const [recommendations, setRecommendations] = useState<IRecommendation[]>([]);
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const snapPoints = useMemo(() => ["30%"], []);
+
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
+  const handleCloseModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.close();
+  }, []);
 
   const router = useRouter();
 
   useEffect(() => {
-    const fetchedGroups = groupsJson.groups;
-    setGroups(fetchedGroups);
-    setSelectedGroup(fetchedGroups[0]);
+    setTimeout(() => {
+      const fetchedGroups = groupsJson.groups;
+      setGroups(groupsJson.groups);
+      setSelectedGroup(fetchedGroups[0]);
+    }, 2000);
+  }),
+    [];
+
+  useEffect(() => {
+    setTimeout(() => {
+      const fetchedRecommendation = recommendationsJson.recommendations;
+      setRecommendations(fetchedRecommendation);
+    }, 2000);
   }),
     [];
 
   const handleSelectGroup = (id: string) => {
+    handleCloseModalPress();
     const updatedGroup = groups.find((gr) => gr.id === id);
     setSelectedGroup(updatedGroup!);
   };
@@ -104,30 +141,38 @@ const Latest = () => {
             intensity={20}
             tint="light"
           >
-            <Pressable onPress={() => null}>
-              <GenericText
-                size={14}
-                weight="bold"
-                content={selectedGroup.name}
-              />
-            </Pressable>
+            {groups.length ? (
+              <Pressable onPress={handlePresentModalPress}>
+                <GenericText
+                  size={14}
+                  weight="bold"
+                  content={selectedGroup.name}
+                />
+              </Pressable>
+            ) : (
+              <Spinner />
+            )}
           </S.Group>
         </S.LatestTop>
         <S.LatestCard intensity={40} tint="dark">
-          {recommendationsJson.recommendations.map((rec) => {
-            return (
-              <Row
-                key={rec.id}
-                user={rec.nickname}
-                album={{
-                  id: rec.album_id,
-                  name: rec.album_name,
-                }}
-                date={rec.date}
-                color={appTheme.green}
-              />
-            );
-          })}
+          {recommendations.length ? (
+            recommendations.map((rec) => {
+              return (
+                <Row
+                  key={rec.id}
+                  user={rec.nickname}
+                  album={{
+                    id: rec.album_id,
+                    name: rec.album_name,
+                  }}
+                  date={rec.date}
+                  color={appTheme.green}
+                />
+              );
+            })
+          ) : (
+            <Spinner />
+          )}
         </S.LatestCard>
         <S.ViewAllButton>
           <SecondaryButton
@@ -136,7 +181,18 @@ const Latest = () => {
           />
         </S.ViewAllButton>
       </S.Latest>
-      <GrousList groups={groups} handleSelectGroup={handleSelectGroup} />
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        index={0}
+        snapPoints={snapPoints}
+        enablePanDownToClose={true}
+        backgroundStyle={{
+          backgroundColor: appTheme.secondary900,
+        }}
+        handleIndicatorStyle={{ backgroundColor: appTheme.secondary }}
+      >
+        <GrousList groups={groups} handleSelectGroup={handleSelectGroup} />
+      </BottomSheetModal>
     </>
   );
 };
@@ -187,28 +243,28 @@ const S = {
     height: 30px;
     align-items: center;
     justify-content: center;
-    border: 0.5px ${(p) => p.theme.shades400};
+    border: 0.5px ${appTheme.shades500}
     border-radius: 4px;
     padding-left: 10px;
     padding-right: 10px;
     overflow: hidden;
     transform: translate(-1px, 0);
   `,
-  GroupModalScroll: styled.ScrollView`
-    margin-top: 40px;
-  `,
-  GroupModal: styled(BlurView)`
-    height: 30%;
+  GroupsListScroll: styled.ScrollView``,
+  GroupsList: styled.View`
+    flex: 1;
   `,
   GroupRow: styled.Pressable`
-    height: 50px;
+    margin-top: 20px;
+    height: 30px;
   `,
   LatestCard: styled(BlurView)`
     height: 200px;
+    min-width: 100%;
     align-items: center;
     justify-content: space-between;
     border-width: 0.5px;
-    border-color: ${(p) => p.theme.shades700};
+    border-color: ${appTheme.shades700};
     border-radius: 4px;
     overflow: hidden;
     padding: 20px;
