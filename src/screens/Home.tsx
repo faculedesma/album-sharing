@@ -12,6 +12,7 @@ import groupsJson from "src/data/groups.json";
 import { Pressable } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import Spinner from "src/components/loaders/Spinner";
+import { useSessionStorage } from "src/hooks/useSessionStorage";
 
 interface IRecommendation {
   id: string;
@@ -95,6 +96,7 @@ const Latest = () => {
   const [selectedGroup, setSelectedGroup] = useState<IGroup>({});
   const [recommendations, setRecommendations] = useState<IRecommendation[]>([]);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const { storeData, getData } = useSessionStorage();
 
   const snapPoints = useMemo(() => ["30%"], []);
 
@@ -109,9 +111,17 @@ const Latest = () => {
   const router = useRouter();
 
   useEffect(() => {
-    setTimeout(() => {
+    setTimeout(async () => {
       const fetchedGroups = groupsJson.groups;
       setGroups(groupsJson.groups);
+      const sessionGroupId = await getData("selected_group_id");
+      if (sessionGroupId) {
+        const sessionGroup = fetchedGroups.find(
+          (gr) => gr.id === sessionGroupId
+        );
+        setSelectedGroup(sessionGroup!);
+        return;
+      }
       setSelectedGroup(fetchedGroups[0]);
     }, 2000);
   }),
@@ -123,11 +133,13 @@ const Latest = () => {
       setRecommendations(fetchedRecommendation);
     }, 2000);
   }),
-    [];
+    [selectedGroup.id];
 
   const handleSelectGroup = (id: string) => {
     handleCloseModalPress();
     const updatedGroup = groups.find((gr) => gr.id === id);
+    storeData("selected_group_id", updatedGroup!.id);
+    setRecommendations([]);
     setSelectedGroup(updatedGroup!);
   };
 
