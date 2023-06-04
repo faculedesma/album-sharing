@@ -9,6 +9,7 @@ import { auth } from "../../firebase";
 import { GenericInput } from "src/components/inputs/GenericInput";
 import Toast from "react-native-toast-message";
 import { Octicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Signup() {
   const [email, setEmail] = useState<string>("");
@@ -130,6 +131,7 @@ export default function Signup() {
             />
           </S.SignupButton>
         </S.Inputs>
+        <S.SingupBackground colors={[appTheme.black, appTheme.primary]} />
       </S.Wrapper>
     </TouchableWithoutFeedback>
   );
@@ -142,7 +144,7 @@ const S = {
     justify-content: flex-start;
     padding-left: 20px;
     padding-right: 20px;
-    margin-top: 90px;
+    padding-top: 90px;
   `,
   LogoContainer: styled.View`
     margin-bottom: 80px;
@@ -165,5 +167,14 @@ const S = {
   SignupButton: styled.View`
     width: 100%;
     align-self: center;
+  `,
+  SingupBackground: styled(LinearGradient)`
+    width: ${appTheme.windowWidth};
+    height: ${appTheme.windowHeight};
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    elevation: -1;
   `,
 };

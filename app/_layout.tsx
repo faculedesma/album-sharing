@@ -7,7 +7,6 @@ import { appTheme, navTheme } from "src/assets/styles/theme";
 import Spinner from "src/components/loaders/Spinner";
 import useAppLoading from "src/hooks/useAppLoading";
 import Toast from "react-native-toast-message";
-import LoginPatternPNG from "src/assets/images/bg-login.png";
 import { LinearGradient } from "expo-linear-gradient";
 import { Octicons } from "@expo/vector-icons";
 import { Pressable, TouchableOpacity } from "react-native";
@@ -17,8 +16,6 @@ import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 export default function RootLayout() {
   const appLoaded = useAppLoading();
   const router = useRouter();
-
-  const pathname = usePathname();
 
   if (!appLoaded) return <Spinner />;
 
@@ -35,6 +32,10 @@ export default function RootLayout() {
                 options={{
                   headerTitle: "",
                   headerRight: () => null,
+                  headerStyle: {
+                    backgroundColor: appTheme.black,
+                  },
+                  headerShadowVisible: false,
                   headerLeft: () => (
                     <Pressable onPress={() => router.replace("/login")}>
                       <Octicons
@@ -50,6 +51,10 @@ export default function RootLayout() {
                 name="introduction"
                 options={{
                   headerTitle: "",
+                  headerStyle: {
+                    backgroundColor: appTheme.black,
+                  },
+                  headerShadowVisible: false,
                   headerRight: () => null,
                   headerLeft: () => (
                     <Pressable onPress={() => router.replace("/signup")}>
@@ -77,6 +82,7 @@ export default function RootLayout() {
                   headerStyle: {
                     backgroundColor: appTheme.black,
                   },
+                  headerShadowVisible: false,
                   headerTitle: "",
                   headerLeft: () => (
                     <TouchableOpacity onPress={() => router.back()}>
@@ -102,11 +108,6 @@ export default function RootLayout() {
         </S.AppWrapper>
       </BottomSheetModalProvider>
       <S.AppBackground colors={[appTheme.black, appTheme.primary]} />
-      {pathname === "/login" ||
-      pathname === "/introduction" ||
-      pathname === "/signup" ? (
-        <S.AppBackgroundImage source={LoginPatternPNG}></S.AppBackgroundImage>
-      ) : null}
     </ThemeProvider>
   );
 }
@@ -126,16 +127,6 @@ const S = {
     left: 0;
     z-index: -1;
     elevation: -1;
-  `,
-  AppBackgroundImage: styled.ImageBackground`
-    width: ${appTheme.windowWidth};
-    height: ${appTheme.windowHeight};
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    elevation: -1;
-    opacity: 0.5;
   `,
   Header: styled.View`
     width: 100%;

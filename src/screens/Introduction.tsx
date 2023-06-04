@@ -7,6 +7,7 @@ import { Logo } from "src/components/logo/Logo";
 import { appTheme } from "src/assets/styles/theme";
 import { GenericInput } from "src/components/inputs/GenericInput";
 import Toast from "react-native-toast-message";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function Introduction() {
   const [bioText, setBioText] = useState<string>("");
@@ -81,6 +82,7 @@ export default function Introduction() {
             handlePress={handleFinishSignUp}
           />
         </S.ContinueButton>
+        <S.IntroductionBackground colors={[appTheme.black, appTheme.primary]} />
       </S.Wrapper>
     </TouchableWithoutFeedback>
   );
@@ -145,5 +147,14 @@ const S = {
     width: 100%;
     align-items: center;
     justify-content: center;
+  `,
+  IntroductionBackground: styled(LinearGradient)`
+    width: ${appTheme.windowWidth};
+    height: ${appTheme.windowHeight};
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    elevation: -1;
   `,
 };

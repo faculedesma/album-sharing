@@ -10,6 +10,7 @@ import { GenericInput } from "src/components/inputs/GenericInput";
 import Toast from "react-native-toast-message";
 import { Logo } from "src/components/logo/Logo";
 import { Octicons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -116,6 +117,7 @@ const Login = () => {
             />
           </S.SignupButton>
         </S.LoginInputs>
+        <S.LoginBackground colors={[appTheme.black, appTheme.primary]} />
       </S.Wrapper>
     </TouchableWithoutFeedback>
   );
@@ -159,4 +161,13 @@ const S = {
     align-self: center;
   `,
   SignupButton: styled.View``,
+  LoginBackground: styled(LinearGradient)`
+    width: ${appTheme.windowWidth};
+    height: ${appTheme.windowHeight};
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    elevation: -1;
+  `,
 };
