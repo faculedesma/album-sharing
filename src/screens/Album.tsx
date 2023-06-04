@@ -13,8 +13,7 @@ import { Pressable } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Comments } from "src/components/comments/Comments";
 import commentJson from "src/data/comments.json";
-
-const accessToken = "";
+import { useSpotifyAPI } from "src/hooks/useSpotifyAPI";
 
 interface ITrack {
   id: string;
@@ -24,6 +23,7 @@ interface ITrack {
 
 interface ITrackProps {
   track: ITrack;
+  open: () => void;
 }
 
 const TrackRow = ({ track, open }: ITrackProps) => {
@@ -86,6 +86,8 @@ const Album = () => {
   const [albumData, setAlbumData] = useState<any>({});
   const { id } = useSearchParams();
 
+  const { token } = useSpotifyAPI();
+
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
   const snapPoints = useMemo(() => ["50%"], []);
@@ -101,7 +103,7 @@ const Album = () => {
           `https://api.spotify.com/v1/albums/${id}`,
           {
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -123,8 +125,10 @@ const Album = () => {
       }
     };
 
-    fetchAlbumData();
-  }, []);
+    if (token) {
+      fetchAlbumData();
+    }
+  }, [token]);
 
   if (!albumData.name) {
     return (
@@ -172,6 +176,17 @@ const Album = () => {
             />
           </S.Description>
         </S.HeroRight>
+        <S.HeroActions>
+          <S.HeroActionsIcon>
+            <Octicons name="heart" size={20} color={appTheme.secondary} />
+          </S.HeroActionsIcon>
+          <S.HeroActionsIcon style={{ width: 60, height: 60 }}>
+            <Octicons name="plus" size={24} color={appTheme.secondary} />
+          </S.HeroActionsIcon>
+          <S.HeroActionsIcon>
+            <Octicons name="link" size={20} color={appTheme.secondary} />
+          </S.HeroActionsIcon>
+        </S.HeroActions>
         <S.HeroBackgroundImage
           source={{ uri: albumData.images[1].url }}
         ></S.HeroBackgroundImage>
@@ -189,8 +204,9 @@ const Album = () => {
               name: "TITLE",
               track_number: "#",
             }}
+            open={() => null}
           />
-          {albumData.tracks.items.map((track) => {
+          {albumData.tracks.items.map((track: ITrack) => {
             return (
               <TrackRow
                 key={track.id}
@@ -295,10 +311,26 @@ const S = {
     justify-content: space-between;
     gap: 10px;
   `,
+  HeroActions: styled(View)`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  `,
+  HeroActionsIcon: styled(View)`
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border-width: 0.5px;
+    border-color: ${appTheme.highlight};
+    background-color: transparent;
+  `,
   Cover: styled.ImageBackground`
     height: 150px;
     width: 150px;
-    background-color: ${(p) => p.theme.shades50};
+    background-color: ${appTheme.shades500}
     overflow: hidden;
     border-radius: 4px;
     margin-top: 50px;
