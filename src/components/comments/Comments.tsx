@@ -66,7 +66,6 @@ const CommentsRow = ({ comment }: ICommentProps) => {
             <GenericText size={14} weight="bold" content={comment.username} />
             <GenericText size={14} weight="light" content={comment.date} />
           </S.CommentsRowTextTop>
-
           <S.CommentsRowTextMiddle>
             <GenericText
               size={14}
@@ -144,8 +143,8 @@ const S = {
     gap: 5px;
   `,
   CommentsRowTextMiddle: styled.View`
+    max-width: 90%;
     flex-direction: row;
-    width: 100%;
     gap: 5px;
   `,
   CommentsRowTextBottom: styled.View`
