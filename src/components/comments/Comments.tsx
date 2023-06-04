@@ -5,6 +5,7 @@ import { appTheme } from "src/assets/styles/theme";
 import { Octicons } from "@expo/vector-icons";
 import { GenericInput } from "src/components/inputs/GenericInput";
 import SecondaryButton from "../buttons/SecondaryButton";
+import Spinner from "src/components/loaders/Spinner";
 
 interface IComment {
   id: string;
@@ -25,6 +26,14 @@ interface ICommentProps {
 
 export const Comments = ({ comments }: ICommentsProps) => {
   const [newComment, setNewComment] = useState<string>("");
+
+  if (!comments.length) {
+    return (
+      <S.Comments>
+        <Spinner />
+      </S.Comments>
+    );
+  }
 
   return (
     <S.Comments>
