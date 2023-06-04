@@ -226,6 +226,7 @@ const Album = () => {
         index={0}
         snapPoints={snapPoints}
         enablePanDownToClose={true}
+        keyboardBlurBehavior="restore"
         backgroundStyle={{
           backgroundColor: appTheme.secondary900,
         }}

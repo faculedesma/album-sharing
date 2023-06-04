@@ -44,6 +44,8 @@ export const Comments = ({ comments }: ICommentsProps) => {
             handleChangeText={(value) => setNewComment(value)}
             height={40}
             width="85%"
+            autoCapitalize="none"
+            isBottomSheet={true}
           />
           {newComment && (
             <S.CommnentsAddPost>
@@ -143,7 +145,7 @@ const S = {
     gap: 5px;
   `,
   CommentsRowTextMiddle: styled.View`
-    max-width: 90%;
+    max-width: 300px;
     flex-direction: row;
     gap: 5px;
   `,

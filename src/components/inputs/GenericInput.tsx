@@ -2,6 +2,7 @@ import styled from "styled-components/native";
 import { appTheme } from "src/assets/styles/theme";
 import { BlurView } from "expo-blur";
 import { useState } from "react";
+import { BottomSheetTextInput } from "@gorhom/bottom-sheet";
 
 interface IGenericInputProps {
   value: string;
@@ -16,6 +17,8 @@ interface IGenericInputProps {
   textContentType: string;
   secureTextEntry?: boolean;
   handleChangeText: (value: string) => void;
+  isBottomSheet?: boolean;
+  autoCapitalize?: "none" | "sentences" | "words" | "characters";
 }
 
 export const GenericInput = ({
@@ -31,8 +34,33 @@ export const GenericInput = ({
   textContentType,
   secureTextEntry = false,
   handleChangeText,
+  isBottomSheet = false,
+  autoCapitalize = "none",
 }: IGenericInputProps) => {
   const [focused, setFoucsed] = useState<boolean>(false);
+
+  if (isBottomSheet) {
+    return (
+      <S.InputContainer
+        style={{
+          height: height,
+          width: width,
+          borderColor: focused ? appTheme.highlight : appTheme.shades100,
+        }}
+        intensity={20}
+        tint="dark"
+      >
+        <S.BottomSheetTextInput
+          value={value}
+          maxLength={maxLength}
+          placeholder={placeholder}
+          placeholderTextColor={appTheme.shades400}
+          onChangeText={handleChangeText}
+          autoCapitalize={autoCapitalize}
+        />
+      </S.InputContainer>
+    );
+  }
 
   return (
     <S.InputContainer
@@ -54,7 +82,7 @@ export const GenericInput = ({
         secureTextEntry={secureTextEntry}
         textContentType={textContentType}
         onChangeText={handleChangeText}
-        autoCapitalize="none"
+        autoCapitalize={autoCapitalize}
         numberOfLines={numberOfLines}
         ellipsizeMode={ellipsizeMode}
         onFocus={() => setFoucsed(true)}
@@ -81,7 +109,22 @@ const S = {
     align-items: center;
     justify-content: center;
     font-family: circularStdLight;
-    color: ${(p) => p.theme.secondary};
+    color: ${appTheme.secondary}
+    border-width: 0.5px;
+    border-color: ${appTheme.shades800};
+    font-size: 14px;
+  `,
+  BottomSheetTextInput: styled(BottomSheetTextInput)`
+    width: 100%;
+    height: 100%
+    border-radius: 4px;
+    overflow: hidden;
+    padding-left: 16px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-family: circularStdLight;
+    color: ${appTheme.secondary}
     border-width: 0.5px;
     border-color: ${appTheme.shades800};
     font-size: 14px;
@@ -90,7 +133,7 @@ const S = {
     position: absolute;
     bottom: 4px;
     right: 4px;
-    color: ${(p) => p.theme.secondary};
+    color: ${appTheme.secondary}
     font-family: circularStdLight;
   `,
 };
