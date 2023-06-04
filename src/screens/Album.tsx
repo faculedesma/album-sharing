@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import styled from "styled-components/native";
 import { useSearchParams } from "expo-router";
 import { GenericText } from "src/components/text/GenericText";
@@ -9,9 +9,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import { appTheme } from "src/assets/styles/theme";
 import { Octicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
+import { Pressable } from "react-native";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { Comments } from "src/components/comments/Comments";
+import commentJson from "src/data/comments.json";
 
-const accessToken =
-  "BQAckhAPQ7nMsEEHRk7FUsIJ1JUpRUTrsKk7KqEpu4wua26NSUinge9yeuFQddkPh2rQ4ZpMNzqkEaqe02GiiqGoC3fIQWF4cNedxXANTrcMlrPZ9CI30t9bFeYrRUo0NVKFMPE9kNJ_K-pje1qUX9NQbUtxRm8RxTmI5SiIB5tr-unaA-4J";
+const accessToken = "";
 
 interface ITrack {
   id: string;
@@ -23,7 +26,7 @@ interface ITrackProps {
   track: ITrack;
 }
 
-const TrackRow = ({ track }: ITrackProps) => {
+const TrackRow = ({ track, open }: ITrackProps) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const handleExpandSong = () => setIsExpanded(!isExpanded);
@@ -42,7 +45,7 @@ const TrackRow = ({ track }: ITrackProps) => {
   return (
     <>
       <S.TrackRowContainer onPress={handleExpandSong}>
-        <S.TrackRow animation="fadeInUp" duration={600}>
+        <S.TrackRow>
           <S.TrackRowLeft>
             <GenericText size={16} weight="bold" content={track.track_number} />
             <GenericText size={16} weight="light" content={track.name} />
@@ -57,7 +60,9 @@ const TrackRow = ({ track }: ITrackProps) => {
             </S.TrackRowExpand>
           </S.TrackRowLeft>
           <S.TrackRowRight>
-            <Octicons name="comment" size={16} color={appTheme.secondary} />
+            <Pressable onPress={open}>
+              <Octicons name="comment" size={16} color={appTheme.secondary} />
+            </Pressable>
           </S.TrackRowRight>
         </S.TrackRow>
       </S.TrackRowContainer>
@@ -80,6 +85,14 @@ const TrackRow = ({ track }: ITrackProps) => {
 const Album = () => {
   const [albumData, setAlbumData] = useState<any>({});
   const { id } = useSearchParams();
+
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const snapPoints = useMemo(() => ["50%"], []);
+
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
 
   useEffect(() => {
     const fetchAlbumData = async () => {
@@ -122,8 +135,8 @@ const Album = () => {
   }
 
   return (
-    <S.Wrapper testID="album-screen">
-      <S.Hero animation="fadeInUp" duration={700}>
+    <S.Wrapper testID="album-screen" nestedScrollEnabled={false}>
+      <S.Hero animation="fadeInDown" duration={300}>
         <S.Cover
           source={{
             uri: albumData.images[1].url,
@@ -164,31 +177,49 @@ const Album = () => {
         ></S.HeroBackgroundImage>
         <S.HeroLinearGradient colors={["transparent", appTheme.primary]} />
       </S.Hero>
-      <S.SubTitle animation="fadeInUp" duration={500}>
+      <S.SubTitle animation="fadeIn" duration={300}>
         <GenericText size={20} weight="bold" content="Song lyrics" />
       </S.SubTitle>
-      <S.Tracks>
-        <TrackRow
-          key="track-header"
-          track={{
-            id: "track-header",
-            name: "TITLE",
-            track_number: "#",
-          }}
-        />
-        {albumData.tracks.items.map((track) => {
-          return (
-            <TrackRow
-              key={track.id}
-              track={{
-                id: track.id,
-                name: track.name,
-                track_number: track.track_number,
-              }}
-            />
-          );
-        })}
-      </S.Tracks>
+      <S.TracksContainer animation="fadeIn" duration={300}>
+        <S.Tracks>
+          <TrackRow
+            key="track-header"
+            track={{
+              id: "track-header",
+              name: "TITLE",
+              track_number: "#",
+            }}
+          />
+          {albumData.tracks.items.map((track) => {
+            return (
+              <TrackRow
+                key={track.id}
+                track={{
+                  id: track.id,
+                  name: track.name,
+                  track_number: track.track_number,
+                }}
+                open={handlePresentModalPress}
+              />
+            );
+          })}
+        </S.Tracks>
+      </S.TracksContainer>
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        index={0}
+        snapPoints={snapPoints}
+        enablePanDownToClose={true}
+        backgroundStyle={{
+          backgroundColor: appTheme.secondary900,
+        }}
+        handleIndicatorStyle={{ backgroundColor: appTheme.secondary }}
+      >
+        <S.TrackCommentsTitle>
+          <GenericText size={16} weight="bold" content="Comments" />
+        </S.TrackCommentsTitle>
+        <Comments comments={commentJson.comments} />
+      </BottomSheetModal>
     </S.Wrapper>
   );
 };
@@ -196,7 +227,7 @@ const Album = () => {
 export default Album;
 
 const S = {
-  Wrapper: styled.View`
+  Wrapper: styled.ScrollView`
     flex: 1;
     background-color: ${appTheme.primary};
     padding-top: 60px;
@@ -233,7 +264,7 @@ const S = {
     color: ${(p) => p.theme.secondary};
     font-family: circularStdBold;
     font-size: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   `,
   HeroLinearGradient: styled(LinearGradient)`
     width: 400px;
@@ -281,6 +312,7 @@ const S = {
   Description: styled.View`
     width: 90%;
   `,
+  TracksContainer: styled(View)``,
   Tracks: styled.ScrollView`
     padding-bottom: 80px;
   `,
@@ -288,13 +320,14 @@ const S = {
     height: 50px;
     width: 100%;
   `,
-  TrackRow: styled(View)`
+  TrackRow: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
   `,
   TrackRowLeft: styled.View`
+    max-width: 220px;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
@@ -305,6 +338,18 @@ const S = {
     align-items: center;
     justify-content: space-between;
     gap: 10px;
+  `,
+  TrackComments: styled.View`
+    padding-bottom: 150px;
+  `,
+  TrackCommentsTitle: styled.View`
+    width: 100%;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border-bottom-width: 0.25px;
+    border-bottom-color: ${appTheme.shades500};
+    margin-bottom: 20px;
   `,
   TrackRowExpand: styled.View``,
   ExpandIcon: styled.View``,

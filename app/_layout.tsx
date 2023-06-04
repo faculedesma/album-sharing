@@ -12,6 +12,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Octicons } from "@expo/vector-icons";
 import { Pressable, TouchableOpacity } from "react-native";
 import { GenericText } from "src/components/text/GenericText";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 export default function RootLayout() {
   const appLoaded = useAppLoading();
@@ -24,72 +25,82 @@ export default function RootLayout() {
   return (
     <ThemeProvider theme={appTheme}>
       <StatusBar style="light" />
-      <S.AppWrapper>
-        <NavProvider value={navTheme}>
-          <Stack>
-            <Stack.Screen name="login" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="signup"
-              options={{
-                headerTitle: "",
-                headerRight: () => null,
-                headerLeft: () => (
-                  <Pressable onPress={() => router.replace("/login")}>
-                    <Octicons
-                      name="chevron-left"
-                      size={20}
-                      color={appTheme.secondary}
-                    />
-                  </Pressable>
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="introduction"
-              options={{
-                headerTitle: "",
-                headerRight: () => null,
-                headerLeft: () => (
-                  <Pressable onPress={() => router.replace("/signup")}>
-                    <Octicons
-                      name="chevron-left"
-                      size={20}
-                      color={appTheme.secondary}
-                    />
-                  </Pressable>
-                ),
-              }}
-            />
-            <Stack.Screen
-              name="(tabs)"
-              options={{
-                headerTitle: "",
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="profile"
-              options={{
-                presentation: "fullScreenModal",
-                headerShown: true,
-                headerStyle: {
-                  backgroundColor: appTheme.black,
-                },
-                headerTitle: "",
-                headerLeft: () => (
-                  <TouchableOpacity onPress={() => router.back()}>
-                    <S.ProfileHeaderLeft>
-                      <Octicons name="x" size={20} color={appTheme.secondary} />
-                      <GenericText size={24} weight="bold" content="Profile" />
-                    </S.ProfileHeaderLeft>
-                  </TouchableOpacity>
-                ),
-              }}
-            />
-          </Stack>
-        </NavProvider>
-        <Toast position="top" topOffset={80} />
-      </S.AppWrapper>
+      <BottomSheetModalProvider>
+        <S.AppWrapper>
+          <NavProvider value={navTheme}>
+            <Stack>
+              <Stack.Screen name="login" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="signup"
+                options={{
+                  headerTitle: "",
+                  headerRight: () => null,
+                  headerLeft: () => (
+                    <Pressable onPress={() => router.replace("/login")}>
+                      <Octicons
+                        name="chevron-left"
+                        size={20}
+                        color={appTheme.secondary}
+                      />
+                    </Pressable>
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="introduction"
+                options={{
+                  headerTitle: "",
+                  headerRight: () => null,
+                  headerLeft: () => (
+                    <Pressable onPress={() => router.replace("/signup")}>
+                      <Octicons
+                        name="chevron-left"
+                        size={20}
+                        color={appTheme.secondary}
+                      />
+                    </Pressable>
+                  ),
+                }}
+              />
+              <Stack.Screen
+                name="(tabs)"
+                options={{
+                  headerTitle: "",
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="profile"
+                options={{
+                  presentation: "fullScreenModal",
+                  headerShown: true,
+                  headerStyle: {
+                    backgroundColor: appTheme.black,
+                  },
+                  headerTitle: "",
+                  headerLeft: () => (
+                    <TouchableOpacity onPress={() => router.back()}>
+                      <S.ProfileHeaderLeft>
+                        <Octicons
+                          name="x"
+                          size={20}
+                          color={appTheme.secondary}
+                        />
+                        <GenericText
+                          size={24}
+                          weight="bold"
+                          content="Profile"
+                        />
+                      </S.ProfileHeaderLeft>
+                    </TouchableOpacity>
+                  ),
+                }}
+              />
+            </Stack>
+          </NavProvider>
+          <Toast position="top" topOffset={80} />
+        </S.AppWrapper>
+      </BottomSheetModalProvider>
       <S.AppBackground colors={[appTheme.black, appTheme.primary]} />
       {pathname === "/login" ||
       pathname === "/introduction" ||

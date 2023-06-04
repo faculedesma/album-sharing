@@ -6,6 +6,7 @@ import { useState } from "react";
 interface IGenericInputProps {
   value: string;
   height?: number;
+  width?: number | string;
   maxLength?: number;
   placeholder?: string;
   multiline?: boolean;
@@ -20,6 +21,7 @@ interface IGenericInputProps {
 export const GenericInput = ({
   value,
   height = 50,
+  width = "100%",
   maxLength = 100,
   placeholder = "",
   multiline = false,
@@ -36,6 +38,7 @@ export const GenericInput = ({
     <S.InputContainer
       style={{
         height: height,
+        width: width,
         borderColor: focused ? appTheme.highlight : appTheme.shades100,
       }}
       intensity={20}
@@ -67,9 +70,7 @@ export const GenericInput = ({
 };
 
 const S = {
-  InputContainer: styled(BlurView)`
-    width: 100%;
-  `,
+  InputContainer: styled(BlurView)``,
   Input: styled.TextInput`
     width: 100%;
     height: 100%
@@ -83,7 +84,7 @@ const S = {
     color: ${(p) => p.theme.secondary};
     border-width: 0.5px;
     border-color: ${appTheme.shades800};
-    font-size: 16px;
+    font-size: 14px;
   `,
   InputMaxChar: styled.Text`
     position: absolute;

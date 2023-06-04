@@ -5,6 +5,7 @@ export const appTheme: DefaultTheme = {
   background: "transparent",
   primary: "#232226",
   secondary: "#F4F4F4",
+  secondary900: "#39383C",
   red: "#FF4E45",
   green: "#AFD0BF",
   green500: "#D7E7DF",
