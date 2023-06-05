@@ -89,11 +89,11 @@ export default function RootLayout() {
                       <S.ProfileHeaderLeft>
                         <Octicons
                           name="x"
-                          size={20}
+                          size={40}
                           color={appTheme.secondary}
                         />
                         <GenericText
-                          size={24}
+                          size={36}
                           weight="bold"
                           content="Profile"
                         />

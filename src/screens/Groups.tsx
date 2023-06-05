@@ -75,7 +75,7 @@ const MyGroups = () => {
         <S.Title testID="groups-screen-latest-title">Groups</S.Title>
       </S.TitleContainer>
       <S.SubTitleContainer testID="grops-screen-latest-title">
-        <S.Subheading>My Grous</S.Subheading>
+        <S.Subheading>My Groups</S.Subheading>
         <Octicons name="plus" size={20} color={appTheme.secondary} />
       </S.SubTitleContainer>
       <S.GroupChips>
@@ -93,15 +93,15 @@ const MyGroups = () => {
         </S.GroupChipsContainer>
       </S.GroupChips>
       <S.GroupUsers>
-        <GroupRow user="@chicha73" color={appTheme.green} />
-        <GroupRow user="@brain_damage" color={appTheme.red} />
-        <GroupRow user="@superyayiri" color={appTheme.yellow} />
-        <GroupRow user="@chicha73" color={appTheme.green} />
-        <GroupRow user="@brain_damage" color={appTheme.red} />
-        <GroupRow user="@superyayiri" color={appTheme.yellow} isAdmin />
-        <GroupRow user="@chicha73" color={appTheme.green} />
-        <GroupRow user="@brain_damage" color={appTheme.red} />
-        <GroupRow user="@superyayiri" color={appTheme.yellow} />
+        <GroupRow user="@chicha73" color="transparent" />
+        <GroupRow user="@brain_damage" color="transparent" />
+        <GroupRow user="@superyayiri" color="transparent" />
+        <GroupRow user="@chicha73" color="transparent" />
+        <GroupRow user="@brain_damage" color="transparent" />
+        <GroupRow user="@superyayiri" color="transparent" isAdmin />
+        <GroupRow user="@chicha73" color="transparent" />
+        <GroupRow user="@brain_damage" color="transparent" />
+        <GroupRow user="@superyayiri" color="transparent" />
       </S.GroupUsers>
     </S.Groups>
   );
@@ -125,6 +125,7 @@ const S = {
     padding-left: 20px;
     padding-right: 20px;
     background: transparent;
+    margin-top: 20px;
   `,
   Groups: styled(View)`
     align-items: flex-start;

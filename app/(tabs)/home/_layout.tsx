@@ -46,10 +46,10 @@ const StackLayout = () => {
               <S.ProfileHeaderLeft>
                 <Octicons
                   name="chevron-left"
-                  size={20}
+                  size={40}
                   color={appTheme.secondary}
                 />
-                <GenericText size={24} weight="bold" content="History" />
+                <GenericText size={36} weight="bold" content="History" />
               </S.ProfileHeaderLeft>
             </TouchableOpacity>
           ),

@@ -8,10 +8,54 @@ import { appTheme } from "src/assets/styles/theme";
 import { GenericInput } from "src/components/inputs/GenericInput";
 import Toast from "react-native-toast-message";
 import { LinearGradient } from "expo-linear-gradient";
+import AvatarOnePNG from "src/assets/images/avatar-one.png";
+import AvatarTwoPNG from "src/assets/images/avatar-two.png";
+import AvatarThreePNG from "src/assets/images/avatar-three.png";
+import AvatarFourPNG from "src/assets/images/avatar-four.png";
+import AvatarFivePNG from "src/assets/images/avatar-five.png";
+import AvatarSixPNG from "src/assets/images/avatar-six.png";
+import AvatarSevenPNG from "src/assets/images/avatar-seven.png";
+import AvatarEightPNG from "src/assets/images/avatar-eight.png";
+
+const avatars = [
+  {
+    id: "one",
+    image: AvatarOnePNG,
+  },
+  {
+    id: "two",
+    image: AvatarTwoPNG,
+  },
+  {
+    id: "three",
+    image: AvatarThreePNG,
+  },
+  {
+    id: "four",
+    image: AvatarFourPNG,
+  },
+  {
+    id: "five",
+    image: AvatarFivePNG,
+  },
+  {
+    id: "six",
+    image: AvatarSixPNG,
+  },
+  {
+    id: "seven",
+    image: AvatarSevenPNG,
+  },
+  {
+    id: "eight",
+    image: AvatarEightPNG,
+  },
+];
 
 export default function Introduction() {
   const [bioText, setBioText] = useState<string>("");
   const [nickname, setNickname] = useState<string>("@");
+  const [selectedAvatarId, setSelectedAvatarId] = useState<string>("one");
   const [loading, setLoading] = useState<boolean>(false);
 
   const router = useRouter();
@@ -51,14 +95,22 @@ export default function Introduction() {
           handleChangeText={handleOnChangeNickname}
         />
         <S.AvatarOptions testID="intro-screen-options">
-          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
-          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
-          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
-          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
-          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
-          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
-          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
-          <S.Circle style={{ backgroundColor: appTheme.green }}></S.Circle>
+          {avatars.map((avatar) => {
+            return (
+              <S.Circle
+                key={avatar.id}
+                style={{
+                  borderColor:
+                    avatar.id === selectedAvatarId
+                      ? appTheme.highlight
+                      : appTheme.shades800,
+                }}
+                onPress={() => setSelectedAvatarId(avatar.id)}
+              >
+                <S.AvatarImage source={avatar.image}></S.AvatarImage>
+              </S.Circle>
+            );
+          })}
         </S.AvatarOptions>
         <S.Bio testID="intro-screen-bio">
           <S.BioTitle>Bio</S.BioTitle>
@@ -121,13 +173,19 @@ const S = {
     gap: 16px;
     overflow: hidden;
   `,
-  Circle: styled.View`
+  Circle: styled.Pressable`
     height: 75px;
     width: 75px;
-    background-color: ${(p) => p.theme.highlight}
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
     border-radius: 50%;
-    border: 1px ${appTheme.highlight};
-    opacity: .2;
+    border: 0.5px ${appTheme.shades800};
+  `,
+  AvatarImage: styled.ImageBackground`
+    height: 40px;
+    width: 40px;
+    overflow: visible;
   `,
   Bio: styled.View`
     align-items: center;

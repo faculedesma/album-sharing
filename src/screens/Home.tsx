@@ -227,7 +227,7 @@ const S = {
     justify-content: flex-start;
     padding-left: 20px;
     padding-right: 20px;
-    margin-top: 30px;
+    margin-top: 20px;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
