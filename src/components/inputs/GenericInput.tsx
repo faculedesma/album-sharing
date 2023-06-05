@@ -59,7 +59,19 @@ export const GenericInput = ({
           placeholderTextColor={appTheme.shades400}
           onChangeText={handleChangeText}
           autoCapitalize={autoCapitalize}
+          onFocus={() => setFoucsed(true)}
+          onBlur={() => setFoucsed(false)}
+          autoFocus={autoFocus}
+          numberOfLines={numberOfLines}
+          multiline={multiline}
+          autoCorrect={autoCorrect}
+          secureTextEntry={secureTextEntry}
         />
+        {multiline && (
+          <S.InputMaxChar>
+            {value?.length}/{maxLength}
+          </S.InputMaxChar>
+        )}
       </S.InputContainer>
     );
   }

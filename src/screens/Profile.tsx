@@ -20,7 +20,7 @@ const Profile = () => {
     "Hi! I'm a person who loves progressive rock and roll music. I love to travel with my headphones while a vinyl is playing. I'm a fan of searching song experiences and meaning by the artist after hearing them."
   );
   const [nickname, setNickname] = useState<string>("@chicha37");
-  const [isEnabled, setIsEnabled] = useState<boolean>(false);
+  const [isEnabled, setIsEnabled] = useState<boolean>(true);
 
   const router = useRouter();
 

@@ -193,7 +193,7 @@ const Search = () => {
                   />
                   <Pressable onPress={() => handleSearchByHistory(search.text)}>
                     <GenericText
-                      size={14}
+                      size={16}
                       weight="light"
                       content={search.text}
                     />

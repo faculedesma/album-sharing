@@ -13,6 +13,7 @@ import { Pressable } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import Spinner from "src/components/loaders/Spinner";
 import { useSessionStorage } from "src/hooks/useSessionStorage";
+import { IGroup } from "src/types/groups/groups";
 
 interface IRecommendation {
   id: string;
@@ -22,11 +23,6 @@ interface IRecommendation {
   album_name: string;
   artist: string;
   date: string;
-}
-
-interface IGroup {
-  id: string;
-  name: string;
 }
 
 interface IRowProps {

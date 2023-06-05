@@ -15,16 +15,84 @@ import { Comments } from "src/components/comments/Comments";
 import commentJson from "src/data/comments.json";
 import { useSpotifyAPI } from "src/hooks/useSpotifyAPI";
 import { ITrack } from "src/types/album/album";
+import { Recommend } from "src/components/recommend/Recommend";
+
+const actions = {
+  comments: {
+    id: "comments",
+    label: "Comments",
+    snapPoints: ["50%"],
+  },
+  recommend: {
+    id: "recommend",
+    label: "Recommend",
+    snapPoints: ["55%"],
+  },
+  share: {
+    id: "share",
+    label: "Share",
+    snapPoints: ["50%"],
+  },
+};
 
 interface ITrackProps {
   track: ITrack;
   open: () => void;
+  updateAction: (id: string) => void;
 }
 
-const TrackRow = ({ track, open }: ITrackProps) => {
+const getSheetContent = (id: string) => {
+  switch (id) {
+    case "comments":
+      return (
+        <>
+          <S.TrackCommentsTitle>
+            <GenericText
+              size={16}
+              weight="bold"
+              content={actions.comments.label}
+            />
+          </S.TrackCommentsTitle>
+          <Comments comments={commentJson.comments} />
+        </>
+      );
+    case "recommend":
+      return (
+        <>
+          <S.TrackCommentsTitle>
+            <GenericText
+              size={16}
+              weight="bold"
+              content={actions.recommend.label}
+            />
+          </S.TrackCommentsTitle>
+          <Recommend />
+        </>
+      );
+    case "share":
+      return (
+        <>
+          <S.TrackCommentsTitle>
+            <GenericText
+              size={16}
+              weight="bold"
+              content={actions.share.label}
+            />
+          </S.TrackCommentsTitle>
+        </>
+      );
+  }
+};
+
+const TrackRow = ({ track, open, updateAction }: ITrackProps) => {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const handleExpandSong = () => setIsExpanded(!isExpanded);
+
+  const handleOpenComments = () => {
+    updateAction("comments");
+    open();
+  };
 
   if (track.id === "track-header") {
     return (
@@ -55,7 +123,7 @@ const TrackRow = ({ track, open }: ITrackProps) => {
             </S.TrackRowExpand>
           </S.TrackRowLeft>
           <S.TrackRowRight>
-            <Pressable onPress={open}>
+            <Pressable onPress={handleOpenComments}>
               <Octicons name="comment" size={16} color={appTheme.secondary} />
             </Pressable>
           </S.TrackRowRight>
@@ -79,17 +147,20 @@ const TrackRow = ({ track, open }: ITrackProps) => {
 
 const Album = () => {
   const [albumData, setAlbumData] = useState<any>({});
+  const [actionId, setActionId] = useState<string>("recommend");
   const { id } = useSearchParams();
 
   const { token } = useSpotifyAPI();
 
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
-  const snapPoints = useMemo(() => ["50%"], []);
+  const snapPoints = useMemo(() => actions[actionId].snapPoints, [actionId]);
 
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
+
+  const handleUpdateActionId = (id: string) => setActionId(id);
 
   useEffect(() => {
     const fetchAlbumData = async () => {
@@ -175,11 +246,25 @@ const Album = () => {
           <S.HeroActionsIcon>
             <Octicons name="heart" size={20} color={appTheme.secondary} />
           </S.HeroActionsIcon>
-          <S.HeroActionsIcon style={{ width: 60, height: 60 }}>
+          <S.HeroActionsIcon
+            style={{ width: 60, height: 60 }}
+            onPress={() => {
+              handlePresentModalPress();
+              handleUpdateActionId("recommend");
+            }}
+          >
             <Octicons name="plus" size={24} color={appTheme.secondary} />
           </S.HeroActionsIcon>
           <S.HeroActionsIcon>
-            <Octicons name="link" size={20} color={appTheme.secondary} />
+            <Octicons
+              name="link"
+              size={20}
+              color={appTheme.secondary}
+              onPress={() => {
+                handlePresentModalPress();
+                handleUpdateActionId("share");
+              }}
+            />
           </S.HeroActionsIcon>
         </S.HeroActions>
         <S.HeroBackgroundImage
@@ -200,6 +285,7 @@ const Album = () => {
               track_number: "#",
             }}
             open={() => null}
+            updateAction={() => null}
           />
           {albumData.tracks.items.map((track: ITrack) => {
             return (
@@ -211,6 +297,7 @@ const Album = () => {
                   track_number: track.track_number,
                 }}
                 open={handlePresentModalPress}
+                updateAction={handleUpdateActionId}
               />
             );
           })}
@@ -227,10 +314,7 @@ const Album = () => {
         }}
         handleIndicatorStyle={{ backgroundColor: appTheme.secondary }}
       >
-        <S.TrackCommentsTitle>
-          <GenericText size={16} weight="bold" content="Comments" />
-        </S.TrackCommentsTitle>
-        <Comments comments={commentJson.comments} />
+        {getSheetContent(actionId)}
       </BottomSheetModal>
     </S.Wrapper>
   );
@@ -313,7 +397,7 @@ const S = {
     justify-content: space-between;
     gap: 20px;
   `,
-  HeroActionsIcon: styled(View)`
+  HeroActionsIcon: styled.Pressable`
     align-items: center;
     justify-content: center;
     height: 50px;
