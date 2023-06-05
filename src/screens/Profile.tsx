@@ -5,19 +5,21 @@ import {
   TouchableOpacity,
 } from "react-native";
 import styled from "styled-components/native";
-import { Stack, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { appTheme } from "src/assets/styles/theme";
 import { GenericText } from "src/components/text/GenericText";
 import { auth } from "../../firebase";
 import { GenericInput } from "src/components/inputs/GenericInput";
-import { BlurView } from "expo-blur";
 import Toast from "react-native-toast-message";
 import { LinearGradient } from "expo-linear-gradient";
 import { Octicons } from "@expo/vector-icons";
+import AvatarThreePNG from "src/assets/images/avatar-four.png";
 
 const Profile = () => {
-  const [bioText, setBioText] = useState<string>("");
-  const [nickname, setNickname] = useState<string>("");
+  const [bioText, setBioText] = useState<string>(
+    "Hi! I'm a person who loves progressive rock and roll music. I love to travel with my headphones while a vinyl is playing. I'm a fan of searching song experiences and meaning by the artist after hearing them."
+  );
+  const [nickname, setNickname] = useState<string>("@chicha37");
   const [isEnabled, setIsEnabled] = useState<boolean>(false);
 
   const router = useRouter();
@@ -51,7 +53,24 @@ const Profile = () => {
         testID="profile-screen"
         colors={[appTheme.black, appTheme.primary]}
       >
-        <S.Avatar intensity={10} tint="dark"></S.Avatar>
+        <S.ProfileTop>
+          <S.ProfileImage
+            source={{
+              uri: "https://lh3.googleusercontent.com/ogw/AOLn63FR1yAhWwMPVOxnKxNWJktQRftStxUNo2MUBx_RYg=s64-c-mo",
+            }}
+          ></S.ProfileImage>
+          <S.ProfileTopText>
+            <GenericText size={14} weight="bold" content="FACUNDO LEDESMA" />
+            <GenericText
+              size={12}
+              weight="light"
+              content="faculedesma1993@gmail.com"
+            />
+          </S.ProfileTopText>
+        </S.ProfileTop>
+        <S.AvatarContainer>
+          <S.Avatar source={AvatarThreePNG}></S.Avatar>
+        </S.AvatarContainer>
         <GenericInput
           value={nickname}
           maxLength={100}
@@ -75,7 +94,7 @@ const Profile = () => {
           <Octicons name="bell" size={16} color={appTheme.secondary} />
           <GenericText size={16} weight="light" content="Notifications" />
           <S.Switch
-            trackColor={{ false: appTheme.shades50, true: appTheme.shades50 }}
+            trackColor={{ false: appTheme.shades50, true: appTheme.shades800 }}
             thumbColor={isEnabled ? appTheme.highlight : appTheme.shades50}
             onValueChange={toggleSwitch}
             value={isEnabled}
@@ -105,29 +124,44 @@ const S = {
     z-index: 1;
     elevation: 1;
   `,
-  ProfileAvatar: styled.ImageBackground`
-    height: 30px;
-    width: 30px;
-    background-color: ${(p) => p.theme.shades50}
-    border: .5px ${(p) => p.theme.highlight}
+  ProfileTop: styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-betwen;
+    margin-top: 20px;
+    gap: 10px;
+  `,
+  ProfileTopText: styled.View`
+    align-items: flex-start;
+    justify-content: space-betwen;
+    gap: 5px;
+  `,
+  ProfileImage: styled.ImageBackground`
+    height: 40px;
+    width: 40px;
+    background-color: ${appTheme.shades50}
+    border: .5px ${appTheme.highlight}
     border-radius: 50%;
     overflow: hidden;
-    position: absolute;
-    right: 0;
   `,
   Title: styled.Text`
-    color: ${(p) => p.theme.secondary};
+    color: ${appTheme.secondary}
     font-family: circularStdBold;
     font-size: 36px;
   `,
-  Avatar: styled(BlurView)`
+  AvatarContainer: styled.View`
     height: 100px;
     width: 100px;
     border-radius: 50%;
-    border: 0.5px ${(p) => p.theme.highlight};
+    border: 0.5px ${appTheme.highlight}
     align-self: flex-start;
     overflow: hidden;
-    margin: 20px 0;
+    align-items: center;
+    justify-content: center;
+  `,
+  Avatar: styled.ImageBackground`
+    height: 75px;
+    width: 75px;
   `,
   Bio: styled.View`
     align-items: center;
@@ -138,7 +172,7 @@ const S = {
   BioTitle: styled.Text`
     align-items: center;
     justify-content: space-between;
-    color: ${(p) => p.theme.secondary};
+    color: ${appTheme.secondary}
     align-self: flex-start;
     font-family: circularStdLight;
   `,
