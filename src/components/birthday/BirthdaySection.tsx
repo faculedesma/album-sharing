@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import jsonData from "../../data/albums.json";
+import jsonData from "src/data/albums.json";
 import { GenericText } from "../text/GenericText";
 import { View, Text } from "react-native-animatable";
 import { Link } from "expo-router";
-
-interface IAlbum {
-  id: string;
-  name: string;
-  artist: string;
-  imageUrl: string;
-}
+import { IAlbum } from "src/types/album/album";
+import { AlbumCover } from "../album/AlbumCover";
 
 export const Birthday = () => {
   const [albums, setAlbums] = useState<IAlbum[]>([]);
@@ -49,21 +44,7 @@ export const Birthday = () => {
           {albums.map((album) => {
             return (
               <Link key={album.id} href={`/home/album?id=${album.id}`}>
-                <S.AlbumContainer>
-                  <S.AlbumCover
-                    source={{
-                      uri: album.imageUrl,
-                    }}
-                  ></S.AlbumCover>
-                  <S.AlbumLabels>
-                    <GenericText size={14} weight="bold" content={album.name} />
-                    <GenericText
-                      size={14}
-                      weight="light"
-                      content={album.name}
-                    />
-                  </S.AlbumLabels>
-                </S.AlbumContainer>
+                <AlbumCover album={album} />
               </Link>
             );
           })}
@@ -90,33 +71,13 @@ const S = {
     gap: 10px;
   `,
   Results: styled(View)`
-    width: ${(p) => p.theme.windowWidth};
-    height: 200px;
     align-items: flex-start;
     justify-content: flex-start;
+    height: 175px;
   `,
   ResultsScroll: styled.ScrollView`
     flex: 1;
     flex-direction: row;
     margin-top: 10px;
-  `,
-  AlbumContainer: styled.View`
-    align-items: flex-start;
-    justify-content: space-between;
-    padding-right: 10px;
-  `,
-  AlbumCover: styled.ImageBackground`
-    height: 110px;
-    width: 110px;
-    background-color: ${(p) => p.theme.shades800};
-    background-size: cover;
-    overflow: hidden;
-    border-radius: 4px;
-  `,
-  AlbumLabels: styled.View`
-    max-width: 110px;
-    gap: 5px;
-    align-items: flex-start;
-    justify-content: space-between;
   `,
 };

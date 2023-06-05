@@ -17,7 +17,9 @@ const StackLayout = () => {
           headerTitle: "",
           headerRight: () => (
             <S.HeaderRight>
-              <Octicons name="search" size={20} color={appTheme.secondary} />
+              <TouchableOpacity onPress={() => router.push("/home/search")}>
+                <Octicons name="search" size={20} color={appTheme.secondary} />
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => router.push("/profile")}>
                 <S.ProfileAvatar
                   source={{

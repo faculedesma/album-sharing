@@ -19,6 +19,7 @@ interface IGenericInputProps {
   handleChangeText: (value: string) => void;
   isBottomSheet?: boolean;
   autoCapitalize?: "none" | "sentences" | "words" | "characters";
+  autoFocus?: boolean;
 }
 
 export const GenericInput = ({
@@ -36,6 +37,7 @@ export const GenericInput = ({
   handleChangeText,
   isBottomSheet = false,
   autoCapitalize = "none",
+  autoFocus = false,
 }: IGenericInputProps) => {
   const [focused, setFoucsed] = useState<boolean>(false);
 
@@ -87,6 +89,7 @@ export const GenericInput = ({
         ellipsizeMode={ellipsizeMode}
         onFocus={() => setFoucsed(true)}
         onBlur={() => setFoucsed(false)}
+        autoFocus={autoFocus}
       />
       {multiline && (
         <S.InputMaxChar>

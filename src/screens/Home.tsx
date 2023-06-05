@@ -123,7 +123,7 @@ const Latest = () => {
         return;
       }
       setSelectedGroup(fetchedGroups[0]);
-    }, 2000);
+    }, 1000);
   }),
     [];
 
@@ -131,7 +131,7 @@ const Latest = () => {
     setTimeout(() => {
       const fetchedRecommendation = recommendationsJson.recommendations;
       setRecommendations(fetchedRecommendation);
-    }, 2000);
+    }, 1000);
   }),
     [selectedGroup.id];
 

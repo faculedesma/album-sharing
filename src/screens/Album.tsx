@@ -14,12 +14,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { Comments } from "src/components/comments/Comments";
 import commentJson from "src/data/comments.json";
 import { useSpotifyAPI } from "src/hooks/useSpotifyAPI";
-
-interface ITrack {
-  id: string;
-  name: string;
-  track_number: number | string;
-}
+import { ITrack } from "src/types/album/album";
 
 interface ITrackProps {
   track: ITrack;

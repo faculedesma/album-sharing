@@ -6,6 +6,7 @@ import { Octicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import { GenericText } from "src/components/text/GenericText";
 import LogoPNG from "src/assets/images/logo.png";
+import { SearchHeaderRight } from "src/screens/Search";
 
 const StackLayout = () => {
   const router = useRouter();
@@ -18,7 +19,9 @@ const StackLayout = () => {
           headerTitle: "",
           headerRight: () => (
             <S.HeaderRight>
-              <Octicons name="search" size={20} color={appTheme.secondary} />
+              <TouchableOpacity onPress={() => router.push("/home/search")}>
+                <Octicons name="search" size={20} color={appTheme.secondary} />
+              </TouchableOpacity>
               <TouchableOpacity onPress={() => router.push("/profile")}>
                 <S.ProfileAvatar
                   source={{
@@ -56,6 +59,25 @@ const StackLayout = () => {
         }}
       />
       <Stack.Screen
+        name="search"
+        options={{
+          headerTitle: "",
+          headerTransparent: true,
+          headerRight: () => <SearchHeaderRight />,
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => router.back()}>
+              <S.ProfileHeaderLeft>
+                <Octicons
+                  name="chevron-left"
+                  size={40}
+                  color={appTheme.secondary}
+                />
+              </S.ProfileHeaderLeft>
+            </TouchableOpacity>
+          ),
+        }}
+      />
+      <Stack.Screen
         name="album"
         options={{
           headerTitle: "",
@@ -81,12 +103,6 @@ const StackLayout = () => {
 export default StackLayout;
 
 const S = {
-  Header: styled.View`
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  `,
   HeaderLeft: styled.View`
     height: 30px;
     width: 30px;
