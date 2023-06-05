@@ -6,6 +6,7 @@ import { View } from "react-native-animatable";
 import recommendationsJson from "src/data/recommendations.json";
 import { Link } from "expo-router";
 import { Pressable } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface IRowProps {
   user: string;
@@ -24,7 +25,7 @@ const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
       <S.RowRecommendation>
         <GenericText size={14} weight="bold" content={user} />
         <GenericText size={14} weight="light" content="recommended" />
-        <Link href={`/album?id=${album.id}`}>
+        <Link href={`/home/album?id=${album.id}`}>
           <GenericText size={14} weight="bold" content={album.name} />
         </Link>
         <GenericText size={14} weight="light" content="on" />
@@ -49,7 +50,7 @@ const Latest = () => {
             </Pressable>
           </S.Group>
         </S.LatestTop>
-        <S.LatestCard intensity={40} tint="dark">
+        <S.HistoryList>
           {recommendationsJson.recommendations.map((rec) => {
             return (
               <Row
@@ -106,7 +107,7 @@ const Latest = () => {
               />
             );
           })}
-        </S.LatestCard>
+        </S.HistoryList>
       </S.Latest>
     </>
   );
@@ -114,9 +115,12 @@ const Latest = () => {
 
 const History = () => {
   return (
-    <S.Wrapper testID="home-screen">
-      <Latest />
-    </S.Wrapper>
+    <>
+      <S.Wrapper testID="home-screen">
+        <Latest />
+      </S.Wrapper>
+      <S.WrapperBackground colors={[appTheme.black, appTheme.primary]} />
+    </>
   );
 };
 
@@ -130,6 +134,15 @@ const S = {
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 120px;
+  `,
+  WrapperBackground: styled(LinearGradient)`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    elevation: -1;
   `,
   Title: styled.Text`
     color: ${(p) => p.theme.secondary};
@@ -164,9 +177,8 @@ const S = {
     overflow: hidden;
     transform: translate(-1px, 0);
   `,
-  LatestCard: styled.ScrollView`
+  HistoryList: styled.ScrollView`
     width: 100%;
-    // height: 210px;
     border-width: 0.5px;
     border-color: ${(p) => p.theme.shades700};
     border-radius: 4px;
