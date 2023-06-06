@@ -4,9 +4,9 @@ import { useRouter } from "expo-router";
 import { appTheme } from "src/assets/styles/theme";
 import { Octicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
-import { GenericText } from "src/components/text/GenericText";
 import LogoPNG from "src/assets/images/logo.png";
 import { SearchHeaderRight } from "src/screens/Search";
+import { HeadingOne } from "src/components/headings/HeadingOne";
 
 const StackLayout = () => {
   const router = useRouter();
@@ -52,7 +52,7 @@ const StackLayout = () => {
                   size={40}
                   color={appTheme.secondary}
                 />
-                <GenericText size={36} weight="bold" content="History" />
+                <HeadingOne text="History" />
               </S.ProfileHeaderLeft>
             </TouchableOpacity>
           ),

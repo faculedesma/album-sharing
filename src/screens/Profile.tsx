@@ -49,10 +49,7 @@ const Profile = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <S.Wrapper
-        testID="profile-screen"
-        colors={[appTheme.black, appTheme.primary]}
-      >
+      <S.Wrapper colors={[appTheme.black, appTheme.primary]}>
         <S.ProfileTop>
           <S.ProfileImage
             source={{
@@ -143,11 +140,6 @@ const S = {
     border: .5px ${appTheme.highlight}
     border-radius: 50%;
     overflow: hidden;
-  `,
-  Title: styled.Text`
-    color: ${appTheme.secondary}
-    font-family: circularStdBold;
-    font-size: 36px;
   `,
   AvatarContainer: styled.View`
     height: 100px;

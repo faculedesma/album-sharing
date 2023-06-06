@@ -8,6 +8,7 @@ import { appTheme } from "src/assets/styles/theme";
 import { GenericInput } from "src/components/inputs/GenericInput";
 import Toast from "react-native-toast-message";
 import { LinearGradient } from "expo-linear-gradient";
+import { HeadingOne } from "src/components/headings/HeadingOne";
 import AvatarOnePNG from "src/assets/images/avatar-one.png";
 import AvatarTwoPNG from "src/assets/images/avatar-two.png";
 import AvatarThreePNG from "src/assets/images/avatar-three.png";
@@ -86,7 +87,7 @@ export default function Introduction() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <S.Wrapper testID="intro-screen" behavior="padding">
         <Logo />
-        <S.Title testID="intro-screen-title">Choose avatar</S.Title>
+        <HeadingOne text="Choose avatar" />
         <GenericInput
           value={nickname}
           maxLength={100}
@@ -148,12 +149,6 @@ const S = {
     padding-left: 20px;
     padding-right: 20px;
     gap: 20px;
-  `,
-  Title: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: 36px;
-    margin-bottom: 20px;
   `,
   LogoContainer: styled.View`
     height: 100px;

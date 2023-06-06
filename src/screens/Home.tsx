@@ -14,6 +14,7 @@ import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import Spinner from "src/components/loaders/Spinner";
 import { useSessionStorage } from "src/hooks/useSessionStorage";
 import { IGroup } from "src/types/groups/groups";
+import { HeadingOne } from "src/components/headings/HeadingOne";
 
 interface IRecommendation {
   id: string;
@@ -142,13 +143,9 @@ const Latest = () => {
   return (
     <>
       <S.Latest animation="fadeIn" duration={500}>
-        <S.LatestTop testID="home-screen-latest">
-          <S.Title testID="home-screen-latest-title">Latest</S.Title>
-          <S.Group
-            testID="home-screen-latest-group"
-            intensity={20}
-            tint="light"
-          >
+        <S.LatestTop>
+          <HeadingOne text="Latest" />
+          <S.Group intensity={20} tint="light">
             {groups.length ? (
               <Pressable onPress={handlePresentModalPress}>
                 <GenericText
@@ -224,16 +221,6 @@ const S = {
     padding-left: 20px;
     padding-right: 20px;
     margin-top: 20px;
-  `,
-  Title: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: 36px;
-  `,
-  SubTitle: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdLight;
-    font-size: 20px;
   `,
   Latest: styled(View)`
     width: 100%;

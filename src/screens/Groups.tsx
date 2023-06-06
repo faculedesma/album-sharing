@@ -4,6 +4,8 @@ import { GenericText } from "src/components/text/GenericText";
 import { View } from "react-native-animatable";
 import { Octicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
+import { HeadingOne } from "src/components/headings/HeadingOne";
+import { HeadingTwo } from "src/components/headings/HeadingTwo";
 
 const groups = [
   {
@@ -71,13 +73,11 @@ const GroupChip = ({ name }: IGroupChipProps) => {
 const MyGroups = () => {
   return (
     <S.Groups animation="fadeIn" easing="ease-in-out" duration={400}>
-      <S.TitleContainer>
-        <S.Title testID="groups-screen-latest-title">Groups</S.Title>
-      </S.TitleContainer>
-      <S.SubTitleContainer testID="grops-screen-latest-title">
-        <S.Subheading>My Groups</S.Subheading>
+      <HeadingOne text="Groups" />
+      <S.HeadingTwoContainer>
+        <HeadingTwo text="My Groups" />
         <Octicons name="plus" size={20} color={appTheme.secondary} />
-      </S.SubTitleContainer>
+      </S.HeadingTwoContainer>
       <S.GroupChips>
         <S.GroupChipsContainer>
           <S.GroupChipsScroll
@@ -124,7 +124,6 @@ const S = {
     justify-content: flex-start;
     padding-left: 20px;
     padding-right: 20px;
-    background: transparent;
     margin-top: 20px;
   `,
   Groups: styled(View)`
@@ -132,27 +131,11 @@ const S = {
     justify-content: space-between;
     gap: 20px;
   `,
-  TitleContainer: styled.View`
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  `,
-  Title: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: 36px;
-  `,
-  SubTitleContainer: styled.View`
-    width: 90px;
+  HeadingTwoContainer: styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-  `,
-  Subheading: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdLight;
-    font-size: 24px;
   `,
   GroupChips: styled.View`
     height: 30px;
@@ -215,10 +198,5 @@ const S = {
     align-items: center;
     justify-content: space-between;
     gap: 4px;
-  `,
-  Subheading: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdLight;
-    font-size: 16px;
   `,
 };

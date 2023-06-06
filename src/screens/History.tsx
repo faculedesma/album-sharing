@@ -39,7 +39,7 @@ const Latest = () => {
   return (
     <>
       <S.Latest animation="fadeIn" duration={500}>
-        <S.LatestTop testID="home-screen-latest">
+        <S.LatestTop>
           <S.Group
             testID="home-screen-latest-group"
             intensity={20}
@@ -143,16 +143,6 @@ const S = {
     left: 0;
     z-index: -1;
     elevation: -1;
-  `,
-  Title: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: 36px;
-  `,
-  SubTitle: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdLight;
-    font-size: 20px;
   `,
   Latest: styled(View)`
     width: 100%;

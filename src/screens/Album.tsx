@@ -16,6 +16,8 @@ import commentJson from "src/data/comments.json";
 import { useSpotifyAPI } from "src/hooks/useSpotifyAPI";
 import { ITrack } from "src/types/album/album";
 import { Recommend } from "src/components/recommend/Recommend";
+import { HeadingOne } from "src/components/headings/HeadingOne";
+import { HeadingTwo } from "src/components/headings/HeadingTwo";
 
 const actions = {
   comments: {
@@ -212,13 +214,7 @@ const Album = () => {
             uri: albumData.images[1].url,
           }}
         ></S.Cover>
-        <S.Title
-          testID="album-screen-title"
-          ellipsizeMode="tail"
-          numberOfLines={2}
-        >
-          {albumData.name}
-        </S.Title>
+        <HeadingOne text={albumData.name} width="80%" align="center" />
         <S.HeroRight>
           <S.Item>
             <GenericText
@@ -272,9 +268,7 @@ const Album = () => {
         ></S.HeroBackgroundImage>
         <S.HeroLinearGradient colors={["transparent", appTheme.primary]} />
       </S.Hero>
-      <S.SubTitle animation="fadeIn" duration={300}>
-        <GenericText size={20} weight="bold" content="Song lyrics" />
-      </S.SubTitle>
+      <HeadingTwo text="Song lyrics" />
       <S.TracksContainer animation="fadeIn" duration={300}>
         <S.Tracks>
           <TrackRow
@@ -347,21 +341,6 @@ const S = {
     z-index: 2;
     padding: 0 30px 30px 0;
   `,
-  Title: styled.Text`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: 36px;
-    width: 80%;
-    text-align: center;
-    elevation: 2;
-    z-index: 2;
-  `,
-  SubTitle: styled(View)`
-    color: ${(p) => p.theme.secondary};
-    font-family: circularStdBold;
-    font-size: 20px;
-    margin-bottom: 20px;
-  `,
   HeroLinearGradient: styled(LinearGradient)`
     width: 400px;
     height: 400px;
@@ -424,7 +403,9 @@ const S = {
   Description: styled.View`
     width: 90%;
   `,
-  TracksContainer: styled(View)``,
+  TracksContainer: styled(View)`
+    margin-top: 20px;
+  `,
   Tracks: styled.ScrollView`
     padding-bottom: 80px;
   `,

@@ -10,8 +10,8 @@ import Toast from "react-native-toast-message";
 import { LinearGradient } from "expo-linear-gradient";
 import { Octicons } from "@expo/vector-icons";
 import { Pressable, TouchableOpacity } from "react-native";
-import { GenericText } from "src/components/text/GenericText";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import { HeadingOne } from "src/components/headings/HeadingOne";
 
 export default function RootLayout() {
   const appLoaded = useAppLoading();
@@ -92,11 +92,7 @@ export default function RootLayout() {
                           size={40}
                           color={appTheme.secondary}
                         />
-                        <GenericText
-                          size={36}
-                          weight="bold"
-                          content="Profile"
-                        />
+                        <HeadingOne text="Profile" />
                       </S.ProfileHeaderLeft>
                     </TouchableOpacity>
                   ),

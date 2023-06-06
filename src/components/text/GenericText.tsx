@@ -5,15 +5,16 @@ import styled from "styled-components/native";
 interface ITextrops {
   size: FontSize;
   weight: FontWeight;
+  align?: TextAlign;
   color?: string;
   content: string | number | ReactElement;
   ellipsizeMode?: string;
   numberOfLines?: number;
-  align?: "left" | "right" | "center";
 }
 
-type FontSize = 10 | 12 | 14 | 16 | 20 | 24 | 36;
-type FontWeight = "book" | "bold" | "light" | "medium";
+export type TextAlign = "left" | "right" | "center";
+export type FontSize = 10 | 12 | 14 | 16 | 20 | 24 | 36;
+export type FontWeight = "book" | "bold" | "light" | "medium";
 
 export const GenericText = ({
   size,
