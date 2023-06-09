@@ -2,6 +2,7 @@ import styled from "styled-components/native";
 import { GenericText } from "../text/GenericText";
 import { IAlbum } from "src/types/album/album";
 import { appTheme } from "src/assets/styles/theme";
+import Spinner from "../loaders/Spinner";
 
 interface IAlbumProps {
   album: IAlbum;
@@ -10,11 +11,15 @@ interface IAlbumProps {
 export const AlbumCover = ({ album }: IAlbumProps) => {
   return (
     <S.AlbumContainer>
-      <S.AlbumCover
-        source={{
-          uri: album.imageUrl,
-        }}
-      ></S.AlbumCover>
+      {album.imageUrl ? (
+        <S.AlbumCover
+          source={{
+            uri: album.imageUrl,
+          }}
+        ></S.AlbumCover>
+      ) : (
+        <Spinner />
+      )}
       <S.AlbumLabels>
         <GenericText size={14} weight="bold" content={album.name} />
         <GenericText size={14} weight="light" content={album.artist} />

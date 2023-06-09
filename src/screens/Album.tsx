@@ -18,6 +18,7 @@ import { ITrack } from "src/types/album/album";
 import { Recommend } from "src/components/recommend/Recommend";
 import { HeadingOne } from "src/components/headings/HeadingOne";
 import { HeadingTwo } from "src/components/headings/HeadingTwo";
+import { getLyrics } from "genius-lyrics-api";
 
 const actions = {
   comments: {
@@ -33,7 +34,7 @@ const actions = {
   share: {
     id: "share",
     label: "Share",
-    snapPoints: ["50%"],
+    snapPoints: ["30%"],
   },
 };
 
@@ -87,9 +88,39 @@ const getSheetContent = (id: string) => {
 };
 
 const TrackRow = ({ track, open, updateAction }: ITrackProps) => {
+  const [lyrics, setLyrics] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
-  const handleExpandSong = () => setIsExpanded(!isExpanded);
+  const handleFechtSongLyrics = async () => {
+    const options = {
+      apiKey:
+        "AN3lWPOEn0NGcp5OGM-R2gBAIcVxbnpocP1-X3b-Vcidk5kvdadQVbN-K1cnt5Fo",
+      title: track.name,
+      artist: track.artist,
+      optimizeQuery: true,
+    };
+
+    setLoading(true);
+
+    try {
+      const fetchedLyrics = await getLyrics(options);
+      setLyrics(fetchedLyrics ? fetchedLyrics : "[Instrumental only]");
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      throw Error(error.message);
+    }
+  };
+
+  const handleExpandSong = async () => {
+    if (isExpanded) {
+      setIsExpanded(false);
+    } else {
+      await handleFechtSongLyrics();
+      setIsExpanded(true);
+    }
+  };
 
   const handleOpenComments = () => {
     updateAction("comments");
@@ -125,6 +156,11 @@ const TrackRow = ({ track, open, updateAction }: ITrackProps) => {
             </S.TrackRowExpand>
           </S.TrackRowLeft>
           <S.TrackRowRight>
+            {loading && (
+              <S.TrackLyricsLoader>
+                <Spinner />
+              </S.TrackLyricsLoader>
+            )}
             <Pressable onPress={handleOpenComments}>
               <Octicons name="comment" size={16} color={appTheme.secondary} />
             </Pressable>
@@ -139,7 +175,7 @@ const TrackRow = ({ track, open, updateAction }: ITrackProps) => {
         <GenericText
           size={16}
           weight="light"
-          content="Here are the row lyrics  Here are the row lyrics  Here are the row lyrics  Here are the row lyrics  Here are the row lyrics"
+          content={lyrics}
           numberOfLines={100}
         />
       </S.ExpandedContent>
@@ -150,6 +186,8 @@ const TrackRow = ({ track, open, updateAction }: ITrackProps) => {
 const Album = () => {
   const [albumData, setAlbumData] = useState<any>({});
   const [actionId, setActionId] = useState<string>("recommend");
+  const [isScrollTop, setIsScrollTop] = useState<boolean>(false);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
   const { id } = useSearchParams();
 
   const { token } = useSpotifyAPI();
@@ -163,6 +201,8 @@ const Album = () => {
   }, []);
 
   const handleUpdateActionId = (id: string) => setActionId(id);
+
+  const handleScrollTop = () => setIsScrollTop(!isScrollTop);
 
   useEffect(() => {
     const fetchAlbumData = async () => {
@@ -178,6 +218,7 @@ const Album = () => {
 
         if (response.ok) {
           const data = await response.json();
+
           setAlbumData(data);
         } else {
           Toast.show({
@@ -207,7 +248,7 @@ const Album = () => {
   }
 
   return (
-    <S.Wrapper testID="album-screen" nestedScrollEnabled={false}>
+    <S.Wrapper nestedScrollEnabled={false} onScrollEndDrag={handleScrollTop}>
       <S.Hero animation="fadeInDown" duration={300}>
         <S.Cover
           source={{
@@ -239,8 +280,12 @@ const Album = () => {
           </S.Description>
         </S.HeroRight>
         <S.HeroActions>
-          <S.HeroActionsIcon>
-            <Octicons name="heart" size={20} color={appTheme.secondary} />
+          <S.HeroActionsIcon onPress={() => setIsLiked(!isLiked)}>
+            <Octicons
+              name={`${isLiked ? "heart-fill" : "heart"}`}
+              size={20}
+              color={appTheme.secondary}
+            />
           </S.HeroActionsIcon>
           <S.HeroActionsIcon
             style={{ width: 60, height: 60 }}
@@ -269,25 +314,27 @@ const Album = () => {
         <S.HeroLinearGradient colors={["transparent", appTheme.primary]} />
       </S.Hero>
       <HeadingTwo text="Song lyrics" />
-      <S.TracksContainer animation="fadeIn" duration={300}>
+      <S.TracksContainer>
         <S.Tracks>
           <TrackRow
             key="track-header"
             track={{
               id: "track-header",
               name: "TITLE",
+              artist: "",
               track_number: "#",
             }}
             open={() => null}
             updateAction={() => null}
           />
-          {albumData.tracks.items.map((track: ITrack) => {
+          {albumData.tracks.items.map((track) => {
             return (
               <TrackRow
                 key={track.id}
                 track={{
                   id: track.id,
                   name: track.name,
+                  artist: track.artists[0].name,
                   track_number: track.track_number,
                 }}
                 open={handlePresentModalPress}
@@ -349,7 +396,7 @@ const S = {
     elevation: -1;
     z-index: -1;
   `,
-  HeroBackgroundImage: styled.ImageBackground`
+  HeroBackgroundImage: styled.Image`
     width: 400px;
     height: 400px;
     position: absolute;
@@ -385,6 +432,11 @@ const S = {
     border-width: 0.5px;
     border-color: ${appTheme.highlight};
     background-color: transparent;
+    shadow-color: ${appTheme.secondary}
+    shadow-opacity: .7;
+    shadow-offset-width: 0;
+    shadow-offset-height: 0;
+    shadow-radius: 10px;
   `,
   Cover: styled.ImageBackground`
     height: 150px;
@@ -403,8 +455,8 @@ const S = {
   Description: styled.View`
     width: 90%;
   `,
-  TracksContainer: styled(View)`
-    margin-top: 20px;
+  TracksContainer: styled.ScrollView`
+    padding-top: 20px;
   `,
   Tracks: styled.ScrollView`
     padding-bottom: 80px;
@@ -432,6 +484,10 @@ const S = {
     justify-content: space-between;
     gap: 10px;
   `,
+  TrackLyricsLoader: styled.View`
+    position: absolute;
+    right: 20px;
+  `,
   TrackComments: styled.View`
     padding-bottom: 150px;
   `,
@@ -447,7 +503,7 @@ const S = {
   TrackRowExpand: styled.View``,
   ExpandIcon: styled.View``,
   ExpandedContent: styled(BlurView)`
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     padding: 30px 0;
   `,

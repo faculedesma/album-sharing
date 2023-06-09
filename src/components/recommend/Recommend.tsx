@@ -5,7 +5,7 @@ import grousJson from "src/data/groups.json";
 import { IGroup } from "src/types/groups/groups";
 import GroupChips from "src/components/groups/GroupChips";
 import { GenericInput } from "../inputs/GenericInput";
-import PrimaryButton from "../buttons/PrimaryButton";
+import SecondaryButton from "../buttons/SecondaryButton";
 import { appTheme } from "src/assets/styles/theme";
 
 export const Recommend = () => {
@@ -52,8 +52,8 @@ export const Recommend = () => {
       />
       <GenericInput
         value={notes}
-        height={180}
-        maxLength={400}
+        height={220}
+        maxLength={500}
         multiline={true}
         numberOfLines={5}
         textContentType="none"
@@ -62,7 +62,7 @@ export const Recommend = () => {
         placeholder="Add a note"
       />
       <S.RecommendSubmit>
-        <PrimaryButton
+        <SecondaryButton
           text="Send"
           icon={false}
           bold={true}

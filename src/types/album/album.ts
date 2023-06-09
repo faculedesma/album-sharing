@@ -1,6 +1,7 @@
 interface ITrack {
   id: string;
   name: string;
+  artist: string;
   track_number: number | string;
 }
 
