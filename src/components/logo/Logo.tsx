@@ -4,7 +4,7 @@ import LogoPNG from "src/assets/images/logo.png";
 
 export const Logo = () => {
   return (
-    <S.LogoContainer testID="login-screen-logo" intensity={10} tint="light">
+    <S.LogoContainer intensity={10} tint="light">
       <S.LogoImage source={LogoPNG}></S.LogoImage>
     </S.LogoContainer>
   );

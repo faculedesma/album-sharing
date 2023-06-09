@@ -61,11 +61,11 @@ export default function Signup() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <S.Wrapper testID="login-screen" behavior="padding">
+      <S.Wrapper behavior="padding">
         <S.LogoContainer>
           <Logo />
         </S.LogoContainer>
-        <S.Inputs testID="signup-screen-bio">
+        <S.Inputs>
           <GenericInput
             value={email}
             maxLength={100}

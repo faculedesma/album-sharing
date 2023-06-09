@@ -163,7 +163,7 @@ const Search = () => {
 
   return (
     <>
-      <S.Wrapper testID="search-screen">
+      <S.Wrapper>
         {search?.length ? (
           <S.SearchResults>
             <S.SearchResultsScroll

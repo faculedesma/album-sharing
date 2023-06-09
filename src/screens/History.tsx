@@ -40,11 +40,7 @@ const Latest = () => {
     <>
       <S.Latest animation="fadeIn" duration={500}>
         <S.LatestTop>
-          <S.Group
-            testID="home-screen-latest-group"
-            intensity={20}
-            tint="light"
-          >
+          <S.Group intensity={20} tint="light">
             <Pressable>
               <GenericText size={14} weight="bold" content="Los Pica" />
             </Pressable>
@@ -116,7 +112,7 @@ const Latest = () => {
 const History = () => {
   return (
     <>
-      <S.Wrapper testID="home-screen">
+      <S.Wrapper>
         <Latest />
       </S.Wrapper>
       <S.WrapperBackground colors={[appTheme.black, appTheme.primary]} />

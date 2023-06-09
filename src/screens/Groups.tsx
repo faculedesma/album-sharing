@@ -104,7 +104,7 @@ const MyGroups = () => {
 
 const Groups = () => {
   return (
-    <S.Wrapper testID="groups-screen">
+    <S.Wrapper>
       <MyGroups />
     </S.Wrapper>
   );

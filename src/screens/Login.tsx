@@ -52,11 +52,11 @@ const Login = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <S.Wrapper testID="login-screen" behavior="padding">
+      <S.Wrapper behavior="padding">
         <S.LogoContainer>
           <Logo />
         </S.LogoContainer>
-        <S.LoginInputs testID="login-screen-inputs">
+        <S.LoginInputs>
           <GenericInput
             value={email}
             maxLength={100}

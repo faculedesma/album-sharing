@@ -204,7 +204,7 @@ const Latest = () => {
 
 const Home = () => {
   return (
-    <S.Wrapper testID="home-screen">
+    <S.Wrapper>
       <Latest />
       <Birthday />
     </S.Wrapper>

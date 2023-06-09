@@ -24,7 +24,7 @@ export default function SecondaryButton({
   loading = false,
 }: ISecondaryProps) {
   return (
-    <S.Button testID="secondary-button" onPress={handlePress && handlePress}>
+    <S.Button onPress={handlePress && handlePress}>
       <GenericText
         size={size === "sm" ? 12 : 16}
         weight={bold ? "bold" : "light"}

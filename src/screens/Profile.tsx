@@ -88,7 +88,7 @@ const Profile = () => {
               textContentType="nickname"
               handleChangeText={handleOnChangeNickname}
             />
-            <S.Bio testID="profile-screen-bio">
+            <S.Bio>
               <S.BioTitle>Bio</S.BioTitle>
               <GenericInput
                 value={bioText}

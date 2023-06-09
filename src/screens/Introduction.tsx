@@ -91,7 +91,7 @@ export default function Introduction() {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <S.Wrapper testID="intro-screen" behavior="padding">
+      <S.Wrapper behavior="padding">
         <Logo />
         <HeadingOne text="Choose avatar" />
         <GenericInput
@@ -101,7 +101,7 @@ export default function Introduction() {
           placeholder="Nickname"
           handleChangeText={handleOnChangeNickname}
         />
-        <S.AvatarOptions testID="intro-screen-options">
+        <S.AvatarOptions>
           {avatars.map((avatar) => {
             return (
               <S.Circle
@@ -119,7 +119,7 @@ export default function Introduction() {
             );
           })}
         </S.AvatarOptions>
-        <S.Bio testID="intro-screen-bio">
+        <S.Bio>
           <S.BioTitle>Bio</S.BioTitle>
           <GenericInput
             value={bioText}
