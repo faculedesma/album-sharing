@@ -26,7 +26,7 @@ export default function PrimaryButton({
 }: IPrimaryProps) {
   return (
     <S.ButtonContainer intensity={10} tint="light">
-      <S.Button testID="primary-button" onPress={handlePress}>
+      <S.Button onPress={handlePress}>
         <GenericText
           size={size === "sm" ? 12 : 16}
           weight={bold ? "bold" : "light"}
@@ -43,16 +43,16 @@ export default function PrimaryButton({
 
 const S = {
   ButtonContainer: styled(BlurView)`
-    height: 60px;
+    height: 55px;
     width: 100%;
-    background-color: ${(p) => p.theme.black};
+    background-color: ${appTheme.black};
     border-width: 0.5px;
-    border-color: ${appTheme.shades700};
+    border-color: ${appTheme.highlight};
     border-radius: 4px;
     overflow: hidden;
   `,
   Button: styled.Pressable`
-    height: 60px;
+    height: 55px;
     width: 100%;
     align-items: center;
     justify-content: center;

@@ -49,12 +49,7 @@ const GroupRow = ({
         <GenericText size={14} weight="bold" content={user} />
         {isAdmin && (
           <S.AdministratorChip>
-            <GenericText
-              size={12}
-              weight="bold"
-              content="Administrator"
-              color={appTheme.primary}
-            />
+            <GenericText size={10} weight="bold" content="Administrator" />
           </S.AdministratorChip>
         )}
       </S.Username>
@@ -64,7 +59,7 @@ const GroupRow = ({
 
 const GroupChip = ({ name }: IGroupChipProps) => {
   return (
-    <S.GroupChip testID="groups-screen-chip" intensity={10} tint="light">
+    <S.GroupChip intensity={10} tint="light">
       <GenericText size={14} weight="bold" content={name} />
     </S.GroupChip>
   );
@@ -161,11 +156,12 @@ const S = {
     overflow: hidden;
   `,
   AdministratorChip: styled.View`
-    height: 20px;
+    height: 30px;
     width: 90px;
     align-items: center;
     justify-content: center;
-    background-color: ${(p) => p.theme.green};
+    border-width: 0.5px;
+    border-color: ${appTheme.green};
     border-radius: 4px;
   `,
   GroupUsers: styled.View`

@@ -234,6 +234,17 @@ const S = {
     align-items: center;
     justify-content: space-between;
   `,
+  LatestCard: styled(BlurView)`
+    height: 200px;
+    min-width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-width: 0.5px;
+    border-color: ${appTheme.shades700};
+    border-radius: 4px;
+    overflow: hidden;
+    padding: 20px;
+  `,
   Group: styled(BlurView)`
     height: 30px;
     align-items: center;
@@ -252,17 +263,6 @@ const S = {
   GroupRow: styled.Pressable`
     margin-top: 20px;
     height: 30px;
-  `,
-  LatestCard: styled(BlurView)`
-    height: 200px;
-    min-width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    border-width: 0.5px;
-    border-color: ${appTheme.shades700};
-    border-radius: 4px;
-    overflow: hidden;
-    padding: 20px;
   `,
   Row: styled(View)`
     height: 40px;

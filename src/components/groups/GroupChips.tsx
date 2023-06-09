@@ -27,7 +27,8 @@ const GroupChips = ({
             intensity={10}
             tint="light"
             style={{
-              backgroundColor: selected.includes(group.id)
+              borderWidth: selected.includes(group.id) ? 0.5 : 0,
+              borderColor: selected.includes(group.id)
                 ? appTheme.highlight
                 : "transparent",
             }}
@@ -39,7 +40,7 @@ const GroupChips = ({
                 content={group.name}
                 color={
                   selected.includes(group.id)
-                    ? appTheme.primary
+                    ? appTheme.highlight
                     : appTheme.secondary
                 }
               />
