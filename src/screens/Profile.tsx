@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   TouchableWithoutFeedback,
   Keyboard,
@@ -8,101 +8,126 @@ import styled from "styled-components/native";
 import { useRouter } from "expo-router";
 import { appTheme } from "src/assets/styles/theme";
 import { GenericText } from "src/components/text/GenericText";
-import { auth } from "../../firebase";
 import { GenericInput } from "src/components/inputs/GenericInput";
-import Toast from "react-native-toast-message";
 import { LinearGradient } from "expo-linear-gradient";
 import { Octicons } from "@expo/vector-icons";
-import AvatarThreePNG from "src/assets/images/avatar-four.png";
+import { ALPHA_NUMERICAL_REGEX } from "src/utils/string";
+import { useUserData } from "src/hooks/useUserData";
+import Spinner from "src/components/loaders/Spinner";
+import { useSessionStorage } from "src/hooks/useSessionStorage";
 
 const Profile = () => {
-  const [bioText, setBioText] = useState<string>(
-    "Hi! I'm a person who loves progressive rock and roll music. I love to travel with my headphones while a vinyl is playing. I'm a fan of searching song experiences and meaning by the artist after hearing them."
-  );
-  const [nickname, setNickname] = useState<string>("@chicha37");
+  const [bioText, setBioText] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
   const [isEnabled, setIsEnabled] = useState<boolean>(true);
 
   const router = useRouter();
+  const { user } = useUserData();
+  const { clearStorage } = useSessionStorage();
+
+  useEffect(() => {
+    if (user) {
+      setBioText(user.bio);
+      setNickname(user.nickname);
+      setIsEnabled(user.settings.notifications);
+    }
+  }, [user]);
 
   const toggleSwitch = () => setIsEnabled(!isEnabled);
 
-  const handleOnChangeBio = (value: string) => setBioText(value);
+  const handleOnChangeBio = (value: string) => {
+    if (!value.match(ALPHA_NUMERICAL_REGEX)) {
+      return;
+    }
+    setBioText(value);
+  };
 
-  const handleOnChangeNickname = (value: string) => setNickname(value);
+  const handleOnChangeNickname = (value: string) => {
+    if (!value.match(ALPHA_NUMERICAL_REGEX)) {
+      return;
+    }
+    setNickname(value);
+  };
 
   const handleSignOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        router.back();
-        router.replace("/login");
-      })
-      .catch((error) => {
-        Toast.show({
-          type: "error",
-          text1: error.message.split(":")[1].split(".")[0],
-        });
-        console.log(error);
-        new Error(error.message);
-      });
+    // handle sign out api call
+    setTimeout(async () => {
+      await clearStorage();
+      router.replace("/login");
+    }, 1000);
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <S.Wrapper colors={[appTheme.black, appTheme.primary]}>
-        <S.ProfileTop>
-          <S.ProfileImage
-            source={{
-              uri: "https://lh3.googleusercontent.com/ogw/AOLn63FR1yAhWwMPVOxnKxNWJktQRftStxUNo2MUBx_RYg=s64-c-mo",
-            }}
-          ></S.ProfileImage>
-          <S.ProfileTopText>
-            <GenericText size={14} weight="bold" content="FACUNDO LEDESMA" />
-            <GenericText
-              size={12}
-              weight="light"
-              content="faculedesma1993@gmail.com"
+        {user.name ? (
+          <>
+            <S.ProfileTop>
+              <S.ProfileImage
+                source={{
+                  uri: user.profile_image_uri,
+                }}
+              ></S.ProfileImage>
+              <S.ProfileTopText>
+                <GenericText
+                  size={14}
+                  weight="bold"
+                  content={`${user.name} ${user.surname}`}
+                  textTransform="uppercase"
+                />
+                <GenericText size={12} weight="light" content={user.email} />
+              </S.ProfileTopText>
+            </S.ProfileTop>
+            <S.AvatarContainer>
+              <S.Avatar source={{ uri: user.avatar_url }}></S.Avatar>
+            </S.AvatarContainer>
+            <GenericInput
+              value={nickname}
+              maxLength={100}
+              placeholder="nickname"
+              textContentType="nickname"
+              handleChangeText={handleOnChangeNickname}
             />
-          </S.ProfileTopText>
-        </S.ProfileTop>
-        <S.AvatarContainer>
-          <S.Avatar source={AvatarThreePNG}></S.Avatar>
-        </S.AvatarContainer>
-        <GenericInput
-          value={nickname}
-          maxLength={100}
-          placeholder="nickname"
-          textContentType="nickname"
-          handleChangeText={handleOnChangeNickname}
-        />
-        <S.Bio testID="profile-screen-bio">
-          <S.BioTitle>Bio</S.BioTitle>
-          <GenericInput
-            value={bioText}
-            height={150}
-            maxLength={200}
-            multiline={true}
-            placeholder="Add a little description about yourself"
-            textContentType="none"
-            handleChangeText={handleOnChangeBio}
-          />
-        </S.Bio>
-        <S.Item>
-          <Octicons name="bell" size={16} color={appTheme.secondary} />
-          <GenericText size={16} weight="light" content="Notifications" />
-          <S.Switch
-            trackColor={{ false: appTheme.shades50, true: appTheme.shades800 }}
-            thumbColor={isEnabled ? appTheme.highlight : appTheme.shades50}
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-        </S.Item>
-        <TouchableOpacity onPress={handleSignOut}>
-          <S.Item>
-            <Octicons name="sign-out" size={16} color={appTheme.secondary} />
-            <GenericText size={16} weight="light" content="Logout" />
-          </S.Item>
-        </TouchableOpacity>
+            <S.Bio testID="profile-screen-bio">
+              <S.BioTitle>Bio</S.BioTitle>
+              <GenericInput
+                value={bioText}
+                height={175}
+                maxLength={300}
+                multiline={true}
+                numberOfLines={10}
+                placeholder="Add a little description about yourself"
+                textContentType="none"
+                handleChangeText={handleOnChangeBio}
+              />
+            </S.Bio>
+            <S.Item>
+              <Octicons name="bell" size={16} color={appTheme.secondary} />
+              <GenericText size={16} weight="light" content="Notifications" />
+              <S.Switch
+                trackColor={{
+                  false: appTheme.shades50,
+                  true: appTheme.shades800,
+                }}
+                thumbColor={isEnabled ? appTheme.highlight : appTheme.shades50}
+                onValueChange={toggleSwitch}
+                value={isEnabled}
+              />
+            </S.Item>
+            <TouchableOpacity onPress={handleSignOut}>
+              <S.Item>
+                <Octicons
+                  name="sign-out"
+                  size={16}
+                  color={appTheme.secondary}
+                />
+                <GenericText size={16} weight="light" content="Logout" />
+              </S.Item>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <Spinner />
+        )}
       </S.Wrapper>
     </TouchableWithoutFeedback>
   );
@@ -151,7 +176,7 @@ const S = {
     align-items: center;
     justify-content: center;
   `,
-  Avatar: styled.ImageBackground`
+  Avatar: styled.Image`
     height: 75px;
     width: 75px;
   `,

@@ -5,7 +5,6 @@ import { useRouter } from "expo-router";
 import { Logo } from "src/components/logo/Logo";
 import PrimaryButton from "src/components/buttons/PrimaryButton";
 import { appTheme } from "src/assets/styles/theme";
-import { auth } from "../../firebase";
 import { GenericInput } from "src/components/inputs/GenericInput";
 import Toast from "react-native-toast-message";
 import { Octicons } from "@expo/vector-icons";
@@ -26,6 +25,7 @@ export default function Signup() {
   const handleToggleHideRepeat = () => setHideRepeat(!hideRepeat);
 
   const handleSignUp = async () => {
+    setLoading(true);
     if (!email) {
       Toast.show({
         type: "error",
@@ -47,28 +47,16 @@ export default function Signup() {
         type: "error",
         text1: "Passwords must match",
       });
+      setLoading(false);
       return;
     }
-    setLoading(true);
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((response) => {
-        setLoading(false);
-        console.log(response.user);
-        setEmail("");
-        setPassword("");
-        setRepeat("");
-        router.push("/introduction");
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error.message);
-        Toast.show({
-          type: "error",
-          text1: error.message.split(":")[1].split(".")[0],
-        });
-        new Error(error.message);
-      });
+    router.push({
+      pathname: "/introduction",
+      params: {
+        email,
+        password,
+      },
+    });
   };
 
   return (

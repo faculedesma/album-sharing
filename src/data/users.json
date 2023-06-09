@@ -1,0 +1,108 @@
+{
+  "users": [
+    {
+      "id": "unique-id-0",
+      "name": "Facundo",
+      "surname": "Ledesma",
+      "email": "faculedesma1993@gmail.com",
+      "nickname": "chicha37",
+      "bio": "Hi! I'm a person who loves progressive rock and roll music. I love to travel with my headphones while a vinyl is playing. I'm a fan of searching song experiences and meaning by the artist after hearing them.",
+      "avatar_url": "http://192.168.1.136:19000/src/assets/images/avatar-four.png",
+      "profile_image_uri": "https://lh3.googleusercontent.com/ogw/AOLn63FR1yAhWwMPVOxnKxNWJktQRftStxUNo2MUBx_RYg=s64-c-mo",
+      "settings": {
+        "notifications": true
+      }
+    },
+    {
+      "id": "unique-id-1",
+      "name": "Hernán",
+      "surname": "Hael",
+      "email": "hernan_hael@hotmail.com",
+      "nickname": "brain_damage",
+      "bio": "Hi! I'm a person who loves progressive rock and roll music. I love to travel with my headphones while a vinyl is playing. I'm a fan of searching song experiences and meaning by the artist after hearing them.",
+      "avatar_url": "http://192.168.1.136:19000/src/assets/images/avatar-two.png",
+      "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/343833341_3575544309388523_3638401193561631479_n.jpg?ccb=11-4&oh=01_AdTLs6F7OPY2t4weUkJXqbJV00TKOwFetNc7t44j56aTPA&oe=648AD116",
+      "settings": {
+        "notifications": true
+      }
+    },
+    {
+      "id": "unique-id-2",
+      "name": "Patricio",
+      "surname": "Balardini",
+      "email": "patriciobalardini92@gmail.com",
+      "nickname": "yayiri92",
+      "bio": "Hi! I'm a person who loves progressive rock and roll music. I love to travel with my headphones while a vinyl is playing. I'm a fan of searching song experiences and meaning by the artist after hearing them.",
+      "avatar_url": "http://192.168.1.136:19000/src/assets/images/avatar-three.png",
+      "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/263197403_151899000750780_1274420474488055270_n.jpg?ccb=11-4&oh=01_AdTVMvopFs8eyZsykDt619WtSprhT7V1DhDv7w2pPye6TQ&oe=648C32C5",
+      "settings": {
+        "notifications": true
+      }
+    },
+    {
+      "id": "unique-id-3",
+      "name": "Matías",
+      "surname": "Corona Corder",
+      "email": "coronasjino@gmail.com",
+      "nickname": "vizcacha",
+      "bio": "Hi! I'm a person who loves progressive rock and roll music. I love to travel with my headphones while a vinyl is playing. I'm a fan of searching song experiences and meaning by the artist after hearing them.",
+      "avatar_url": "http://192.168.1.136:19000/src/assets/images/avatar-five.png",
+      "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/302015056_1433090403834456_9149982014285536590_n.jpg?ccb=11-4&oh=01_AdT-yqFT6znmidt6FTWGlMNn84CXAgNegia-zT6GO4ynqw&oe=648ADDE1",
+      "settings": {
+        "notifications": true
+      }
+    },
+    {
+      "id": "unique-id-4",
+      "name": "John",
+      "surname": "Hamilton",
+      "email": "juancruzgarciahamilton@gmail.com",
+      "nickname": "johnG123",
+      "bio": "Hi! I'm a person who loves progressive rock and roll music. I love to travel with my headphones while a vinyl is playing. I'm a fan of searching song experiences and meaning by the artist after hearing them.",
+      "avatar_url": "http://192.168.1.136:19000/src/assets/images/avatar-six.png",
+      "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/342201501_6371011192921404_5804146485233602618_n.jpg?ccb=11-4&oh=01_AdRnf94VQN3TW3Rfm0ozCWTmYQoE1Ie2wbKgagqIqqTXmA&oe=6487333D",
+      "settings": {
+        "notifications": true
+      }
+    },
+    {
+      "id": "unique-id-5",
+      "name": "Tomás",
+      "surname": "Alurralde",
+      "email": "tomasalurralde@gmail.com",
+      "nickname": "TOMASSO",
+      "bio": "Hi! I'm a person who loves progressive rock and roll music. I love to travel with my headphones while a vinyl is playing. I'm a fan of searching song experiences and meaning by the artist after hearing them.",
+      "avatar_url": "http://192.168.1.136:19000/src/assets/images/avatar-seven.png",
+      "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/312279591_129960433246879_3239190848680720422_n.jpg?ccb=11-4&oh=01_AdSTq-KW0GxwPbMfcq_IT4jEfuTcl0ZlrP3iiTOmwoB54g&oe=6487065A",
+      "settings": {
+        "notifications": true
+      }
+    },
+    {
+      "id": "unique-id-6",
+      "name": "Ezequiel",
+      "surname": "Muñóz",
+      "email": "ezemg92@gmail.com",
+      "nickname": "tonio_elgar",
+      "bio": "Hi! I'm a person who loves progressive rock and roll music. I love to travel with my headphones while a vinyl is playing. I'm a fan of searching song experiences and meaning by the artist after hearing them.",
+      "avatar_url": "http://192.168.1.136:19000/src/assets/images/avatar-one.png",
+      "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/65303846_352920595657147_8107060253658447872_n.jpg?ccb=11-4&oh=01_AdQzJZfDF6btFukZ4oCNr1nxcGwioapwl9YQ1Kt_9T7yxg&oe=64870A15",
+      "settings": {
+        "notifications": true
+      }
+    },
+    {
+      "id": "unique-id-7",
+      "name": "Francisco",
+      "surname": "Chico Tapia",
+      "email": "franct92@gmail.com",
+      "nickname": "the_Last10",
+      "bio": "Hi! I'm a person who loves progressive rock and roll music. I love to travel with my headphones while a vinyl is playing. I'm a fan of searching song experiences and meaning by the artist after hearing them.",
+      "avatar_url": "http://192.168.1.136:19000/src/assets/images/avatar-two.png",
+      "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/70852327_377462306470737_5391742544277143552_n.jpg?ccb=11-4&oh=01_AdR_s0MFqxX_JvNI6dDwNvKPDYdTwKF5GFr-oM7c7WTZSQ&oe=648C7EE6",
+      "settings": {
+        "notifications": true
+      }
+    }
+  ]
+}

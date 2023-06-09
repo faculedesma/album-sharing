@@ -5,9 +5,11 @@ import { Octicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import { useRouter } from "expo-router";
 import LogoPNG from "src/assets/images/logo.png";
+import { useUserData } from "src/hooks/useUserData";
 
 const StackLayout = () => {
   const router = useRouter();
+  const { user } = useUserData();
 
   return (
     <Stack>
@@ -23,7 +25,7 @@ const StackLayout = () => {
               <TouchableOpacity onPress={() => router.push("/profile")}>
                 <S.ProfileAvatar
                   source={{
-                    uri: "https://lh3.googleusercontent.com/ogw/AOLn63FR1yAhWwMPVOxnKxNWJktQRftStxUNo2MUBx_RYg=s64-c-mo",
+                    uri: user.profile_image_uri,
                   }}
                 ></S.ProfileAvatar>
               </TouchableOpacity>

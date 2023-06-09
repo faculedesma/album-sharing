@@ -5,9 +5,12 @@ import { Octicons } from "@expo/vector-icons";
 import styled from "styled-components/native";
 import { useRouter } from "expo-router";
 import LogoPNG from "src/assets/images/logo.png";
+import { useUserData } from "src/hooks/useUserData";
+import Spinner from "src/components/loaders/Spinner";
 
 const StackLayout = () => {
   const router = useRouter();
+  const { user } = useUserData();
 
   return (
     <Stack>
@@ -21,11 +24,15 @@ const StackLayout = () => {
                 <Octicons name="search" size={20} color={appTheme.secondary} />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => router.push("/profile")}>
-                <S.ProfileAvatar
-                  source={{
-                    uri: "https://lh3.googleusercontent.com/ogw/AOLn63FR1yAhWwMPVOxnKxNWJktQRftStxUNo2MUBx_RYg=s64-c-mo",
-                  }}
-                ></S.ProfileAvatar>
+                {user.profile_image_uri ? (
+                  <S.ProfileAvatar
+                    source={{
+                      uri: user.profile_image_uri,
+                    }}
+                  ></S.ProfileAvatar>
+                ) : (
+                  <Spinner />
+                )}
               </TouchableOpacity>
             </S.HeaderRight>
           ),

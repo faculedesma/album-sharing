@@ -20,5 +20,21 @@ export const useSessionStorage = () => {
     }
   };
 
-  return { storeData, getData };
+  const clearKey = async (key: string) => {
+    try {
+      await AsyncStorage.removeItem(key);
+    } catch (e) {
+      throw new Error();
+    }
+  };
+
+  const clearStorage = async () => {
+    try {
+      await AsyncStorage.clear();
+    } catch (e) {
+      throw new Error();
+    }
+  };
+
+  return { storeData, getData, clearKey, clearStorage };
 };

@@ -7,9 +7,11 @@ import styled from "styled-components/native";
 import LogoPNG from "src/assets/images/logo.png";
 import { SearchHeaderRight } from "src/screens/Search";
 import { HeadingOne } from "src/components/headings/HeadingOne";
+import { useUserData } from "src/hooks/useUserData";
 
 const StackLayout = () => {
   const router = useRouter();
+  const { user } = useUserData();
 
   return (
     <Stack>
@@ -25,7 +27,7 @@ const StackLayout = () => {
               <TouchableOpacity onPress={() => router.push("/profile")}>
                 <S.ProfileAvatar
                   source={{
-                    uri: "https://lh3.googleusercontent.com/ogw/AOLn63FR1yAhWwMPVOxnKxNWJktQRftStxUNo2MUBx_RYg=s64-c-mo",
+                    uri: user.profile_image_uri,
                   }}
                 ></S.ProfileAvatar>
               </TouchableOpacity>
@@ -45,16 +47,16 @@ const StackLayout = () => {
           headerTransparent: true,
           headerRight: () => null,
           headerLeft: () => (
-            <TouchableOpacity onPress={() => router.back()}>
-              <S.ProfileHeaderLeft>
+            <S.ProfileHeaderLeft>
+              <TouchableOpacity onPress={() => router.back()}>
                 <Octicons
                   name="chevron-left"
                   size={40}
                   color={appTheme.secondary}
                 />
-                <HeadingOne text="History" />
-              </S.ProfileHeaderLeft>
-            </TouchableOpacity>
+              </TouchableOpacity>
+              <HeadingOne text="History" />
+            </S.ProfileHeaderLeft>
           ),
         }}
       />
@@ -113,7 +115,6 @@ const S = {
   ProfileHeaderLeft: styled.View`
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
     gap: 20px;
   `,
   HeaderRight: styled.View`

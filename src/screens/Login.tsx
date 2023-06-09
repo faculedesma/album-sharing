@@ -5,12 +5,13 @@ import { useRouter } from "expo-router";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import PrimaryButton from "src/components/buttons/PrimaryButton";
 import { appTheme } from "src/assets/styles/theme";
-import { auth } from "../../firebase";
 import { GenericInput } from "src/components/inputs/GenericInput";
 import Toast from "react-native-toast-message";
 import { Logo } from "src/components/logo/Logo";
 import { Octicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+import { useSessionStorage } from "src/hooks/useSessionStorage";
+import usersJson from "src/data/users.json";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -19,6 +20,7 @@ const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const router = useRouter();
+  const { storeData } = useSessionStorage();
 
   const handleToggleHidde = () => setHide(!hide);
 
@@ -40,22 +42,12 @@ const Login = () => {
       setLoading(false);
       return;
     }
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((response) => {
-        setLoading(false);
-        console.log(response.user);
-        router.push("/home");
-      })
-      .catch((error) => {
-        Toast.show({
-          type: "error",
-          text1: error.message.split(":")[1].split(".")[0],
-        });
-        setLoading(false);
-        console.log(error);
-        new Error(error.message);
-      });
+    // handle login api call
+    setTimeout(async () => {
+      await storeData("user", JSON.stringify(usersJson.users[2]));
+      setLoading(false);
+      router.replace("/home");
+    }, 1000);
   };
 
   return (

@@ -2,17 +2,23 @@ import styled from "styled-components/native";
 import { ActivityIndicator } from "react-native";
 import { appTheme } from "src/assets/styles/theme";
 
-export default function Spinner() {
+interface ISpinnerProps {
+  size?: "small" | "large";
+  color?: string;
+}
+
+const Spinner = ({
+  size = "small",
+  color = appTheme.secondary,
+}: ISpinnerProps) => {
   return (
-    <S.Spinner testID="spinner">
-      <ActivityIndicator
-        testID="activity-indicator"
-        color={appTheme.secondary}
-        size="small"
-      />
+    <S.Spinner>
+      <ActivityIndicator color={color} size={size} />
     </S.Spinner>
   );
-}
+};
+
+export default Spinner;
 
 const S = {
   Spinner: styled.View`

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components/native";
-import { Stack, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import SecondaryButton from "src/components/buttons/SecondaryButton";
 import { Logo } from "src/components/logo/Logo";
 import { appTheme } from "src/assets/styles/theme";
@@ -60,12 +60,14 @@ export default function Introduction() {
   const [loading, setLoading] = useState<boolean>(false);
 
   const router = useRouter();
+  const { email, password } = useLocalSearchParams();
 
   const handleOnChangeBio = (value: string) => setBioText(value);
 
   const handleOnChangeNickname = (value: string) => setNickname(value);
 
   const handleFinishSignUp = async () => {
+    setLoading(true);
     if (!nickname) {
       Toast.show({
         type: "error",
@@ -80,7 +82,11 @@ export default function Introduction() {
       });
       return;
     }
-    router.push("/home");
+    // handle api call to create user if validated
+    setTimeout(async () => {
+      setLoading(false);
+      router.replace("/home");
+    }, 1000);
   };
 
   return (
@@ -117,8 +123,8 @@ export default function Introduction() {
           <S.BioTitle>Bio</S.BioTitle>
           <GenericInput
             value={bioText}
-            height={150}
-            maxLength={200}
+            height={175}
+            maxLength={300}
             multiline={true}
             numberOfLines={5}
             textContentType="none"
@@ -145,7 +151,7 @@ const S = {
   Wrapper: styled.KeyboardAvoidingView`
     flex: 1;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding-left: 20px;
     padding-right: 20px;
     gap: 20px;

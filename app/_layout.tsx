@@ -85,16 +85,16 @@ export default function RootLayout() {
                   headerShadowVisible: false,
                   headerTitle: "",
                   headerLeft: () => (
-                    <TouchableOpacity onPress={() => router.back()}>
-                      <S.ProfileHeaderLeft>
+                    <S.ProfileHeaderLeft>
+                      <TouchableOpacity onPress={() => router.back()}>
                         <Octicons
                           name="x"
                           size={40}
                           color={appTheme.secondary}
                         />
-                        <HeadingOne text="Profile" />
-                      </S.ProfileHeaderLeft>
-                    </TouchableOpacity>
+                      </TouchableOpacity>
+                      <HeadingOne text="Profile" />
+                    </S.ProfileHeaderLeft>
                   ),
                 }}
               />
@@ -140,7 +140,6 @@ const S = {
   ProfileHeaderLeft: styled.View`
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
     gap: 20px;
   `,
   HeaderRight: styled.View`
