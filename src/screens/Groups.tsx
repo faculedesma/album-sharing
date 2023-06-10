@@ -1,7 +1,6 @@
 import styled from "styled-components/native";
 import { appTheme } from "src/assets/styles/theme";
 import { GenericText } from "src/components/text/GenericText";
-import { View } from "react-native-animatable";
 import { Octicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { HeadingOne } from "src/components/headings/HeadingOne";
@@ -67,7 +66,7 @@ const GroupChip = ({ name }: IGroupChipProps) => {
 
 const MyGroups = () => {
   return (
-    <S.Groups animation="fadeIn" easing="ease-in-out" duration={400}>
+    <S.Groups>
       <HeadingOne text="Groups" />
       <S.HeadingTwoContainer>
         <HeadingTwo text="My Groups" />
@@ -121,7 +120,7 @@ const S = {
     padding-right: 20px;
     margin-top: 20px;
   `,
-  Groups: styled(View)`
+  Groups: styled.View`
     align-items: flex-start;
     justify-content: space-between;
     gap: 20px;

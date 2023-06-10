@@ -2,49 +2,73 @@
   "comments": [
     {
       "id": "1",
-      "username": "@chicha73",
-      "content": "Me parece que este album esta extraordinario.",
-      "likes": 200,
+      "user": {
+        "id": "unique-id-0",
+        "nickname": "chicha37",
+        "profile_image_uri": "https://lh3.googleusercontent.com/ogw/AOLn63FR1yAhWwMPVOxnKxNWJktQRftStxUNo2MUBx_RYg=s64-c-mo"
+      },
+      "content": "Primer tema del album. Son las 10 canciones comprimidads en 1 minuto. Junto con un latido.",
+      "likes": 10,
       "date": "1w",
       "replies": []
     },
     {
       "id": "2",
-      "username": "@chicha73",
-      "content": "Me parece que este album esta extraordinario.",
-      "likes": 200,
+      "user": {
+        "id": "unique-id-1",
+        "nickname": "brain_damage",
+        "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/343833341_3575544309388523_3638401193561631479_n.jpg?ccb=11-4&oh=01_AdTLs6F7OPY2t4weUkJXqbJV00TKOwFetNc7t44j56aTPA&oe=648AD116"
+      },
+      "content": "Pareciera como si estas naciendo.",
+      "likes": 17,
       "date": "1w",
       "replies": []
     },
     {
       "id": "3",
-      "username": "@chicha73",
-      "content": "Me parece que este album esta extraordinario. Me parece que este album esta extraordinario. Me parece que este album esta extraordinario. Me parece que este album esta extraordinario. Me parece que este album esta extraordinario. Me parece que este album esta extraordinario. Me parece que este album esta extraordinario. Me parece que este album esta extraordinario. Me parece que este album esta extraordinario.",
-      "likes": 200,
+      "user": {
+        "id": "unique-id-2",
+        "nickname": "yayiri92",
+        "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/263197403_151899000750780_1274420474488055270_n.jpg?ccb=11-4&oh=01_AdTVMvopFs8eyZsykDt619WtSprhT7V1DhDv7w2pPye6TQ&oe=648C32C5"
+      },
+      "content": "Una ves estabamos escuchandolo en el departamento de la chicha, y habia una energia medio extraña. Mientras tomaba el whisky junto con una seca de un habano senti como un frio me entrara en el cuerpo, o no se si era calor.",
+      "likes": 38,
       "date": "1w",
       "replies": []
     },
     {
       "id": "4",
-      "username": "@chicha73",
-      "content": "Me parece que este album esta extraordinario.",
-      "likes": 200,
+      "user": {
+        "id": "unique-id-3",
+        "nickname": "vizcacha",
+        "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/302015056_1433090403834456_9149982014285536590_n.jpg?ccb=11-4&oh=01_AdT-yqFT6znmidt6FTWGlMNn84CXAgNegia-zT6GO4ynqw&oe=648ADDE1"
+      },
+      "content": "Recuerdo comenzar a esuchar este tema mientras subia a Raco por Villa Nougues, parecia un sueño.",
+      "likes": 10,
       "date": "1w",
       "replies": []
     },
     {
       "id": "5",
-      "username": "@chicha73",
-      "content": "Me parece que este album esta extraordinario.",
-      "likes": 200,
+      "user": {
+        "id": "unique-id-5",
+        "nickname": "tomasso",
+        "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/312279591_129960433246879_3239190848680720422_n.jpg?ccb=11-4&oh=01_AdSTq-KW0GxwPbMfcq_IT4jEfuTcl0ZlrP3iiTOmwoB54g&oe=6487065A"
+      },
+      "content": "Se me viene a la cabeza los parlantes olofonicos en buenos aires, que viaje en la oscuridad.",
+      "likes": 2,
       "date": "1w",
       "replies": []
     },
     {
       "id": "6",
-      "username": "@chicha73",
-      "content": "Me parece que este album esta extraordinario.",
-      "likes": 200,
+      "user": {
+        "id": "unique-id-7",
+        "nickname": "the_Last10",
+        "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/70852327_377462306470737_5391742544277143552_n.jpg?ccb=11-4&oh=01_AdR_s0MFqxX_JvNI6dDwNvKPDYdTwKF5GFr-oM7c7WTZSQ&oe=648C7EE6"
+      },
+      "content": "...",
+      "likes": 1,
       "date": "1w",
       "replies": []
     }

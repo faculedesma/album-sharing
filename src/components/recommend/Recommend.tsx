@@ -81,7 +81,6 @@ const S = {
     flex: 1;
     align-items: center;
     justify-content: flex-start;
-    padding-top: 15px;
     padding-left: 10px;
     padding-right: 10px;
     gap: 20px;

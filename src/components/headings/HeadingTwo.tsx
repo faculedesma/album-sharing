@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 import { GenericText } from "../text/GenericText";
-import { View } from "react-native-animatable";
 import { appTheme } from "src/assets/styles/theme";
 import { FontWeight } from "src/components/text/GenericText";
 
@@ -11,7 +10,7 @@ interface IHeadingTwoProps {
 
 export const HeadingTwo = ({ text, weight = "light" }: IHeadingTwoProps) => {
   return (
-    <S.HeadingTwo animation="fadeIn" duration={300}>
+    <S.HeadingTwo>
       <GenericText
         size={20}
         weight={weight}
@@ -23,5 +22,5 @@ export const HeadingTwo = ({ text, weight = "light" }: IHeadingTwoProps) => {
 };
 
 const S = {
-  HeadingTwo: styled(View)``,
+  HeadingTwo: styled.View``,
 };

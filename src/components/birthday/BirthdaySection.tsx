@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import jsonData from "src/data/albums.json";
-import { View } from "react-native-animatable";
 import { Link } from "expo-router";
 import { IAlbum } from "src/types/album/album";
 import { AlbumCover } from "../album/AlbumCover";
@@ -33,7 +32,7 @@ export const Birthday = () => {
     <S.Birthday>
       <HeadingOne text="Birthdays" />
       <HeadingTwo text={currentDate} />
-      <S.Results animation="fadeIn" duration={600}>
+      <S.Results>
         <S.ResultsScroll
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -57,7 +56,7 @@ const S = {
     justify-content: flex-start;
     gap: 10px;
   `,
-  Results: styled(View)`
+  Results: styled.View`
     align-items: flex-start;
     justify-content: flex-start;
     height: 175px;

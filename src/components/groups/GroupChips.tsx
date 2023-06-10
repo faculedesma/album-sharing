@@ -2,7 +2,6 @@ import styled from "styled-components/native";
 import { appTheme } from "src/assets/styles/theme";
 import { GenericText } from "src/components/text/GenericText";
 import { BlurView } from "expo-blur";
-import { View } from "react-native-animatable";
 import { Pressable } from "react-native";
 import Spinner from "src/components/loaders/Spinner";
 import { IGroup } from "src/types/groups/groups";
@@ -59,7 +58,7 @@ const S = {
     width: 100%;
     flex-direction: row;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 10px;
   `,

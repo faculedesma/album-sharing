@@ -119,7 +119,7 @@ const S = {
     height: 100%
     border-radius: 4px;
     overflow: hidden;
-    padding-left: 16px;
+    padding-: 10px;
     flex-direction: row;
     align-items: center;
     justify-content: center;

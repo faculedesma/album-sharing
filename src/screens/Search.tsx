@@ -10,7 +10,6 @@ import { IAlbum } from "src/types/album/album";
 import Toast from "react-native-toast-message";
 import { ERROR_FETCH_ALBUMS } from "src/constants/albumConstants";
 import { AlbumCover } from "src/components/album/AlbumCover";
-import { View } from "react-native-animatable";
 import { Link } from "expo-router";
 import { GenericText } from "src/components/text/GenericText";
 import { Pressable } from "react-native";
@@ -119,7 +118,7 @@ const Search = () => {
     const fetchAlbumsBySearch = async () => {
       try {
         const response = await fetch(
-          `https://api.spotify.com/v1/search?q=${search}&type=album&limit=10`,
+          `https://api.spotify.com/v1/search?q=${search}&type=album&limit=30`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -253,7 +252,7 @@ const S = {
     margin-top: 20px;
     margin-bottom: 20px;
   `,
-  SearchHistoryRow: styled(View)`
+  SearchHistoryRow: styled.View`
     width: 100%;
     height: 30px;
     flex-direction: row;

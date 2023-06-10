@@ -2,8 +2,11 @@
   "recommendations": [
     {
       "id": "1",
-      "user_id": "chicha73",
-      "nickname": "@chicha73",
+      "user": {
+        "id": "unique-id-0",
+        "nickname": "chicha37",
+        "profile_image_uri": "https://lh3.googleusercontent.com/ogw/AOLn63FR1yAhWwMPVOxnKxNWJktQRftStxUNo2MUBx_RYg=s64-c-mo"
+      },
       "album_id": "0bCAjiUamIFqKJsekOYuRw",
       "album_name": "Wish You Were Here",
       "artist": "Pink Floyd",
@@ -11,8 +14,11 @@
     },
     {
       "id": "2",
-      "user_id": "brain_damage",
-      "nickname": "@brain_damage",
+      "user": {
+        "id": "unique-id-1",
+        "nickname": "brain_damage",
+        "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/343833341_3575544309388523_3638401193561631479_n.jpg?ccb=11-4&oh=01_AdTLs6F7OPY2t4weUkJXqbJV00TKOwFetNc7t44j56aTPA&oe=648AD116"
+      },
       "album_id": "5jgI8Eminx9MmLBontDWq8",
       "album_name": "Innervisions",
       "artist": "Stevie Wonder",
@@ -20,12 +26,27 @@
     },
     {
       "id": "3",
-      "user_id": "superyayiri",
-      "nickname": "@superyayiri",
+      "user": {
+        "id": "unique-id-2",
+        "nickname": "yayiri92",
+        "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/263197403_151899000750780_1274420474488055270_n.jpg?ccb=11-4&oh=01_AdTVMvopFs8eyZsykDt619WtSprhT7V1DhDv7w2pPye6TQ&oe=648C32C5"
+      },
       "album_id": "3b4E89rxzZQ9zkhgKpj8N4",
       "album_name": "Animals",
       "artist": "Pink Floyd",
       "date": "may 12"
+    },
+    {
+      "id": "4",
+      "user": {
+        "id": "unique-id-4",
+        "nickname": "johnG123",
+        "profile_image_uri": "https://pps.whatsapp.net/v/t61.24694-24/342201501_6371011192921404_5804146485233602618_n.jpg?ccb=11-4&oh=01_AdRnf94VQN3TW3Rfm0ozCWTmYQoE1Ie2wbKgagqIqqTXmA&oe=6487333D"
+      },
+      "album_id": "0EdYPXNaKi8QOBwq1C13jM",
+      "album_name": "Vida",
+      "artist": "Sui Generis",
+      "date": "yesterday"
     }
   ]
 }

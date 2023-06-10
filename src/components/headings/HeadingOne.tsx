@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 import { GenericText } from "../text/GenericText";
-import { View } from "react-native-animatable";
 import { appTheme } from "src/assets/styles/theme";
 import { FontWeight, TextAlign } from "src/components/text/GenericText";
 
@@ -18,7 +17,7 @@ export const HeadingOne = ({
   weight = "bold",
 }: IHeadingOneProps) => {
   return (
-    <S.HeadingOne animation="fadeIn" duration={300} style={{ width: width }}>
+    <S.HeadingOne style={{ width: width }}>
       <GenericText
         size={36}
         weight={weight}
@@ -32,5 +31,5 @@ export const HeadingOne = ({
 };
 
 const S = {
-  HeadingOne: styled(View)``,
+  HeadingOne: styled.View``,
 };

@@ -5,9 +5,8 @@ import { appTheme } from "src/assets/styles/theme";
 import { Birthday } from "src/components/birthday/BirthdaySection";
 import { GenericText } from "src/components/text/GenericText";
 import { BlurView } from "expo-blur";
-import { View } from "react-native-animatable";
 import recommendationsJson from "src/data/recommendations.json";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import groupsJson from "src/data/groups.json";
 import { Pressable } from "react-native";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
@@ -15,25 +14,16 @@ import Spinner from "src/components/loaders/Spinner";
 import { useSessionStorage } from "src/hooks/useSessionStorage";
 import { IGroup } from "src/types/groups/groups";
 import { HeadingOne } from "src/components/headings/HeadingOne";
+import { IUser } from "src/types/user/user";
+import { RecommendationRow } from "src/components/recommend/RecommendationRow";
 
 interface IRecommendation {
   id: string;
-  user_id: string;
-  nickname: string;
+  user: Partial<IUser>;
   album_id: string;
   album_name: string;
   artist: string;
   date: string;
-}
-
-interface IRowProps {
-  user: string;
-  album: {
-    id: string;
-    name: string;
-  };
-  date: string;
-  color: string;
 }
 
 interface IGroupListProps {
@@ -61,30 +51,6 @@ const GrousList = ({ groups, handleSelectGroup }: IGroupListProps) => {
         ))}
       </S.GroupsListScroll>
     </S.GroupsList>
-  );
-};
-
-const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
-  return (
-    <S.Row animation="bounceIn" easing="ease-in-cubic" duration={600}>
-      <S.Avatar style={{ backgroundColor: `transparent` }}></S.Avatar>
-      <S.RowRecommendation>
-        <GenericText size={14} weight="bold" content={user} />
-        <GenericText size={14} weight="light" content="recommended" />
-        <Link
-          href={{
-            pathname: "/home/album",
-            params: {
-              id: album.id,
-            },
-          }}
-        >
-          <GenericText size={14} weight="bold" content={album.name} />
-        </Link>
-        <GenericText size={14} weight="light" content="on" />
-        <GenericText size={14} weight="light" content={date} />
-      </S.RowRecommendation>
-    </S.Row>
   );
 };
 
@@ -127,7 +93,11 @@ const Latest = () => {
   useEffect(() => {
     setTimeout(() => {
       const fetchedRecommendation = recommendationsJson.recommendations;
-      setRecommendations(fetchedRecommendation);
+      setRecommendations(
+        fetchedRecommendation.length > 4
+          ? fetchedRecommendation.filter((rec, index) => index > 3)
+          : fetchedRecommendation
+      );
     }, 1000);
   }),
     [selectedGroup.id];
@@ -142,7 +112,7 @@ const Latest = () => {
 
   return (
     <>
-      <S.Latest animation="fadeIn" duration={500}>
+      <S.Latest>
         <S.LatestTop>
           <HeadingOne text="Latest" />
           <S.Group intensity={20} tint="light">
@@ -163,12 +133,13 @@ const Latest = () => {
           {recommendations.length ? (
             recommendations.map((rec) => {
               return (
-                <Row
+                <RecommendationRow
                   key={rec.id}
-                  user={rec.nickname}
+                  user={rec.user}
                   album={{
                     id: rec.album_id,
                     name: rec.album_name,
+                    artist: rec.artist,
                   }}
                   date={rec.date}
                   color={appTheme.green}
@@ -222,7 +193,7 @@ const S = {
     padding-right: 20px;
     margin-top: 20px;
   `,
-  Latest: styled(View)`
+  Latest: styled.View`
     width: 100%;
     align-items: flex-start;
     justify-content: space-between;
@@ -233,17 +204,6 @@ const S = {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-  `,
-  LatestCard: styled(BlurView)`
-    height: 200px;
-    min-width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    border-width: 0.5px;
-    border-color: ${appTheme.shades700};
-    border-radius: 4px;
-    overflow: hidden;
-    padding: 20px;
   `,
   Group: styled(BlurView)`
     height: 30px;
@@ -264,27 +224,16 @@ const S = {
     margin-top: 20px;
     height: 30px;
   `,
-  Row: styled(View)`
-    height: 40px;
-    flex-direction: row;
-    align-items: flex-start;
-    margin-top: 4px;
-    gap: 20px;
-  `,
-  Avatar: styled.View`
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    border: 1px ${(p) => p.theme.highlight};
-    background: transparent;
-  `,
-  RowRecommendation: styled.View`
-    flex: 1;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 4px;
+  LatestCard: styled(BlurView)`
+    min-height: 200px;
+    min-width: 100%;
+    align-items: center;
+    justify-content: center;
+    border-width: 0.5px;
+    border-color: ${appTheme.shades700};
+    border-radius: 4px;
+    overflow: hidden;
+    padding: 20px;
   `,
   ViewAllButton: styled.Text`
     width: 60px;

@@ -1,6 +1,5 @@
 import styled from "styled-components/native";
 import { GenericText } from "../text/GenericText";
-import { View } from "react-native-animatable";
 import { appTheme } from "src/assets/styles/theme";
 import { FontWeight } from "src/components/text/GenericText";
 
@@ -14,7 +13,7 @@ export const HeadingThree = ({
   weight = "light",
 }: IHeadingThreeProps) => {
   return (
-    <S.HeadingThree animation="fadeIn" duration={300}>
+    <S.HeadingThree>
       <GenericText
         size={16}
         weight={weight}
@@ -26,5 +25,5 @@ export const HeadingThree = ({
 };
 
 const S = {
-  HeadingThree: styled(View)``,
+  HeadingThree: styled.View``,
 };

@@ -24,8 +24,10 @@ export const useUserData = () => {
   useEffect(() => {
     const getUserData = async () => {
       const sessionUser = (await getData("user")) as string;
-      const parsedUser = JSON.parse(sessionUser) as IUser;
-      setUser(parsedUser);
+      if (sessionUser) {
+        const parsedUser = JSON.parse(sessionUser) as IUser;
+        setUser(parsedUser);
+      }
     };
 
     getUserData();

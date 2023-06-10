@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { GenericText } from "src/components/text/GenericText";
 import { appTheme } from "src/assets/styles/theme";
@@ -6,10 +6,13 @@ import { Octicons } from "@expo/vector-icons";
 import { GenericInput } from "src/components/inputs/GenericInput";
 import SecondaryButton from "../buttons/SecondaryButton";
 import Spinner from "src/components/loaders/Spinner";
+import commentJson from "src/data/comments.json";
+import { IUser } from "src/types/user/user";
+import { useUserData } from "src/hooks/useUserData";
 
 interface IComment {
   id: string;
-  username: string;
+  user: Partial<IUser>;
   content: string;
   likes: number;
   date: string;
@@ -17,15 +20,24 @@ interface IComment {
 }
 
 interface ICommentsProps {
-  comments: IComment[];
+  trackId: string;
 }
 
 interface ICommentProps {
   comment: IComment;
 }
 
-export const Comments = ({ comments }: ICommentsProps) => {
+export const Comments = ({ trackId }: ICommentsProps) => {
   const [newComment, setNewComment] = useState<string>("");
+  const [comments, setComments] = useState<IComment[]>([]);
+
+  const { user } = useUserData();
+
+  useEffect(() => {
+    setTimeout(() => {
+      setComments(commentJson.comments);
+    }, 200);
+  }, []);
 
   if (!comments.length) {
     return (
@@ -44,7 +56,13 @@ export const Comments = ({ comments }: ICommentsProps) => {
       </S.CommentsRows>
       <S.CommentsAddContainer>
         <S.CommentsAdd>
-          <S.CommentsRowAvatarAdd></S.CommentsRowAvatarAdd>
+          {user.profile_image_uri ? (
+            <S.CommentsRowAvatarAdd
+              source={{ uri: user.profile_image_uri }}
+            ></S.CommentsRowAvatarAdd>
+          ) : (
+            <Spinner />
+          )}
           <GenericInput
             value={newComment}
             maxLength={500}
@@ -71,10 +89,16 @@ const CommentsRow = ({ comment }: ICommentProps) => {
   return (
     <S.CommentsRow>
       <S.CommentsRowLeft>
-        <S.CommentsRowAvatar></S.CommentsRowAvatar>
+        <S.CommentsRowAvatar
+          source={{ uri: comment.user.profile_image_uri }}
+        ></S.CommentsRowAvatar>
         <S.CommentsRowText>
           <S.CommentsRowTextTop>
-            <GenericText size={14} weight="bold" content={comment.username} />
+            <GenericText
+              size={14}
+              weight="bold"
+              content={`@${comment.user.nickname}`}
+            />
             <GenericText size={14} weight="light" content={comment.date} />
           </S.CommentsRowTextTop>
           <S.CommentsRowTextMiddle>
@@ -130,19 +154,21 @@ const S = {
     flex-direction: row;
     gap: 10px;
   `,
-  CommentsRowAvatar: styled.View`
+  CommentsRowAvatar: styled.ImageBackground`
     width: 20px;
     height: 20px;
     border-width: 0.5px;
     border-color: ${appTheme.highlight};
     border-radius: 50%;
+    overflow: hidden;
   `,
-  CommentsRowAvatarAdd: styled.View`
+  CommentsRowAvatarAdd: styled.ImageBackground`
     width: 40px;
     height: 40px;
     border-width: 0.5px;
     border-color: ${appTheme.highlight};
     border-radius: 50%;
+    overflow: hidden;
   `,
   CommentsRowText: styled.View`
     alifn-items: flex-start;

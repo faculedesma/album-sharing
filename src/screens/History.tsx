@@ -2,109 +2,45 @@ import styled from "styled-components/native";
 import { appTheme } from "src/assets/styles/theme";
 import { GenericText } from "src/components/text/GenericText";
 import { BlurView } from "expo-blur";
-import { View } from "react-native-animatable";
 import recommendationsJson from "src/data/recommendations.json";
-import { Link } from "expo-router";
 import { Pressable } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { RecommendationRow } from "src/components/recommend/RecommendationRow";
+import Spinner from "src/components/loaders/Spinner";
 
-interface IRowProps {
-  user: string;
-  album: {
-    id: string;
-    name: string;
-  };
-  date: string;
-  color: string;
-}
-
-const Row = ({ user, album, date, color = appTheme.highlight }: IRowProps) => {
-  return (
-    <S.Row animation="bounceIn" easing="ease-in-cubic" duration={600}>
-      <S.Avatar style={{ backgroundColor: `transparent` }}></S.Avatar>
-      <S.RowRecommendation>
-        <GenericText size={14} weight="bold" content={user} />
-        <GenericText size={14} weight="light" content="recommended" />
-        <Link href={`/home/album?id=${album.id}`}>
-          <GenericText size={14} weight="bold" content={album.name} />
-        </Link>
-        <GenericText size={14} weight="light" content="on" />
-        <GenericText size={14} weight="light" content={date} />
-      </S.RowRecommendation>
-    </S.Row>
-  );
-};
-
-const Latest = () => {
+const HistoryList = () => {
   return (
     <>
-      <S.Latest animation="fadeIn" duration={500}>
-        <S.LatestTop>
+      <S.History>
+        <S.HistoryTop>
           <S.Group intensity={20} tint="light">
             <Pressable>
               <GenericText size={14} weight="bold" content="Los Pica" />
             </Pressable>
           </S.Group>
-        </S.LatestTop>
+        </S.HistoryTop>
         <S.HistoryList>
-          {recommendationsJson.recommendations.map((rec) => {
-            return (
-              <Row
-                key={rec.id}
-                user={rec.nickname}
-                album={{
-                  id: rec.album_id,
-                  name: rec.album_name,
-                }}
-                date={rec.date}
-                color={appTheme.green}
-              />
-            );
-          })}
-          {recommendationsJson.recommendations.map((rec) => {
-            return (
-              <Row
-                key={rec.id}
-                user={rec.nickname}
-                album={{
-                  id: rec.album_id,
-                  name: rec.album_name,
-                }}
-                date={rec.date}
-                color={appTheme.green}
-              />
-            );
-          })}
-          {recommendationsJson.recommendations.map((rec) => {
-            return (
-              <Row
-                key={rec.id}
-                user={rec.nickname}
-                album={{
-                  id: rec.album_id,
-                  name: rec.album_name,
-                }}
-                date={rec.date}
-                color={appTheme.green}
-              />
-            );
-          })}
-          {recommendationsJson.recommendations.map((rec) => {
-            return (
-              <Row
-                key={rec.id}
-                user={rec.nickname}
-                album={{
-                  id: rec.album_id,
-                  name: rec.album_name,
-                }}
-                date={rec.date}
-                color={appTheme.green}
-              />
-            );
-          })}
+          {recommendationsJson.recommendations.length ? (
+            recommendationsJson.recommendations.map((rec) => {
+              return (
+                <RecommendationRow
+                  key={rec.id}
+                  user={rec.user}
+                  album={{
+                    id: rec.album_id,
+                    name: rec.album_name,
+                    artist: rec.artist,
+                  }}
+                  date={rec.date}
+                  color={appTheme.green}
+                />
+              );
+            })
+          ) : (
+            <Spinner />
+          )}
         </S.HistoryList>
-      </S.Latest>
+      </S.History>
     </>
   );
 };
@@ -113,7 +49,7 @@ const History = () => {
   return (
     <>
       <S.Wrapper>
-        <Latest />
+        <HistoryList />
       </S.Wrapper>
       <S.WrapperBackground colors={[appTheme.black, appTheme.primary]} />
     </>
@@ -140,13 +76,13 @@ const S = {
     z-index: -1;
     elevation: -1;
   `,
-  Latest: styled(View)`
+  History: styled.View`
     width: 100%;
     align-items: flex-start;
     justify-content: space-between;
     gap: 10px;
   `,
-  LatestTop: styled.View`
+  HistoryTop: styled.View`
     width: 100%;
     flex-direction: row;
     align-items: center;
@@ -170,31 +106,5 @@ const S = {
     border-radius: 4px;
     overflow: hidden;
     padding: 20px;
-  `,
-  Row: styled(View)`
-    height: 40px;
-    flex-direction: row;
-    align-items: flex-start;
-    margin-top: 4px;
-    gap: 20px;
-  `,
-  Avatar: styled.View`
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    border: 1px ${(p) => p.theme.highlight};
-    background: transparent;
-  `,
-  RowRecommendation: styled.View`
-    flex: 1;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 4px;
-  `,
-  ViewAllButton: styled.Text`
-    width: 60px;
-    align-self: flex-end;
   `,
 };
